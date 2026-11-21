@@ -3,7 +3,7 @@ import { track } from "../analytics/track";
 import { ActivityImage } from "../components/ActivityImage";
 import { Icon } from "../components/Icon";
 import { catalog } from "../data/catalog";
-import { errorMessage, validateBooking } from "../domain/booking";
+import { canSplitPayment, errorMessage, validateBooking } from "../domain/booking";
 import type { BookingError, BookingRequest, PaymentMode } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { href, navigate, withQuery, type Route } from "../router";
@@ -84,12 +84,14 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
   }
 
   const { activity, slot, participants, unitPriceCents, totalCents } = initial.value;
-  const split = paymentMode === "split" && participants > 1;
+  // Paiement partagé : à plusieurs, et s'il reste le temps de régler avant « 24 h avant l'activité ».
+  const splitAvailable = participants > 1 && canSplitPayment(new Date(), slot.startsAt);
+  const split = paymentMode === "split" && splitAvailable;
 
   const confirm = () => {
     if (submitting) return;
     setSubmitting(true);
-    const result = bookingStore.confirm({ ...request, paymentMode });
+    const result = bookingStore.confirm({ ...request, paymentMode: split ? "split" : "organizer" });
     if (result.ok) {
       if (!result.alreadyConfirmed) {
         track("booking_confirmed", {
@@ -193,7 +195,7 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
             </div>
           </section>
 
-          {participants > 1 && (
+          {splitAvailable && (
             <section className="checkout-block" aria-labelledby="qui-regle">
               <h2 id="qui-regle">Qui règle ?</h2>
               <fieldset>
@@ -226,7 +228,7 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
               {split && (
                 <p className="muted payment-hint">
                   Les {participants} places sont bloquées pour ton groupe dès maintenant : personne ne peut les prendre.
-                  Tu règles ta part, puis tu envoies un lien à tes participants pour qu'ils règlent la leur sous 48 h.
+                  Tu règles ta part, puis tu envoies un lien à tes participants pour qu'ils règlent la leur sous 48 h (au plus tard la veille de l'activité).
                 </p>
               )}
             </section>

@@ -13,7 +13,7 @@
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (83 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (85 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|
@@ -42,3 +42,15 @@ Tests : `npm test` (83 tests). Fichiers : `src/domain/booking.test.ts` (domaine)
 | Outil de démo « le créneau devient complet », puis « Confirmer » | Refus explicite, rien d'enregistré |
 | URL modifiée (`participants=99`) | Refus explicite au récapitulatif, pas de bouton « Confirmer » |
 | Rechargement de la page | Places conservées |
+
+## Cas limites hors du prototype : les réponses
+
+Cas repérés en revue, qui relèvent de la production ou d'une décision du client. Ils ne sont pas construits ; la réponse est prête.
+
+| Cas | Risque | Réponse |
+|---|---|---|
+| **Réservation la veille en paiement partagé** | Échéance des parts postérieure à la sortie | **Corrigé dans le prototype** : l'échéance est la plus proche de « 48 h après la réservation » et « 24 h avant l'activité » ; à moins de 24 h, seul « Je règle pour tout le groupe » est proposé (testé) |
+| **Lien de paiement commun à tout le groupe** | Plus de parts réglées que de places, ou une part payée deux fois | Production : un lien par place, ou un compteur côté serveur qui ferme le paiement quand toutes les parts sont réglées. La page participant de la démo s'ouvre dans un autre navigateur et ne peut pas connaître ce compteur |
+| **L'organisateur ne participe pas** (sortie offerte, enfants inscrits par un parent) | Libellés faux (« organisateur compris », « ta part ») | Production : case « Je ne participe pas » qui adapte les libellés et le paiement partagé. Mène aussi à la carte cadeau (reportée) |
+| **Enfants dans le groupe** | Un enfant ne règle pas sa part | Paiement partagé « mixte » : l'organisateur règle plusieurs parts (la sienne et celles de ses enfants). Lié au tarif enfant (Q2) |
+| **Même organisateur, même créneau, deux parcours** | Réservation en double par erreur (l'idempotence ne couvre que le même parcours) | Production : même email et même créneau → « Tu as déjà réservé ce créneau : ajouter des places ? ». Impossible dans le prototype, qui ne collecte pas d'email |

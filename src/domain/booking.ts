@@ -59,6 +59,27 @@ export function totalCents(unitPriceCents: number, participants: number): number
   return unitPriceCents * participants;
 }
 
+/** Paiement partagé : délai laissé aux participants (hypothèse, question Q13 au client). */
+export const SHARE_DEADLINE_HOURS = 48;
+/** Toutes les parts doivent être réglées au plus tard ce délai avant le début de l'activité. */
+export const SHARE_CUTOFF_HOURS = 24;
+const HOUR = 3_600_000;
+
+/**
+ * Échéance des parts : 48 h après la réservation, mais jamais après « 24 h avant l'activité ».
+ * Sans cette borne, une réservation la veille donnerait une échéance postérieure à la sortie.
+ */
+export function shareDeadline(confirmedAt: string, startsAt: string): string {
+  const afterBooking = new Date(confirmedAt).getTime() + SHARE_DEADLINE_HOURS * HOUR;
+  const beforeActivity = new Date(startsAt).getTime() - SHARE_CUTOFF_HOURS * HOUR;
+  return new Date(Math.min(afterBooking, beforeActivity)).toISOString();
+}
+
+/** Le paiement partagé n'est proposé que s'il reste du temps pour régler avant l'échéance. */
+export function canSplitPayment(now: Date, startsAt: string): boolean {
+  return new Date(startsAt).getTime() - SHARE_CUTOFF_HOURS * HOUR > now.getTime();
+}
+
 export interface ValidBooking {
   activity: Activity;
   slot: Slot;
@@ -134,7 +155,11 @@ export function confirmBooking(
     unitPriceCents,
     totalCents: total,
     // Le partage n'a de sens qu'à plusieurs ; il ne change ni le total ni le décompte des places.
-    paymentMode: request.paymentMode === "split" && participants > 1 ? "split" : "organizer",
+    // Trop près de l'activité pour laisser à chacun le temps de régler : l'organisateur règle tout.
+    paymentMode:
+      request.paymentMode === "split" && participants > 1 && canSplitPayment(context.now, slot.startsAt)
+        ? "split"
+        : "organizer",
     confirmedAt: context.now.toISOString(),
   };
 

@@ -3,7 +3,7 @@ import { track } from "../analytics/track";
 import { ActivityImage } from "../components/ActivityImage";
 import { Icon, type IconName } from "../components/Icon";
 import { catalog, findActivityById } from "../data/catalog";
-import { findBookingByReference, isActivityFull, remainingFor } from "../domain/booking";
+import { findBookingByReference, isActivityFull, remainingFor, shareDeadline } from "../domain/booking";
 import type { Activity, Booking, Slot } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { pageUrl, shareOrCopy } from "../lib/share";
@@ -221,9 +221,6 @@ function ShareWithGroup({ booking, activity, slot }: { booking: Booking; activit
   );
 }
 
-/** Délai laissé aux participants pour régler leur part (hypothèse, à valider avec le client). */
-const SHARE_DEADLINE_HOURS = 48;
-
 /**
  * Paiement partagé : les places du groupe sont déjà bloquées et décomptées une fois.
  * L'organisateur a réglé sa part ; il envoie à ses participants un lien pour régler la leur.
@@ -231,7 +228,7 @@ const SHARE_DEADLINE_HOURS = 48;
 function SplitPayment({ booking, activity, slot }: { booking: Booking; activity: Activity; slot: Slot }) {
   const [feedback, setFeedback] = useState<"copied" | "failed" | null>(null);
   const others = booking.participants - 1;
-  const deadline = new Date(new Date(booking.confirmedAt).getTime() + SHARE_DEADLINE_HOURS * 3_600_000).toISOString();
+  const deadline = shareDeadline(booking.confirmedAt, slot.startsAt);
   const link = pageUrl(withQuery("/part", { activite: activity.id, creneau: slot.id, ref: booking.reference }));
   const text = [
     `${activity.title} avec Échappée`,

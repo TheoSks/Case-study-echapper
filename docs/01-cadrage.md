@@ -79,6 +79,6 @@ Ce que ça implique :
 | Q10 | Les équipes peuvent-elles accueillir des particuliers le week-end et en soirée ? | Créneaux ouverts au public |
 | Q11 | Qui édite les contenus, et à quel rythme ? | Choix du CMS, autonomie du marketing |
 | Q12 | Quels outils existent déjà : CRM, emailing, gestion du consentement ? | Points de contact après réservation, RGPD |
-| Q13 | Vos groupes paient-ils ensemble ou chacun sa part ? Une part non réglée à l'échéance : à la charge de l'organisateur, ou place remise en vente ? | Paiement partagé (H8) : délai, relances, conditions de vente |
+| Q13 | Vos groupes paient-ils ensemble ou chacun sa part ? Une part non réglée à l'échéance : à la charge de l'organisateur, ou place remise en vente ? L'organisateur peut-il régler plusieurs parts (enfants) ? | Paiement partagé (H8) : délai, relances, conditions de vente, paiement « mixte » |
 
 Hors périmètre : le portail B2B et les clients entreprises.

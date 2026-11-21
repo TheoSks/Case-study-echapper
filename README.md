@@ -44,7 +44,7 @@ npm run preview    # sert le build : http://localhost:4173
 ## Tests
 
 ```bash
-npm test           # 83 tests (Vitest)
+npm test           # 85 tests (Vitest)
 npm run typecheck  # vérification des types TypeScript
 ```
 
@@ -111,6 +111,7 @@ Les créneaux de démonstration servent aux cas limites : le **dimanche 18 avril
 - **Pas de backend** : les places vivent dans le navigateur. Deux onglets ont chacun leur propre état ; il n'y a pas de stock partagé entre utilisateurs.
 - **Routage par hash** (`/#/activites/...`) : fonctionne sur n'importe quel hébergement statique, mais n'est pas adapté au référencement (la production utiliserait de vraies URL par langue).
 - **Planning fictif fixe**, de décembre 2026 à octobre 2027 ; il n'avance pas avec la date du jour.
+- **Paiement partagé simulé** : le lien de paiement est commun au groupe et la page participant ne connaît pas les parts déjà réglées (autre navigateur). En production : un lien par place, suivi côté serveur. Les autres cas limites hors prototype et leurs réponses sont dans [docs/03-ecrans-regles.md](docs/03-ecrans-regles.md).
 - **Prix par personne uniquement** : pas de tarif groupe ou enfant (question ouverte pour le client).
 - **Français uniquement** : le multilingue est décrit dans la recommandation technique.
 - **Analytics simulée** : les événements sont visibles dans la console et dans `window.dataLayer`, sans outil connecté.

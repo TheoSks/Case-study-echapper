@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { catalog } from "../data/catalog";
 import {
+  canSplitPayment,
   confirmBooking,
+  shareDeadline,
   initialState,
   isActivityFull,
   parseParticipants,
@@ -161,6 +163,21 @@ describe("Paiement partagé : chacun règle sa part", () => {
   it("seul, il n'y a rien à partager : l'organisateur règle", () => {
     const result = confirmBooking(catalog, initialState(catalog), request({ participants: 1, paymentMode: "split" }), ctx());
     expect(result.ok && result.booking.paymentMode).toBe("organizer");
+  });
+
+  it("à moins de 24 h de l'activité, pas de paiement partagé : l'organisateur règle tout", () => {
+    // a02-s1 : dimanche 18 avril 2027, 9 h 30 (heure de Paris).
+    const lastMinute = { now: new Date("2027-04-17T12:00:00Z"), reference: "R1" };
+    const result = confirmBooking(catalog, initialState(catalog), request({ participants: 3, paymentMode: "split" }), lastMinute);
+    expect(result.ok && result.booking.paymentMode).toBe("organizer");
+  });
+
+  it("l'échéance des parts : 48 h après la réservation, jamais après « 24 h avant l'activité »", () => {
+    const startsAt = "2027-04-18T07:30:00Z";
+    expect(shareDeadline("2027-04-01T10:00:00.000Z", startsAt)).toBe("2027-04-03T10:00:00.000Z");
+    expect(shareDeadline("2027-04-16T10:00:00.000Z", startsAt)).toBe("2027-04-17T07:30:00.000Z");
+    expect(canSplitPayment(new Date("2027-04-17T07:29:00Z"), startsAt)).toBe(true);
+    expect(canSplitPayment(new Date("2027-04-17T07:30:00Z"), startsAt)).toBe(false);
   });
 
   it("par défaut, l'organisateur règle pour tout le groupe", () => {
