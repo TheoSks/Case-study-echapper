@@ -23,6 +23,7 @@ body {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 h1,
@@ -491,6 +492,7 @@ legend {
 
 .stepper {
   display: inline-flex;
+  width: fit-content;
   align-items: stretch;
   border: 2px solid var(--pin);
   border-radius: var(--radius);

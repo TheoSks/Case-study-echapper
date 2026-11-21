@@ -12,6 +12,7 @@ import {
   parseParticipants,
   remainingFor,
   slotsOf,
+  totalCents,
   validateBooking,
 } from "../domain/booking";
 import type { Activity, BookingError } from "../domain/types";
@@ -55,7 +56,14 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
     : submitted && !slotId && !full
       ? "Choisis un créneau pour continuer."
       : undefined;
-  const total = validation?.ok ? validation.value.totalCents : null;
+  // Le total est visible dès que le nombre de participants est valide, même avant le choix du créneau.
+  const total = validation
+    ? validation.ok
+      ? validation.value.totalCents
+      : null
+    : parsedParticipants.ok
+      ? totalCents(activity.pricePerPersonCents, parsedParticipants.value)
+      : null;
   const max = slotId ? remainingFor(state.availability, slotId) : 10;
 
   const selectSlot = (id: string) => {
