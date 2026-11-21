@@ -75,7 +75,7 @@ Légende : ⚪ à faire · 🟠 en cours · 🟡 décidé, à rédiger · ✅ fi
 **Objectif** : figer ce qu'on construit avant de coder.
 
 **Validé**
-- E1 Accueil (sélecteur « Vous serez combien ? », 3 cartes) · E2 Fiche activité (créneaux, participants, total) · E3 Récapitulatif (total TTC, mention simulée, revérification) · E4 Confirmation (référence, places restantes, .ics, partage avec le groupe, frise « Et ensuite ? ») · Mes réservations / réinitialiser / journal analytics.
+- E1 Accueil (sélecteur « Vous serez combien ? », 3 cartes) · E2 Fiche activité (créneaux, participants, total) · E3 Récapitulatif (total TTC, mention simulée, revérification) · E4 Confirmation (récapitulatif, places restantes, partage avec le groupe, frise « Et ensuite ? ») · Outil de démo (simuler un créneau complet, réinitialiser).
 - **Aucun champ de données personnelles dans le prototype** (règle « aucune donnée personnelle réelle collectée »). La saisie du prénom et de l'email est *proposée* pour la production : un encart sur le récapitulatif l'indique. Le tunnel du prototype colle ainsi exactement aux 5 étapes du brief.
 - 3 activités, 6 créneaux, **capacité ≤ 10 par créneau** : la seule limite visible reste « les places restantes », comme dans le brief. Dates fixes en avril 2027, prix par personne TTC.
 - Démarrage de la réservation = validation du créneau et du nombre de participants (clic « Réserver »).
@@ -99,7 +99,7 @@ Légende : ⚪ à faire · 🟠 en cours · 🟡 décidé, à rédiger · ✅ fi
 4. Données fictives en JSON (contenu éditorial séparé de l'inventaire des places).
 5. Store de session (sessionStorage) + outils de démo + réinitialisation.
 6. Écrans E1 → E5.
-7. Instrumentation analytics simulée (`dataLayer` + journal visible).
+7. Instrumentation analytics simulée (`dataLayer` + `console`, sans écran dédié).
 8. Finitions mobile et accessibilité (focus, libellés, barre fixe mobile), vérification manuelle des cas limites.
 
 **À trancher pendant le sujet**

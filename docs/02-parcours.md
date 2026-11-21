@@ -3,6 +3,30 @@
 > Répond au deuxième point de la restitution : « le parcours global, les fonctionnalités retenues pour le lancement et tes arbitrages ».
 > Fil conducteur : **l'organisateur**, la personne qui réserve pour les autres (voir [cadrage](01-cadrage.md)).
 
+## Donner envie de réserver
+
+Trois principes, tirés du guide de marque (« Donner envie. Rester clair. ») :
+
+| Principe | Dans le site |
+|---|---|
+| **Montrer le geste** | Des visuels qui montrent ce qu'on fait (les mains dans l'argile, la pagaie), un texte « ce que tu vas vivre » avec des verbes concrets : modeler, pagayer, explorer |
+| **Tout dire tout de suite** | Lieu, durée et prix TTC dès la carte ; total du groupe en direct ; disponibilité écrite en toutes lettres, jamais portée par la seule couleur |
+| **Rassurer sans forcer** | Météo et annulation expliquées, âge minimum affiché. **Aucun faux avis, aucune fausse urgence** (« plus que 2 places ! ») : la confiance d'un nouveau canal se gagne par la clarté |
+
+## Organisation de l'information
+
+Le site est organisé **autour de l'activité** : les campagnes payantes mènent directement à une fiche, qui doit donc se suffire à elle-même (infos, créneaux, réservation).
+
+| Page | Rôle | Prototype |
+|---|---|---|
+| Accueil | Découvrir l'offre, indiquer la taille du groupe | ✅ |
+| Fiche activité | Comprendre, choisir un créneau et le nombre de participants, démarrer la réservation | ✅ |
+| Récapitulatif | Vérifier activité, créneau, participants, total TTC ; confirmer | ✅ |
+| Confirmation | Récapitulatif, partage avec le groupe, prochaines étapes | ✅ |
+| Groupes (devis au-delà de 10) | Demande de devis, traitée par l'équipe téléphone existante | 🟡 proposé |
+| Infos pratiques | Météo, annulation, accès | 🟡 proposé |
+| Sélecteur FR / EN | Site en deux langues | 🟡 proposé |
+
 ## Le parcours, de la découverte à la nouvelle réservation
 
 ```mermaid
@@ -22,11 +46,13 @@ flowchart LR
 | **6. Prolonger** (J+1) | Se souvient de la sortie | Email de remerciement avec les photos et une demande d'avis | Des avis, des photos que l'organisateur partage |
 | **7. Revenir** (J+30 et après) | Cherche la prochaine sortie | **Relance saisonnière** selon l'activité faite (kayak l'été → céramique ou escape game l'hiver) ; pour un groupe, rappel **à la même période l'année suivante** | Le réachat à 6 mois, des périodes creuses mieux remplies |
 
+Le **téléphone**, canal historique d'Échappée, reste un point de contact : pour les groupes de plus de 10 (devis) et pour les questions avant réservation.
+
 ### Comment le produit fait revenir
 
 Les étapes 4 à 7 forment une boucle :
 - **L'organisateur** est accompagné avant et après, puis on lui propose la sortie suivante au bon moment de l'année.
-- **Les participants** découvrent la marque par le lien partagé et les photos : ce sont les organisateurs de demain.
+- **Les participants** découvrent la marque par le lien partagé et les photos. C'est une **hypothèse** : on la vérifie en mesurant les visites issues des liens partagés (paramètres de suivi).
 
 ### La météo (activités en extérieur)
 
@@ -38,17 +64,20 @@ Le brief exclut la conception de campagnes d'acquisition. Pour la découverte, o
 
 ## Fonctionnalités : construit, proposé, reporté
 
+**Critère de tri** : une fonctionnalité entre au lancement si elle fait bouger un indicateur du brief (conversion, campagnes payantes, réachat) **et** qu'elle ne demande pas d'infrastructure lourde. Le prototype, lui, se limite aux règles métier et à deux éléments qui rendent visibles nos positions (partage avec le groupe, frise « Et ensuite ? »).
+
 | ✅ Construit et vérifié (prototype) | 🟡 Proposé pour le lancement (non développé) | ⏭️ Reporté |
 |---|---|---|
 | Catalogue et filtre « Vous serez combien ? » | Paiement du total en ligne | Compte client |
 | Fiche activité, disponibilité écrite en toutes lettres, activité complète consultable | Saisie du prénom et de l'email, consentement séparé pour les relances | Relance des réservations abandonnées |
 | Réservation d'un créneau, revérification à la confirmation | Email de confirmation (J0) | Liste d'attente sur un créneau complet |
 | Récapitulatif TTC, confirmation, places déduites une seule fois | Email de préparation et météo (J-2) | Rappel par SMS (J-1) |
-| Ajout à l'agenda (.ics) | Email de remerciement, avis et photos (J+1) | Carte cadeau |
+| Outil de démo : simuler un créneau devenu complet, réinitialiser | Email de remerciement, avis et photos (J+1) | Carte cadeau |
 | **Partage des infos avec le groupe** (partage natif du téléphone, copie sur ordinateur) | Relance saisonnière, rappel annuel pour les groupes | Programme de fidélité, parrainage |
 | Frise « Et ensuite ? » montrant les prochains points de contact | Demande de devis au-delà de 10 personnes | Avis affichés sur le site |
 | Événements du tunnel (`dataLayer` local, sans outil connecté) | Page d'infos pratiques : météo, annulation, accès | Acompte pour les groupes, annulation en ligne |
 | Mention « réservation simulée » sur tout le parcours | Site en anglais | Autres langues |
+| | Ajout à l'agenda (.ics) | Espace « Mes réservations » |
 
 Le prototype n'envoie aucun email : la frise « Et ensuite ? » décrit ce que ferait la version en ligne, sans jamais dire qu'un message a été envoyé.
 
@@ -64,3 +93,17 @@ Le prototype n'envoie aucun email : la frise « Et ensuite ? » décrit ce que f
 | 6 | **Relance des abandons reportée** | Elle suppose d'avoir l'email et le consentement avant la fin du parcours |
 | 7 | **Carte cadeau reportée malgré son potentiel** (Noël) | Complexité du paiement et de la comptabilité. Premier candidat pour la V2 |
 | 8 | **Partage avec le groupe construit dans le prototype** | Peu coûteux, sans donnée collectée, et il rend concret le rôle de l'organisateur |
+| 9 | **Pas de filtre par type d'activité** | Avec 3 activités, un filtre n'apporte rien ; la taille du groupe est le vrai critère d'adaptation. À revoir quand le catalogue grandira |
+
+## Conformité au brief
+
+| Demande du brief | Réponse |
+|---|---|
+| « Une expérience qui donne envie de réserver » | Section « Donner envie de réserver » |
+| « L'organisation de l'information, les écrans, les interactions, la marque » | Section « Organisation de l'information » ; écrans détaillés dans le prototype |
+| « Découvrir l'offre, trouver une activité adaptée, réserver, notamment depuis leur téléphone » | Étapes 1 à 3 ; filtre par taille de groupe ; conception mobile d'abord |
+| « Le parcours global, de la découverte à une éventuelle nouvelle réservation » | Les 7 étapes et la boucle |
+| « Les points de contact au-delà du site » | Emails J0, J-2, J+1, relance saisonnière, partage, sur place, téléphone |
+| « Comment le produit pourrait encourager les clients à revenir » | Boucle organisateur et relance saisonnière |
+| « Les fonctionnalités retenues pour le lancement et tes arbitrages » | Critère de tri, tableau en trois colonnes, 9 arbitrages |
+| « Distingue construit et vérifié, proposé, reporté » | Tableau en trois colonnes |
