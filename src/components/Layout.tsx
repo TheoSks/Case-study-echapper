@@ -5,8 +5,7 @@ import { bookingStore } from "../state/store";
 export function SimulationBanner() {
   return (
     <div className="sim-banner" role="note">
-      <strong>Prototype · Réservation simulée.</strong> Aucun paiement n'est effectué, aucun email n'est envoyé,
-      aucune donnée personnelle n'est collectée.
+      <strong>Réservation simulée</strong> · Aucun paiement, aucun email, aucune donnée personnelle collectée.
     </div>
   );
 }
