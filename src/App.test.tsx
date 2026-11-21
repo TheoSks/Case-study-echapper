@@ -36,8 +36,13 @@ describe("Parcours de réservation", () => {
     expect(within(summary).getByText("Balade en kayak")).toBeTruthy();
     expect(within(summary).getByText(/Dimanche 18 avril · 9 h 30/)).toBeTruthy();
     expect(within(summary).getByText("3 participants")).toBeTruthy();
-    expect(within(summary).getByText(/117\s€/)).toBeTruthy();
+    // Détail « 39 € × 3 participants » puis total TTC : 117 € sur les deux lignes.
+    expect(within(summary).getAllByText(/117\s€/)).toHaveLength(2);
+    expect(within(summary).getByText("Total TTC")).toBeTruthy();
     expect(screen.getByText(/aucun paiement n'est effectué/)).toBeTruthy();
+    // Règle : le total TTC est présenté avant le bouton « Confirmer » (ordre de lecture).
+    const confirmButton = screen.getByRole("button", { name: "Confirmer la réservation" });
+    expect(summary.compareDocumentPosition(confirmButton) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
 

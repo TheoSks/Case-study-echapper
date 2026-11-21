@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { track } from "../analytics/track";
 import { ActivityImage } from "../components/ActivityImage";
+import { ActivityCard } from "../components/ActivityCard";
 import { Icon } from "../components/Icon";
 import { ParticipantsInput } from "../components/ParticipantsInput";
 import { DatePicker } from "../components/DatePicker";
@@ -377,28 +378,20 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
 
       <section className="section" aria-labelledby="aussi">
         <div className="section-head">
-          <h2 id="aussi">Tu aimeras aussi</h2>
+          <h2 id="aussi">D'autres échappées</h2>
+          <p className="muted">Une autre envie, une autre saison : prolonge la sortie.</p>
         </div>
-        <ul className="related">
-          {others.map((a) => {
-            const next = nextAvailableSlot(catalog, state.availability, a.id);
-            return (
-              <li key={a.id}>
-                <a className="related-card" href={href(withQuery(`/activites/${a.slug}`, { participants }))}>
-                  <ActivityImage activity={a} sizes="(min-width: 52rem) 20vw, 40vw" />
-                  <span className="related-body">
-                    <span className="category">
-                      <Icon name={a.icon} /> {a.categoryLabel}
-                    </span>
-                    <strong>{a.title}</strong>
-                    <span className="muted">
-                      {a.location} · {formatPrice(a.pricePerPersonCents)} / pers. · {next ? "Places disponibles" : "Complet"}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            );
-          })}
+        <ul className="cards">
+          {others.map((a) => (
+            <li key={a.id}>
+              <ActivityCard
+                activity={a}
+                availability={state.availability}
+                groupSize={parsedParticipants.ok ? parsedParticipants.value : null}
+                date=""
+              />
+            </li>
+          ))}
         </ul>
       </section>
 
