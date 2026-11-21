@@ -5,15 +5,15 @@
 | Écran | Étape du tunnel (brief) | Événement analytics |
 |---|---|---|
 | **Accueil** : accroche, « Vous serez combien ? », 3 cartes avec lieu, durée, âge, prix TTC et disponibilité écrite | Découverte | `view_item_list` |
-| **Fiche activité** : infos clés, « ce que tu vas vivre », créneaux (choix unique), participants, total TTC en direct, « Réserver » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
+| **Fiche activité** : infos clés, « ce que tu vas vivre », créneaux (choix unique), participants, total TTC en direct, « Réserver », « Proposer cette sortie à ton groupe » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
 | **Récapitulatif** : activité, créneau, lieu, participants, prix unitaire, **total TTC**, mention « réservation simulée », « Confirmer » | Récapitulatif | `view_summary` |
-| **Confirmation** : référence, récapitulatif, places restantes, partage avec le groupe, « Et ensuite ? », suggestion | Confirmation | `booking_confirmed` |
+| **Confirmation** : récapitulatif, « Préviens ton groupe » (partage), « Et ensuite ? » en 3 étapes, suggestion saisonnière ; décompte des places visible dans les outils de démo | Confirmation | `booking_confirmed` (avec les paramètres de campagne de l'arrivée) |
 
 **Démarrage de la réservation** : clic sur « Réserver » avec un créneau choisi **et** un nombre de participants valide. Un clic sans créneau ou avec une saisie invalide n'est pas un démarrage : il déclenche `booking_error`.
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (63 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (65 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { track } from "../analytics/track";
 import { ActivityImage } from "../components/ActivityImage";
-import { Icon } from "../components/Icon";
+import { Icon, type IconName } from "../components/Icon";
 import { catalog, findActivityById } from "../data/catalog";
 import { findBookingByReference, isActivityFull, remainingFor } from "../domain/booking";
 import type { Activity, Booking, Slot } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
+import { pageUrl, shareOrCopy } from "../lib/share";
 import { href } from "../router";
 import { useBookingState } from "../state/store";
 
@@ -31,108 +32,145 @@ export function ConfirmationPage({ reference }: { reference: string }) {
   const suggestion = pickSuggestion(activity, state.availability);
 
   return (
-    <div className="narrow">
-      <SuccessMark />
-      <h1 tabIndex={-1} className="success-title">
-        C'est réservé.
-      </h1>
-      <p>
-        Réservation simulée : rien n'a été payé et aucun email n'a été envoyé. Garde ta référence{" "}
-        <strong>{booking.reference}</strong>.
-      </p>
-
-      <section className="summary" aria-label="Récapitulatif de la réservation confirmée">
-        <div className="summary-head">
-          <ActivityImage activity={activity} sizes="80px" />
-          <div>
-            <h2 style={{ fontSize: "1.5rem" }}>{activity.title}</h2>
-            <p className="muted">{activity.meetingPoint}</p>
-          </div>
-        </div>
-        <dl>
-          <div>
-            <dt>Référence</dt>
-            <dd>{booking.reference}</dd>
-          </div>
-          <div>
-            <dt>Créneau</dt>
-            <dd>
-              {capitalize(formatDate(slot.startsAt))} · {formatTime(slot.startsAt)}
-            </dd>
-          </div>
-          <div>
-            <dt>Durée</dt>
-            <dd>{formatDuration(activity.durationMinutes)}</dd>
-          </div>
-          <div>
-            <dt>Participants</dt>
-            <dd>{plural(booking.participants, "participant")}</dd>
-          </div>
-          <div className="summary-total">
-            <dt>Total TTC</dt>
-            <dd>{formatPrice(booking.totalCents)}</dd>
-          </div>
-        </dl>
-      </section>
-
-      <p className="muted" role="status">
-        {remaining > 0
-          ? `Il reste désormais ${plural(remaining, "place", "places")} sur ce créneau.`
-          : "Ce créneau est désormais complet."}
-      </p>
-
-      <ShareWithGroup booking={booking} activity={activity} slot={slot} />
-
-      <section className="content-block" aria-labelledby="ensuite">
-        <h2 id="ensuite">Et ensuite ?</h2>
-        <p className="muted">
-          Ce que ferait la version en ligne. Ce prototype n'envoie aucun message.
+    <div className="container confirmation">
+      <header className="confirmation-head">
+        <SuccessMark />
+        <h1 tabIndex={-1} className="success-title">
+          C'est réservé.
+        </h1>
+        <p className="lead success-title">
+          {activity.title} · {formatDate(slot.startsAt)} à {formatTime(slot.startsAt)}
         </p>
-        <ol className="timeline">
-          <li>
-            <span className="timeline-when">2 jours avant</span>
-            <span>Un message pour te préparer : quoi apporter, comment venir{activity.weatherDependent ? ", la météo prévue" : ""}.</span>
-          </li>
-          <li>
-            <span className="timeline-when">Le lendemain</span>
-            <span>Un merci, quelques photos de ta sortie et une demande d'avis.</span>
-          </li>
-          <li>
-            <span className="timeline-when">À la saison suivante</span>
-            <span>
-              Une idée de sortie qui change de ce que tu as fait
-              {activity.weatherDependent ? " : un atelier au chaud quand l'été sera fini." : " : une sortie en plein air aux beaux jours."}
-            </span>
-          </li>
+        <p className="sim-note">Réservation simulée : rien n'a été payé, aucun email n'a été envoyé.</p>
+      </header>
+
+      <div className="confirmation-grid">
+        <section className="summary" aria-label="Récapitulatif de la réservation confirmée">
+          <div className="summary-head">
+            <ActivityImage activity={activity} sizes="80px" />
+            <div>
+              <h2 style={{ fontSize: "1.5rem" }}>{activity.title}</h2>
+              <p className="muted">{activity.meetingPoint}</p>
+            </div>
+          </div>
+          <dl>
+            <div>
+              <dt>Référence</dt>
+              <dd>{booking.reference}</dd>
+            </div>
+            <div>
+              <dt>Créneau</dt>
+              <dd>
+                {capitalize(formatDate(slot.startsAt))} · {formatTime(slot.startsAt)}
+              </dd>
+            </div>
+            <div>
+              <dt>Durée</dt>
+              <dd>{formatDuration(activity.durationMinutes)}</dd>
+            </div>
+            <div>
+              <dt>Participants</dt>
+              <dd>{plural(booking.participants, "participant")}</dd>
+            </div>
+            <div className="summary-total">
+              <dt>Total TTC</dt>
+              <dd>{formatPrice(booking.totalCents)}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <ShareWithGroup booking={booking} activity={activity} slot={slot} />
+      </div>
+
+      <section className="section" aria-labelledby="ensuite">
+        <div className="section-head">
+          <h2 id="ensuite">Et ensuite ?</h2>
+          <p className="muted">
+            <span className="tag">Version en ligne</span> Ce prototype n'envoie aucun message.
+          </p>
+        </div>
+        <ol className="next-steps">
+          <NextStep
+            icon="calendar"
+            when="2 jours avant"
+            title="Prépare ta sortie"
+            text={`Quoi apporter, comment venir${activity.weatherDependent ? " et la météo prévue" : ""}.`}
+          />
+          <NextStep icon="heart" when="Le lendemain" title="Revis ta sortie" text="Quelques photos de ta sortie, un merci et une demande d'avis." />
+          <NextStep
+            icon="explore"
+            when="À la saison suivante"
+            title="Une nouvelle échappée"
+            text="Une idée de sortie qui change de ce que tu as fait, au bon moment de l'année."
+          />
         </ol>
       </section>
 
-      {suggestion && (
-        <section className="content-block" aria-labelledby="prolonger">
-          <h2 id="prolonger">Prolonger l'échappée</h2>
-          <a className="suggestion" href={href(`/activites/${suggestion.slug}`)}>
-            <ActivityImage activity={suggestion} sizes="96px" />
-            <div>
-              <span className="category">
-                <Icon name={suggestion.icon} /> {suggestion.categoryLabel}
-              </span>
-              <h3>{suggestion.title}</h3>
-              <p className="muted">{suggestion.tagline}</p>
-            </div>
-          </a>
-        </section>
-      )}
+      {suggestion && <Suggestion booked={activity} suggestion={suggestion} />}
 
-      <a className="link-back" href={href("/")}>
-        <Icon name="arrow" /> Toutes les activités
-      </a>
+      <details className="demo-tools">
+        <summary>Outils de démo · vérifier le décompte</summary>
+        <p>
+          Places sur ce créneau : <strong>{remaining + booking.participants} avant</strong>,{" "}
+          <strong>{remaining} après</strong>. Seul ce créneau a été modifié, une seule fois.
+        </p>
+      </details>
     </div>
   );
 }
 
-/** Le partage avec le groupe : l'organisateur transmet lieu, heure et « à prévoir » à ses participants. */
+function NextStep({ icon, when, title, text }: { icon: IconName; when: string; title: string; text: string }) {
+  return (
+    <li className="next-step">
+      <span className="next-step-icon">
+        <Icon name={icon} />
+      </span>
+      <span className="timeline-when">{when}</span>
+      <h3>{title}</h3>
+      <p className="muted">{text}</p>
+    </li>
+  );
+}
+
+/** Relance saisonnière, en miniature : une activité d'un autre type, qui a encore des places. */
+function Suggestion({ booked, suggestion }: { booked: Activity; suggestion: Activity }) {
+  const pitch = booked.weatherDependent
+    ? "Quand l'été se termine, on se retrouve au chaud, les mains dans la matière."
+    : suggestion.weatherDependent
+      ? "Aux beaux jours, on prend l'air : la prochaine sortie se passe dehors."
+      : "Une autre façon de sortir du quotidien, tout près.";
+  return (
+    <section className="section" aria-labelledby="prolonger">
+      <article className="suggestion-card">
+        <ActivityImage activity={suggestion} sizes="(min-width: 52rem) 40vw, 100vw" />
+        <div className="suggestion-body">
+          <p className="eyebrow">Prolonger l'échappée</p>
+          <h2 id="prolonger">{suggestion.title}</h2>
+          <p>{pitch}</p>
+          <ul className="facts">
+            <li>
+              <Icon name="pin" /> {suggestion.location}
+            </li>
+            <li>
+              <Icon name="clock" /> {formatDuration(suggestion.durationMinutes)}
+            </li>
+            <li>
+              <Icon name="people" /> Dès {suggestion.minAge} ans
+            </li>
+          </ul>
+          <p className="card-price">{formatPrice(suggestion.pricePerPersonCents)} / pers. TTC</p>
+          <a className="btn btn-primary" href={href(`/activites/${suggestion.slug}`)}>
+            Découvrir l'activité <Icon name="arrow" />
+          </a>
+        </div>
+      </article>
+    </section>
+  );
+}
+
+/** L'organisateur transmet lieu, heure et « à prévoir » à ses participants. */
 function ShareWithGroup({ booking, activity, slot }: { booking: Booking; activity: Activity; slot: Slot }) {
-  const [feedback, setFeedback] = useState<"copied" | "manual" | null>(null);
+  const [feedback, setFeedback] = useState<"copied" | "failed" | null>(null);
   const text = [
     `${activity.title} avec Échappée`,
     `${capitalize(formatDate(slot.startsAt))} à ${formatTime(slot.startsAt)} (${formatDuration(activity.durationMinutes)})`,
@@ -142,42 +180,30 @@ function ShareWithGroup({ booking, activity, slot }: { booking: Booking; activit
   ].join("\n");
 
   const share = async () => {
-    try {
-      if (typeof navigator.share === "function") {
-        await navigator.share({ title: `${activity.title} · Échappée`, text });
-        track("share_booking", { method: "native", booking_reference: booking.reference });
-        return;
-      }
-      await navigator.clipboard.writeText(text);
-      setFeedback("copied");
-      track("share_booking", { method: "clipboard", booking_reference: booking.reference });
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") return; // partage annulé
-      setFeedback("manual");
+    const outcome = await shareOrCopy({ title: `${activity.title} · Échappée`, text, url: pageUrl(`/activites/${activity.slug}`) });
+    if (outcome === "native" || outcome === "copied") {
+      track("share_booking", { method: outcome, booking_reference: booking.reference });
     }
+    setFeedback(outcome === "copied" ? "copied" : outcome === "failed" ? "failed" : null);
   };
 
   return (
-    <section className="booking-panel" aria-labelledby="partager">
-      <h2 id="partager" style={{ fontSize: "1.5rem" }}>
-        Préviens ton groupe
-      </h2>
+    <section className="share-card" aria-labelledby="partager">
+      <span className="next-step-icon">
+        <Icon name="people" />
+      </span>
+      <h2 id="partager">Préviens ton groupe</h2>
       <p>Envoie l'essentiel à tes participants : lieu, heure et ce qu'il faut prévoir.</p>
-      <button type="button" className="btn btn-primary" onClick={share}>
-        <Icon name="people" /> Partager les infos
+      <pre className="share-preview">{text}</pre>
+      <button type="button" className="btn btn-primary btn-block" onClick={share}>
+        Partager les infos
       </button>
       {feedback === "copied" && <p role="status">Infos copiées : colle-les dans ta conversation de groupe.</p>}
-      {feedback === "manual" && (
-        <label className="field">
-          <span className="field-label">Copie ce texte :</span>
-          <textarea readOnly rows={5} value={text} style={{ font: "inherit", padding: "0.5rem" }} />
-        </label>
-      )}
+      {feedback === "failed" && <p role="status">Le partage n'est pas disponible : copie le texte ci-dessus.</p>}
     </section>
   );
 }
 
-/** Relance saisonnière, en miniature : on propose une activité d'un autre type, qui a encore des places. */
 function pickSuggestion(booked: Activity, availability: Record<string, number>): Activity | undefined {
   const others = catalog.activities.filter((a) => a.id !== booked.id && !isActivityFull(catalog, availability, a.id));
   return others.find((a) => a.weatherDependent !== booked.weatherDependent) ?? others[0];

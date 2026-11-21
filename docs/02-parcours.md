@@ -73,7 +73,7 @@ Le brief exclut la conception de campagnes d'acquisition. Pour la découverte, o
 | Réservation d'un créneau, revérification à la confirmation | Email de confirmation (J0) | Liste d'attente sur un créneau complet |
 | Récapitulatif TTC, confirmation, places déduites une seule fois | Email de préparation et météo (J-2) | Rappel par SMS (J-1) |
 | Outil de démo : simuler un créneau devenu complet, réinitialiser | Email de remerciement, avis et photos (J+1) | Carte cadeau |
-| **Partage des infos avec le groupe** (partage natif du téléphone, copie sur ordinateur) | Relance saisonnière, rappel annuel pour les groupes | Programme de fidélité, parrainage |
+| **Partage avec le groupe** : proposer la sortie avant de réserver, puis transmettre lieu, heure et « à prévoir » après (partage natif du téléphone, copie sur ordinateur) | Relance saisonnière, rappel annuel pour les groupes | Programme de fidélité, parrainage |
 | Frise « Et ensuite ? » montrant les prochains points de contact | Demande de devis au-delà de 10 personnes | Avis affichés sur le site |
 | Événements du tunnel (`dataLayer` local, sans outil connecté) | Page d'infos pratiques : météo, annulation, accès | Acompte pour les groupes, annulation en ligne |
 | Mention « réservation simulée » sur tout le parcours | Site en anglais | Autres langues |

@@ -3,6 +3,7 @@ import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "./App";
+import { captureCampaign } from "./analytics/track";
 import { bookingStore } from "./state/store";
 
 function open(path: string) {
@@ -39,7 +40,7 @@ describe("Parcours de réservation", () => {
     await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
 
     expect(screen.getByRole("heading", { name: "C'est réservé." })).toBeTruthy();
-    expect(screen.getByText("Il reste désormais 4 places sur ce créneau.")).toBeTruthy();
+    expect(screen.getByText(/Places sur ce créneau/).textContent).toContain("7 avant, 4 après");
     const { availability, bookings } = bookingStore.getState();
     expect(availability).toMatchObject({ "a02-s1": 4, "a01-s1": 6, "a01-s2": 2, "a02-s2": 0 });
     expect(Object.keys(bookings)).toHaveLength(1);
@@ -152,6 +153,43 @@ describe("Créneaux et activités complets", () => {
   it("l'accueil l'indique en toutes lettres sur la carte", () => {
     open("/");
     expect(screen.getByText("Complet sur les dates proposées")).toBeTruthy();
+  });
+});
+
+describe("Mesure du tunnel", () => {
+  const events = () => (window.dataLayer ?? []).map((e) => e.event);
+
+  it("« démarrage » (begin_checkout) uniquement quand créneau ET participants sont valides", async () => {
+    window.dataLayer = [];
+    const user = userEvent.setup();
+    open("/activites/kayak-calanques");
+    const reserve = () => user.click(screen.getAllByRole("button", { name: /^Réserver/ })[0]);
+
+    await reserve(); // sans créneau
+    expect(events()).not.toContain("begin_checkout");
+
+    await user.click(screen.getByRole("radio", { name: /18 avril/ }));
+    const input = screen.getByLabelText("Participants");
+    await user.clear(input);
+    await user.type(input, "0");
+    await reserve(); // participants invalides
+    expect(events()).not.toContain("begin_checkout");
+    expect(events().filter((e) => e === "booking_error")).toHaveLength(2);
+
+    await user.clear(input);
+    await user.type(input, "2");
+    await reserve();
+    expect(events()).toEqual(["view_item", "booking_error", "select_slot", "booking_error", "begin_checkout", "view_summary"]);
+  });
+
+  it("les paramètres de campagne de l'arrivée sont joints à la confirmation", async () => {
+    window.dataLayer = [];
+    captureCampaign("http://localhost/?utm_source=meta&utm_medium=paid_social&utm_campaign=lancement#/");
+    const user = userEvent.setup();
+    await reachSummary(user, "2");
+    await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
+    const confirmed = window.dataLayer.find((e) => e.event === "booking_confirmed");
+    expect(confirmed).toMatchObject({ utm_source: "meta", utm_medium: "paid_social", utm_campaign: "lancement", value: 78, participants: 2 });
   });
 });
 

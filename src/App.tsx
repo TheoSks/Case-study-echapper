@@ -13,7 +13,11 @@ export function App() {
   // À chaque changement de page : retour en haut, et focus sur le titre (lecteurs d'écran).
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.querySelector<HTMLElement>("main h1")?.focus({ preventScroll: true });
+    const title = document.querySelector<HTMLElement>("main h1");
+    title?.focus({ preventScroll: true });
+    // Un titre d'onglet par écran : historique lisible, pages distinguées dans la mesure.
+    document.title =
+      route.path === "/" || !title ? "Échappée · Activités en Provence" : `${title.textContent} · Échappée`;
   }, [route.path]);
 
   return (

@@ -97,6 +97,23 @@ a {
   flex-shrink: 0;
 }
 
+/* Lien d'évitement : invisible, sauf quand il reçoit le focus au clavier. */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-2);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  background: var(--blanc);
+  color: var(--pin);
+  font-weight: 600;
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
 /* ——— Bandeau « réservation simulée » ——— */
 .sim-banner {
   background: var(--pin);
@@ -773,6 +790,180 @@ legend {
   text-decoration: underline;
 }
 
+/* ——— Confirmation ——— */
+.confirmation {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-5);
+}
+.confirmation-head {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+.confirmation-head .lead {
+  font-size: var(--text-lg);
+}
+.confirmation-head .lead::first-letter {
+  text-transform: uppercase;
+}
+.sim-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.confirmation-grid {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (min-width: 52rem) {
+  .confirmation-grid {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
+.share-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--pin);
+  color: var(--craie);
+  border-radius: var(--radius-lg);
+}
+.share-card h2 {
+  font-size: 1.5rem;
+}
+.share-card .next-step-icon {
+  background: var(--soleil);
+  color: var(--pin);
+}
+.share-card .btn-primary {
+  background: var(--craie);
+  color: var(--pin);
+  border-color: var(--craie);
+}
+.share-card .btn-primary:hover {
+  background: var(--blanc);
+}
+.share-card :focus-visible {
+  outline-color: var(--soleil);
+}
+.share-preview {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: rgb(255 255 255 / 0.08);
+  border-radius: var(--radius);
+  font: var(--text-sm) / 1.6 var(--font-body);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.125rem var(--space-2);
+  margin-right: var(--space-2);
+  border-radius: 999px;
+  background: var(--galet);
+  color: var(--pin);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.next-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  counter-reset: step;
+}
+.next-step {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  animation: rise-in 320ms var(--ease-out) backwards;
+}
+.next-step:nth-child(2) {
+  animation-delay: 60ms;
+}
+.next-step:nth-child(3) {
+  animation-delay: 120ms;
+}
+.next-step h3 {
+  font-size: 1.375rem;
+}
+.next-step-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--craie);
+  color: var(--pin);
+  margin-bottom: var(--space-2);
+}
+.next-step-icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.suggestion-card {
+  display: grid;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.suggestion-card img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.suggestion-body {
+  display: grid;
+  gap: var(--space-3);
+  align-content: center;
+  justify-items: start;
+  padding: var(--space-6) var(--space-5);
+}
+.suggestion-body h2 {
+  font-size: var(--title-md);
+}
+@media (min-width: 52rem) {
+  .suggestion-card {
+    grid-template-columns: 1fr 1fr;
+  }
+  .suggestion-card img {
+    aspect-ratio: auto;
+    min-height: 22rem;
+  }
+  .suggestion-body {
+    padding: var(--space-7);
+  }
+}
+
+/* Proposer la sortie à son groupe, avant de réserver (fiche activité) */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--pin);
+  font: 600 var(--text-sm) var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
 /* ——— Outils de démo ——— */
 .demo-tools {
   border: 1px dashed var(--sauge);
@@ -859,6 +1050,7 @@ legend {
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
   .cards > li,
+  .next-step,
   .success-title {
     animation-name: fade-in;
   }

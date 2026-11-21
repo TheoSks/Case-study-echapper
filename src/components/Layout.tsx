@@ -13,7 +13,7 @@ export function SimulationBanner() {
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <a className="visually-hidden" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>
+      <a className="skip-link" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>
         Aller au contenu
       </a>
       <SimulationBanner />

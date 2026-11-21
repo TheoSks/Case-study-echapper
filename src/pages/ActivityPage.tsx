@@ -18,6 +18,7 @@ import {
 import type { Activity, BookingError } from "../domain/types";
 import { formatDuration, formatPrice } from "../lib/format";
 import { randomId } from "../lib/ids";
+import { pageUrl, shareOrCopy } from "../lib/share";
 import { href, navigate, withQuery, type Route } from "../router";
 import { useBookingState } from "../state/store";
 
@@ -100,6 +101,20 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
     );
   };
 
+  // Avant de réserver, l'organisateur cherche souvent l'accord de son groupe.
+  const [shareFeedback, setShareFeedback] = useState<string | null>(null);
+  const proposeToGroup = async () => {
+    const outcome = await shareOrCopy({
+      title: `${activity.title} · Échappée`,
+      text: `Ça vous dit ? ${activity.title} à ${activity.location}, ${formatDuration(activity.durationMinutes)}, ${formatPrice(activity.pricePerPersonCents)} par personne.`,
+      url: pageUrl(`/activites/${activity.slug}`),
+    });
+    if (outcome === "native" || outcome === "copied") track("share_activity", { method: outcome, activity_id: activity.id });
+    setShareFeedback(
+      outcome === "copied" ? "Lien copié : colle-le dans ta conversation de groupe." : outcome === "failed" ? "Le partage n'est pas disponible sur ce navigateur." : null,
+    );
+  };
+
   const alternatives = catalog.activities.filter(
     (a) => a.id !== activity.id && !isActivityFull(catalog, state.availability, a.id),
   );
@@ -124,7 +139,10 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
 
       <div className={`activity-layout${full ? "" : " has-sticky-bar"}`}>
         <aside className="booking-panel" ref={panelRef} aria-labelledby="booking-title" id="reserver">
-          <h2 id="booking-title">Réserver</h2>
+          <div>
+            {!full && <p className="steps">Étape 1 sur 2 · Créneau et participants</p>}
+            <h2 id="booking-title">Réserver</h2>
+          </div>
 
           {full && (
             <div className="notice notice--full" role="status">
@@ -171,6 +189,14 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
               <button type="button" className="btn btn-primary btn-block" onClick={startBooking}>
                 Réserver <Icon name="arrow" />
               </button>
+              <button type="button" className="btn-link" onClick={proposeToGroup}>
+                <Icon name="people" /> Proposer cette sortie à ton groupe
+              </button>
+              {shareFeedback && (
+                <p role="status" className="field-hint" style={{ textAlign: "center", marginTop: "-0.5rem" }}>
+                  {shareFeedback}
+                </p>
+              )}
             </>
           )}
         </aside>
