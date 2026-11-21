@@ -9,12 +9,14 @@ import { ResponsiveImage } from "./ActivityImage";
 // Vidéo fournie par l'auteur du projet (droits détenus). S'il manque, l'image s'affiche.
 export const HERO_VIDEO: string | null = "./videos/provence-drone.mp4";
 
-/** Pas de vidéo si l'utilisateur demande moins d'animations ou d'économiser ses données : l'image suffit. */
+/** Pas de vidéo sur mobile, ni si l'utilisateur demande moins d'animations ou d'économiser ses données : l'image suffit. */
 function prefersStill(): boolean {
   if (typeof window === "undefined") return true;
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  // Mobile : image fixe (5,6 Mo de vidéo pèsent trop sur une connexion mobile).
+  const small = window.matchMedia?.("(max-width: 52rem)").matches ?? false;
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ?? false;
-  return reduced || saveData;
+  return reduced || saveData || small;
 }
 
 export function HeroMedia() {

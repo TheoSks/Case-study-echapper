@@ -243,6 +243,16 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
                 Le créneau est maintenant complet. Clique sur « Confirmer la réservation ».
               </p>
             )}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                bookingStore.reset();
+                navigate("/");
+              }}
+            >
+              Réinitialiser la démo
+            </button>
           </details>
         </div>
 

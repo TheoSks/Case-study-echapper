@@ -171,7 +171,9 @@ describe("Calendrier, horaires et activités complètes", () => {
     open("/activites/escape-game-mas");
     expect(screen.getByRole("heading", { name: "Escape game au mas" })).toBeTruthy();
     expect(screen.getByText("Cette activité est complète sur toutes les dates proposées.")).toBeTruthy();
-    expect(screen.getAllByRole("radio").every((r) => (r as HTMLInputElement).disabled)).toBe(true);
+    // Aucun jour présélectionné ; ses dates restent visibles et barrées dans le calendrier.
+    expect(screen.queryAllByRole("radio")).toHaveLength(0);
+    expect((screen.getByRole("button", { name: "samedi 17 avril, complet" }) as HTMLButtonElement).disabled).toBe(true);
     expect(screen.queryByRole("button", { name: /^Réserver/ })).toBeNull();
     expect(screen.getAllByRole("link", { name: /Atelier céramique/ }).length).toBeGreaterThan(0);
   });

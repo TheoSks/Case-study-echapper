@@ -21,7 +21,7 @@ export function App() {
   }, [route.path]);
 
   return (
-    <Layout>
+    <Layout pageDemoTools={/^\/(reservation|confirmation)\//.test(route.path)}>
       <div key={route.path} className="page-enter">
         {renderPage(route)}
       </div>

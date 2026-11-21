@@ -10,7 +10,8 @@ export function SimulationBanner() {
   );
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+/** `pageDemoTools` : la page affiche ses propres outils de démo (on n'en montre pas un second dans le pied de page). */
+export function Layout({ children, pageDemoTools = false }: { children: ReactNode; pageDemoTools?: boolean }) {
   return (
     <>
       <a className="skip-link" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>
@@ -51,6 +52,7 @@ export function Layout({ children }: { children: ReactNode }) {
             Réservation simulée : aucun paiement, aucun email, aucune donnée personnelle collectée. Les places
             sont conservées le temps de la session (onglet ouvert).
           </p>
+          {!pageDemoTools && (
           <details className="demo-tools">
             <summary>Outils de démo</summary>
             <p>Remet toutes les places à leur valeur initiale et efface les réservations de la session.</p>
@@ -65,6 +67,7 @@ export function Layout({ children }: { children: ReactNode }) {
               Réinitialiser la démo
             </button>
           </details>
+          )}
         </div>
       </footer>
     </>

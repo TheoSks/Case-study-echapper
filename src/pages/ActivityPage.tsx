@@ -42,6 +42,8 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
   // Date : celle de la recherche si elle a des horaires, sinon le premier jour qui convient au groupe.
   const groupForDate = parseParticipants(participants);
   const [day, setDay] = useState<string | null>(() => {
+    // Activité complète : aucun jour présélectionné (un jour « sélectionné et barré » serait contradictoire).
+    if (isActivityFull(catalog, state.availability, activity.id)) return null;
     const fromSlot = initialSlot ? slots.find((s) => s.id === initialSlot) : undefined;
     if (fromSlot) return dayKey(fromSlot.startsAt);
     const requested = route.query.get("date");
@@ -53,7 +55,7 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
       (slots[0] ? dayKey(slots[0].startsAt) : null)
     );
   });
-  const [month, setMonth] = useState(() => monthKey(day ?? `${MIN_MONTH}-01`));
+  const [month, setMonth] = useState(() => monthKey(day ?? (slots[0] ? dayKey(slots[0].startsAt) : `${MIN_MONTH}-01`)));
   const daySlots = day ? slotsOn(day, [activity.id]) : [];
   const selectDay = (next: string) => {
     setDay(next);

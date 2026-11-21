@@ -276,28 +276,6 @@ a {
 }
 
 /* ——— Accueil ——— */
-.hero {
-  display: grid;
-  gap: var(--space-5);
-  padding: var(--space-6) 0;
-}
-.hero-text {
-  display: grid;
-  gap: var(--space-4);
-  align-content: center;
-}
-.hero-text .lead {
-  font-size: var(--text-lg);
-  max-width: 32rem;
-}
-@media (min-width: 52rem) {
-  .hero {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: var(--space-7);
-    padding: var(--space-6) 0 var(--space-7);
-  }
-}
-
 /* ——— Visuel d'ouverture : grande image (ou vidéo), promesse centrée ——— */
 .hero-banner {
   position: relative;
@@ -308,12 +286,11 @@ a {
   overflow: hidden;
   text-align: center;
 }
+/* Image (mobile, repli) et vidéo occupent tout le visuel, derrière le texte. */
 .hero-banner img,
 .hero-video {
-  /* Légèrement assombrie : les reflets du soleil ne concurrencent plus le texte. */
-  filter: brightness(0.82) saturate(1.08);
-}
-.hero-video {
+  /* Légèrement assombries : les reflets du soleil ne concurrencent plus le texte. */
+  filter: brightness(0.86) saturate(1.12) contrast(1.04);
   position: absolute;
   inset: 0;
   width: 100%;
@@ -326,17 +303,17 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  /* Voile léger : concentré derrière le texte, les couleurs de l'image restent vives ailleurs. */
+  /* Voile neutre et chaud (presque noir) : assombrit sans teinter, concentré derrière le texte. */
   background:
-    radial-gradient(ellipse 60% 50% at 50% 52%, rgb(23 61 53 / 0.78), rgb(23 61 53 / 0.45) 55%, rgb(23 61 53 / 0.1) 85%, rgb(23 61 53 / 0) 100%),
-    linear-gradient(to top, rgb(23 61 53 / 0.55) 0%, rgb(23 61 53 / 0) 35%);
+    radial-gradient(ellipse 60% 50% at 50% 52%, rgb(16 14 10 / 0.7), rgb(16 14 10 / 0.4) 55%, rgb(16 14 10 / 0.06) 85%, rgb(16 14 10 / 0) 100%),
+    linear-gradient(to top, rgb(16 14 10 / 0.45) 0%, rgb(16 14 10 / 0) 35%);
 }
 @media (max-width: 52rem) {
   /* Sur mobile, le texte occupe toute la largeur : le voile s'élargit. */
   .hero-banner::after {
     background:
-      radial-gradient(ellipse 100% 48% at 50% 50%, rgb(23 61 53 / 0.82), rgb(23 61 53 / 0.5) 60%, rgb(23 61 53 / 0.15) 90%),
-      linear-gradient(to top, rgb(23 61 53 / 0.55) 0%, rgb(23 61 53 / 0) 35%);
+      radial-gradient(ellipse 100% 48% at 50% 50%, rgb(16 14 10 / 0.66), rgb(16 14 10 / 0.4) 60%, rgb(16 14 10 / 0.1) 90%),
+      linear-gradient(to top, rgb(16 14 10 / 0.45) 0%, rgb(16 14 10 / 0) 35%);
   }
 }
 .hero-banner-text {
@@ -371,7 +348,7 @@ a {
   letter-spacing: -0.015em;
   max-width: 15ch;
   text-wrap: balance;
-  text-shadow: 0 1px 2px rgb(15 40 35 / 0.45), 0 2px 28px rgb(23 61 53 / 0.65);
+  text-shadow: 0 1px 2px rgb(10 8 6 / 0.45), 0 2px 28px rgb(10 8 6 / 0.55);
 }
 .hero-accent {
   display: block;
@@ -379,7 +356,7 @@ a {
 }
 .hero-banner .lead {
   font-weight: 500;
-  text-shadow: 0 1px 2px rgb(15 40 35 / 0.55), 0 1px 16px rgb(23 61 53 / 0.75);
+  text-shadow: 0 1px 2px rgb(10 8 6 / 0.55), 0 1px 16px rgb(10 8 6 / 0.65);
   font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   max-width: 34rem;
   text-wrap: balance;
@@ -837,20 +814,6 @@ a {
   }
 }
 
-.group-picker {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3) var(--space-5);
-  padding: var(--space-5);
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-}
-.group-picker label {
-  font-family: var(--font-display);
-  font-size: 1.375rem;
-}
-
 .section {
   padding: var(--space-6) 0;
 }
@@ -988,16 +951,6 @@ a {
   color: var(--argile);
 }
 
-.quote {
-  background: var(--pin);
-  color: var(--craie);
-  padding: var(--space-6) var(--gutter);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-display);
-  font-size: var(--title-sm);
-  line-height: 1.25;
-}
-
 /* ——— Fiche activité ——— */
 .activity-hero img {
   width: 100%;
@@ -1031,31 +984,6 @@ a {
     position: sticky;
     top: 5.5rem;
   }
-}
-
-.key-facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
-  gap: var(--space-3);
-  margin: 0;
-}
-.key-facts div {
-  display: grid;
-  gap: var(--space-1);
-  padding: var(--space-4);
-  background: var(--color-surface);
-  border-radius: var(--radius);
-}
-.key-facts dt {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-.key-facts dd {
-  margin: 0;
-  font-weight: 600;
 }
 
 .content-block {
@@ -1363,55 +1291,10 @@ legend {
   color: var(--pin);
 }
 
-.timeline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-4);
-  border-left: 2px solid var(--galet);
-  margin-left: var(--space-2);
-}
-.timeline li {
-  position: relative;
-  padding-left: var(--space-5);
-  display: grid;
-  gap: var(--space-1);
-}
-.timeline li::before {
-  content: "";
-  position: absolute;
-  left: -0.45rem;
-  top: 0.35rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  background: var(--soleil);
-  border: 2px solid var(--pin);
-}
 .timeline-when {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-accent);
-}
-
-.suggestion {
-  display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  padding: var(--space-4);
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-}
-.suggestion img {
-  width: 6rem;
-  height: 4.5rem;
-  object-fit: cover;
-  border-radius: var(--radius);
-}
-.suggestion:hover h3 {
-  text-decoration: underline;
 }
 
 /* ——— Fiche activité : en-tête, points clés, contenus ——— */
@@ -1813,6 +1696,30 @@ legend {
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
+}
+
+/* Mobile : cartes compactes, icône à gauche et texte à droite (page plus courte). */
+@media (max-width: 40rem) {
+  .next-step,
+  .contact-card {
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-4);
+    row-gap: var(--space-1);
+    padding: var(--space-4);
+  }
+  .next-step > :not(.next-step-icon),
+  .contact-card > :not(.next-step-icon) {
+    grid-column: 2;
+  }
+  .next-step .next-step-icon,
+  .contact-card .next-step-icon {
+    grid-row: span 3;
+    margin-bottom: 0;
+  }
+  .next-step h3,
+  .contact-card h3 {
+    font-size: 1.25rem;
+  }
 }
 
 /* ——— Outils de démo ——— */

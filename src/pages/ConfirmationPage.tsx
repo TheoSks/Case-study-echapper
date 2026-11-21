@@ -7,8 +7,8 @@ import { findBookingByReference, isActivityFull, remainingFor } from "../domain/
 import type { Activity, Booking, Slot } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { pageUrl, shareOrCopy } from "../lib/share";
-import { href } from "../router";
-import { useBookingState } from "../state/store";
+import { href, navigate } from "../router";
+import { bookingStore, useBookingState } from "../state/store";
 
 export function ConfirmationPage({ reference }: { reference: string }) {
   const state = useBookingState();
@@ -114,6 +114,16 @@ export function ConfirmationPage({ reference }: { reference: string }) {
           Places sur ce créneau : <strong>{remaining + booking.participants} avant</strong>,{" "}
           <strong>{remaining} après</strong>. Seul ce créneau a été modifié, une seule fois.
         </p>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => {
+            bookingStore.reset();
+            navigate("/");
+          }}
+        >
+          Réinitialiser la démo
+        </button>
       </details>
     </div>
   );
