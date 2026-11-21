@@ -141,13 +141,84 @@ a {
   height: 2rem;
   width: auto;
 }
-.site-header nav a {
+/* L'en-tête reste visible au défilement. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgb(247 243 232 / 0.94);
+  backdrop-filter: saturate(1.2) blur(8px);
+}
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.main-nav ul {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-5);
+}
+.main-nav ul a {
+  position: relative;
   font-weight: 600;
   font-size: var(--text-sm);
   text-decoration: none;
+  padding: var(--space-2) 0;
 }
-.site-header nav a:hover {
-  text-decoration: underline;
+.main-nav ul a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--argile);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .main-nav ul a:hover::after {
+    transform: scaleX(1);
+  }
+}
+.nav-cta {
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+@media (min-width: 52rem) {
+  .main-nav ul {
+    display: flex;
+  }
+}
+/* Les ancres ne passent pas sous l'en-tête fixe. */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+.contact-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+.contact-card {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+.contact-card h3 {
+  font-size: 1.5rem;
+}
+.contact-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 /* ——— Boutons ——— */

@@ -202,7 +202,7 @@ describe("Accueil : recherche par activité, date et participants", () => {
     expect(screen.getByRole("heading", { name: "Ta recherche" })).toBeTruthy();
     expect(screen.getByText("Pas de créneau ce jour-là")).toBeTruthy();
     expect(screen.getByText(/^Prochaine date : .* avr\./)).toBeTruthy();
-    expect(screen.getAllByRole("article")).toHaveLength(1);
+    expect(within(screen.getByRole("region", { name: "Ta recherche" })).getAllByRole("article")).toHaveLength(1);
   });
 
   it("signale quand les tests ont modifié les places, et permet de réinitialiser", async () => {

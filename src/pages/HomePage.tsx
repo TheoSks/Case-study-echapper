@@ -75,7 +75,7 @@ export function HomePage({ route }: { route: Route }) {
       </section>
 
       <div className="container">
-        <div className="search-wrap">
+        <div className="search-wrap" id="recherche">
           <SearchBar value={search} onChange={update} onSubmit={submit} availability={availability} />
         </div>
 
@@ -129,6 +129,41 @@ export function HomePage({ route }: { route: Route }) {
             <Step icon="calendar" step={2} title="Réserve en deux minutes" text="Un horaire, le nombre de participants, et le total TTC affiché avant de confirmer." />
             <Step icon="people" step={3} title="Préviens ton groupe" text="Lieu, heure et ce qu'il faut prévoir, à partager en un geste." />
           </ol>
+        </section>
+
+        <section className="section" id="groupes" aria-labelledby="groupes-title">
+          <div className="section-head">
+            <h2 id="groupes-title">Groupes & contact</h2>
+          </div>
+          <div className="contact-grid">
+            <article className="contact-card">
+              <span className="next-step-icon">
+                <Icon name="people" />
+              </span>
+              <h3>Plus de 10 participants ?</h3>
+              <p className="muted">
+                Anniversaire, association, sortie de famille élargie : l'équipe prépare un devis adapté à ton groupe,
+                avec une date et une activité sur mesure.
+              </p>
+              <p className="contact-note">
+                <span className="tag">Version en ligne</span> Formulaire de demande de devis, réponse par l'équipe.
+              </p>
+            </article>
+            <article className="contact-card">
+              <span className="next-step-icon">
+                <Icon name="heart" />
+              </span>
+              <h3>Une question avant de réserver ?</h3>
+              <p className="muted">
+                Accès, météo, âge minimum, accessibilité : l'équipe d'Échappée répond par téléphone et par email,
+                comme elle le fait déjà pour ses clients professionnels.
+              </p>
+              <p className="contact-note">
+                <span className="tag">Version en ligne</span> Téléphone et email de contact. Ce prototype ne collecte
+                aucune donnée.
+              </p>
+            </article>
+          </div>
         </section>
 
         <section className="brand-band" aria-label="L'esprit Échappée">

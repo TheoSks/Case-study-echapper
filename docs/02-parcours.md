@@ -19,11 +19,12 @@ Le site est organisé **autour de l'activité** : les campagnes payantes mènent
 
 | Page | Rôle | Prototype |
 |---|---|---|
-| Accueil | Découvrir l'offre, indiquer la taille du groupe | ✅ |
+| En-tête | Navigation fixe : Activités · Comment ça marche · Groupes & contact · Réserver | ✅ |
+| Accueil | Découvrir l'offre, rechercher par activité, date et participants | ✅ |
 | Fiche activité | Comprendre, choisir un créneau et le nombre de participants, démarrer la réservation | ✅ |
 | Récapitulatif | Vérifier activité, créneau, participants, total TTC ; confirmer | ✅ |
 | Confirmation | Récapitulatif, partage avec le groupe, prochaines étapes | ✅ |
-| Groupes (devis au-delà de 10) | Demande de devis, traitée par l'équipe téléphone existante | 🟡 proposé |
+| Groupes & contact | Section de l'accueil (construite) : devis au-delà de 10, questions avant réservation ; formulaire de devis, téléphone et email proposés | ✅ section · 🟡 formulaire |
 | Infos pratiques | Météo, annulation, accès | 🟡 proposé |
 | Sélecteur FR / EN | Site en deux langues | 🟡 proposé |
 

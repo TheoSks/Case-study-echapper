@@ -22,9 +22,18 @@ export function Layout({ children }: { children: ReactNode }) {
           <a href={href("/")} aria-label="Échappée, accueil">
             <img src="./logos/echappee-logo-color.svg" alt="Échappée" width={160} height={33} />
           </a>
-          <nav aria-label="Navigation principale">
-            <a href={href("/")} onClick={(e) => { e.preventDefault(); goToActivities(); }}>
-              Les activités
+          <nav className="main-nav" aria-label="Navigation principale">
+            <ul>
+              {SECTIONS.map((section) => (
+                <li key={section.id}>
+                  <a href={href("/")} onClick={(e) => { e.preventDefault(); goToSection(section.id); }}>
+                    {section.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a className="btn btn-primary nav-cta" href={href("/")} onClick={(e) => { e.preventDefault(); goToSection("recherche"); }}>
+              Réserver
             </a>
           </nav>
         </div>
@@ -62,7 +71,23 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-export function goToActivities() {
-  navigate("/");
-  requestAnimationFrame(() => document.getElementById("activites")?.scrollIntoView());
+const SECTIONS = [
+  { id: "activites", label: "Activités" },
+  { id: "comment", label: "Comment ça marche" },
+  { id: "groupes", label: "Groupes & contact" },
+];
+
+/** Aller à une section de l'accueil, depuis n'importe quelle page (le routage utilise déjà le hash). */
+export function goToSection(id: string) {
+  const scroll = () => {
+    const target = document.getElementById(id);
+    target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (id === "recherche") target?.querySelector<HTMLElement>("button, input")?.focus({ preventScroll: true });
+  };
+  if (window.location.hash.replace(/^#/, "").split("?")[0] !== "/") {
+    navigate("/");
+    setTimeout(scroll, 50);
+  } else {
+    scroll();
+  }
 }
