@@ -1,0 +1,83 @@
+[
+  {
+    "id": "a01",
+    "slug": "atelier-ceramique",
+    "title": "Atelier céramique",
+    "category": "atelier",
+    "categoryLabel": "Atelier",
+    "icon": "pottery",
+    "tagline": "Modeler ton bol, à ton rythme, les mains dans la terre.",
+    "description": "Une céramiste t'accueille dans son atelier pour découvrir la terre et ses gestes. Tu façonnes ta propre pièce, sans prérequis : on apprend en faisant.",
+    "experience": [
+      "Découvrir la terre et ses gestes avec une céramiste",
+      "Modeler ton propre bol",
+      "Récupérer ta pièce après cuisson et émaillage, environ trois semaines plus tard"
+    ],
+    "location": "Aubagne",
+    "meetingPoint": "Atelier Échappée, centre d'Aubagne",
+    "durationMinutes": 120,
+    "pricePerPersonCents": 4500,
+    "minAge": 8,
+    "weatherDependent": false,
+    "included": ["Terre et outils", "Tablier", "Cuisson et émaillage de ta pièce"],
+    "toBring": ["Des vêtements qui ne craignent rien"],
+    "image": {
+      "name": "a01-ceramique",
+      "alt": "Des mains modèlent un bol en argile sur un établi en bois."
+    }
+  },
+  {
+    "id": "a02",
+    "slug": "kayak-calanques",
+    "title": "Balade en kayak",
+    "category": "plein-air",
+    "categoryLabel": "Plein air",
+    "icon": "kayak",
+    "tagline": "Longer les calanques à la pagaie, entre pins et eau claire.",
+    "description": "Avec un guide, tu pagaies le long des falaises calcaires et tu t'arrêtes dans une crique pour te baigner. Rythme tranquille, ouvert aux débutants.",
+    "experience": [
+      "Pagayer avec un guide le long des calanques",
+      "T'arrêter dans une crique pour une baignade",
+      "Observer la côte depuis l'eau"
+    ],
+    "location": "Cassis",
+    "meetingPoint": "Port de Cassis, ponton de départ des kayaks",
+    "durationMinutes": 150,
+    "pricePerPersonCents": 3900,
+    "minAge": 10,
+    "weatherDependent": true,
+    "included": ["Kayak et pagaie", "Gilet de flottaison", "Bidon étanche"],
+    "toBring": ["Maillot de bain et serviette", "Crème solaire et casquette", "Savoir nager"],
+    "image": {
+      "name": "a02-kayak",
+      "alt": "Deux personnes en kayak au pied de falaises calcaires."
+    }
+  },
+  {
+    "id": "a03",
+    "slug": "escape-game-mas",
+    "title": "Escape game au mas",
+    "category": "jeu",
+    "categoryLabel": "Jeu",
+    "icon": "explore",
+    "tagline": "Une heure pour percer le secret d'un vieux mas provençal.",
+    "description": "Cartes anciennes, coffrets à secrets, lettres scellées : ton équipe fouille, déduit et s'entraide pour sortir avant la fin du temps.",
+    "experience": [
+      "Fouiller une pièce pleine d'indices",
+      "Résoudre les énigmes en équipe",
+      "Sortir avant la fin du temps"
+    ],
+    "location": "Aix-en-Provence",
+    "meetingPoint": "Mas Échappée, à 10 minutes du centre d'Aix",
+    "durationMinutes": 60,
+    "pricePerPersonCents": 2800,
+    "minAge": 12,
+    "weatherDependent": false,
+    "included": ["Accueil et accompagnement par un maître du jeu"],
+    "toBring": ["Rien de particulier"],
+    "image": {
+      "name": "a03-escape-game",
+      "alt": "Une table en bois avec une carte ancienne, un coffret à énigmes et une lanterne."
+    }
+  }
+]

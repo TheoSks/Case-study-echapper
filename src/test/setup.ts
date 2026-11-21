@@ -1,0 +1,9 @@
+// Configuration commune des tests (Vitest + jsdom).
+import { afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
+
+afterEach(() => {
+  cleanup();
+  sessionStorage.clear();
+  window.location.hash = "";
+});
