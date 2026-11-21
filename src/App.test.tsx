@@ -317,10 +317,20 @@ describe("Réserver à plusieurs : même créneau, paiement partagé", () => {
     expect(shared).toMatch(/#\/part\?activite=a02&creneau=a02-s1&ref=/);
   });
 
-  it("seul, le choix « Qui règle ? » n'apparaît pas", async () => {
+  it("seul : ni « Qui règle ? » au récapitulatif, ni partage avec un groupe à la confirmation", async () => {
     const user = userEvent.setup();
     await reachSummary(user, "1");
     expect(screen.queryByRole("heading", { name: "Qui règle ?" })).toBeNull();
+    await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
+    expect(screen.getByRole("heading", { name: "C'est réservé." })).toBeTruthy();
+    expect(screen.queryByRole("heading", { name: "Préviens ton groupe" })).toBeNull();
+  });
+
+  it("à plusieurs, la confirmation propose de prévenir le groupe", async () => {
+    const user = userEvent.setup();
+    await reachSummary(user, "2");
+    await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
+    expect(screen.getByRole("heading", { name: "Préviens ton groupe" })).toBeTruthy();
   });
 
   it("le participant règle sa part depuis le lien, sans toucher aux places", async () => {

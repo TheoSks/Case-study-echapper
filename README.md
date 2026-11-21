@@ -44,7 +44,7 @@ npm run preview    # sert le build : http://localhost:4173
 ## Tests
 
 ```bash
-npm test           # 85 tests (Vitest)
+npm test           # 86 tests (Vitest)
 npm run typecheck  # vérification des types TypeScript
 ```
 

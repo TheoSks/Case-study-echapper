@@ -1573,6 +1573,9 @@ legend {
   .confirmation-grid {
     grid-template-columns: 1.3fr 1fr;
   }
+  .confirmation-grid--solo {
+    grid-template-columns: minmax(0, 44rem);
+  }
 }
 
 .share-card {

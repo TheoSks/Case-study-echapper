@@ -127,7 +127,7 @@ flowchart LR
 | Site | Vite + React, application d'une page, URLs avec `#` | Next.js, rendu serveur, URLs par langue |
 | Contenu | `src/data/activities.json` | Storyblok |
 | Créneaux et places | `src/data/slots.json` + `sessionStorage` | Moteur de réservation (API), stock partagé B2B |
-| Règles métier | `src/domain`, testées (85 tests) | Même logique, appliquée **côté serveur** ; le site ne fait que guider |
+| Règles métier | `src/domain`, testées (86 tests) | Même logique, appliquée **côté serveur** ; le site ne fait que guider |
 | Décompte unique | `draftId` (confirmation idempotente) | Clé d'idempotence + transaction en base + blocage temporaire des places |
 | Paiement | Aucun (simulé) | Stripe |
 | Langues | Français, formats `Intl` centralisés | FR + EN, `next-intl`, traductions dans Storyblok |

@@ -47,7 +47,8 @@ export function ConfirmationPage({ reference }: { reference: string }) {
         )}
       </header>
 
-      <div className="confirmation-grid">
+      {/* Réservé seul : rien à partager avec un groupe. */}
+      <div className={`confirmation-grid${booking.participants === 1 ? " confirmation-grid--solo" : ""}`}>
         <section className="summary" aria-label="Récapitulatif de la réservation confirmée">
           <div className="summary-head">
             <ActivityImage activity={activity} sizes="80px" />
@@ -84,9 +85,9 @@ export function ConfirmationPage({ reference }: { reference: string }) {
 
         {booking.paymentMode === "split" ? (
           <SplitPayment booking={booking} activity={activity} slot={slot} />
-        ) : (
+        ) : booking.participants > 1 ? (
           <ShareWithGroup booking={booking} activity={activity} slot={slot} />
-        )}
+        ) : null}
       </div>
 
       <section className="section" aria-labelledby="ensuite">
