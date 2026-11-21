@@ -5,6 +5,7 @@ import { ActivityPage } from "./pages/ActivityPage";
 import { ConfirmationPage } from "./pages/ConfirmationPage";
 import { HomePage } from "./pages/HomePage";
 import { SummaryPage } from "./pages/SummaryPage";
+import { useReveal } from "./lib/reveal";
 import { href, useRoute, type Route } from "./router";
 
 export function App() {
@@ -19,6 +20,9 @@ export function App() {
     document.title =
       route.path === "/" || !title ? "Échappée · Activités en Provence" : `${title.textContent} · Échappée`;
   }, [route.path]);
+
+  // Apparition discrète des sections au défilement (relancée à chaque écran).
+  useReveal(route.path);
 
   return (
     <Layout pageDemoTools={/^\/(reservation|confirmation)\//.test(route.path)}>

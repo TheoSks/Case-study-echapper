@@ -1620,13 +1620,6 @@ legend {
   padding: var(--space-5);
   background: var(--color-surface);
   border-radius: var(--radius-lg);
-  animation: rise-in 320ms var(--ease-out) backwards;
-}
-.next-step:nth-child(2) {
-  animation-delay: 60ms;
-}
-.next-step:nth-child(3) {
-  animation-delay: 120ms;
 }
 .next-step h3 {
   font-size: 1.375rem;
@@ -1722,6 +1715,64 @@ legend {
   }
 }
 
+/* ——— Apparition au défilement (discrète) ——— */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ——— Survol (souris uniquement) : légère élévation des cartes, zoom lent des photos ——— */
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    transition:
+      transform 250ms var(--ease-out),
+      box-shadow 250ms ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgb(23 61 53 / 0.1);
+  }
+  .card > img,
+  .suggestion-card > img {
+    transition: transform 700ms var(--ease-out), opacity 200ms ease, filter 200ms ease;
+  }
+  .card:hover > img,
+  .suggestion-card:hover > img {
+    transform: scale(1.03);
+  }
+  .btn .icon:last-child {
+    transition: transform 200ms var(--ease-out);
+  }
+  .btn:hover .icon:last-child {
+    transform: translateX(3px);
+  }
+}
+.suggestion-card {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+  .card,
+  .card:hover,
+  .card:hover > img,
+  .suggestion-card:hover > img,
+  .btn:hover .icon:last-child {
+    transform: none;
+  }
+}
+
 /* ——— Outils de démo ——— */
 .demo-tools {
   border: 1px dashed var(--sauge);
@@ -1777,11 +1828,6 @@ legend {
   animation: rise-in 260ms var(--ease-out) backwards;
 }
 
-/* Cartes d'activités : apparition échelonnée (--i = position de la carte). */
-.cards > li {
-  animation: rise-in 320ms var(--ease-out) backwards;
-  animation-delay: calc(var(--i, 0) * 60ms + 80ms);
-}
 
 /* Les messages d'erreur apparaissent sans bouger. */
 .error {
@@ -1807,8 +1853,6 @@ legend {
 /* Animations réduites : on garde les fondus, on retire les déplacements. */
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
-  .cards > li,
-  .next-step,
   .success-title {
     animation-name: fade-in;
   }
