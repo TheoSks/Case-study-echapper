@@ -22,5 +22,10 @@ rive rive/intro --publish             # écrit le .riv dans build/
 cp rive/intro/build/intro.riv public/rive/intro.riv
 ```
 
-Le site lit `public/rive/intro.riv` (`src/components/IntroOverlay.tsx`). Sans ce fichier,
-l'écran d'ouverture ne s'affiche pas et le site reste intact.
+## Dans le site
+
+L'animation a été conçue ici, dans Rive. Le site la rejoue en **SVG + CSS** avec la même chronologie
+(`src/components/IntroOverlay.tsx`, styles « Animation d'ouverture » dans `src/styles/global.css`) :
+sur l'offre Rive gratuite, le `.riv` publié est précédé d'un écran de démarrage « Rive », ce qui n'est
+pas présentable comme ouverture de site. Avec une offre Rive payante, le `.riv` publié sans cet écran
+pourrait être lu directement par le lecteur `@rive-app/canvas`.

@@ -1773,7 +1773,7 @@ legend {
   }
 }
 
-/* ——— Animation d'ouverture (Rive) ——— */
+/* ——— Animation d'ouverture (SVG + CSS, chronologie de la scène Rive) ——— */
 .intro-overlay {
   position: fixed;
   inset: 0;
@@ -1791,9 +1791,68 @@ legend {
   transform: scale(1.02);
   pointer-events: none;
 }
-.intro-canvas {
-  width: min(90vw, 900px);
-  aspect-ratio: 900 / 400;
+/* Proportions du logo complet : 567,49 × 118, symbole en (0, 10), nom en x = 110 */
+.intro-logo {
+  position: relative;
+  width: min(78vw, 620px);
+  aspect-ratio: 567.49 / 118;
+}
+.intro-mark {
+  position: absolute;
+  left: 0;
+  top: calc(10 / 118 * 100%);
+  width: calc(88 / 567.49 * 100%);
+  overflow: visible;
+}
+.intro-word {
+  position: absolute;
+  left: calc(110 / 567.49 * 100%);
+  top: 0;
+  width: calc(457.49 / 567.49 * 100%);
+  height: 100%;
+  opacity: 0;
+  animation: intro-word 700ms var(--ease-out) 1000ms forwards;
+}
+.intro-foot,
+.intro-arch,
+.intro-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.intro-foot {
+  animation: intro-draw 220ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.intro-arch {
+  animation: intro-draw 800ms cubic-bezier(0.65, 0, 0.35, 1) 120ms forwards;
+}
+.intro-path {
+  animation: intro-draw 700ms cubic-bezier(0.65, 0, 0.35, 1) 500ms forwards;
+}
+.intro-sun {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  animation: intro-sun 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 800ms forwards;
+}
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes intro-sun {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes intro-word {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .intro-skip {
   position: absolute;
