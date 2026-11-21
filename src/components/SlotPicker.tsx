@@ -55,8 +55,9 @@ export function SlotPicker({
                   <strong>Complet</strong>
                 ) : (
                   <span className="muted">
-                    {plural(remaining, "place restante", "places restantes")}
-                    {short && ` · pas assez pour ${groupSize}`}
+                    {short
+                      ? `${plural(remaining, "place")} · pas assez pour ${groupSize}`
+                      : plural(remaining, "place restante", "places restantes")}
                   </span>
                 )}
               </span>

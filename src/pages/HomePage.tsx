@@ -180,23 +180,25 @@ function ActivityCard({
   const nextDay = nextAvailableDay(availability, [activity.id], size, date || undefined);
   const nextSlot = nextDay ? firstFittingSlot(availability, activity.id, nextDay, size) : undefined;
 
-  let status: { kind: "available" | "full" | "short"; icon: "check" | "alert"; text: string };
+  // Étiquette courte, sur une seule ligne ; l'information secondaire (prochaine date) passe en dessous.
+  const short = (day: string) => formatDay(day, { weekday: "short", day: "numeric", month: "short" });
+  let status: { kind: "available" | "full" | "short"; icon: "check" | "alert"; text: string; next?: string };
   let linkDate: string | undefined;
   if (full) {
-    status = { kind: "full", icon: "alert", text: "Complet sur toutes les dates proposées" };
+    status = { kind: "full", icon: "alert", text: "Complet sur toutes les dates" };
   } else if (date && daySlot) {
     linkDate = date;
-    status = { kind: "available", icon: "check", text: `Disponible le ${formatDay(date, { weekday: "short", day: "numeric", month: "long" })} à ${formatTime(daySlot.startsAt)}` };
+    status = { kind: "available", icon: "check", text: `Disponible · ${formatTime(daySlot.startsAt)}` };
   } else if (date) {
     const dayState = dayStatus(availability, [activity.id], date, size);
-    const why = dayState === "full" || dayState === "short" ? `Complet ce jour-là pour ${people}` : "Pas de créneau ce jour-là";
     status = {
       kind: "short",
       icon: "alert",
-      text: nextSlot ? `${why} · prochain : ${formatDay(dayKey(nextSlot.startsAt), { weekday: "short", day: "numeric", month: "long" })}` : why,
+      text: dayState === "full" || dayState === "short" ? "Complet ce jour-là" : "Pas de créneau ce jour-là",
+      next: nextSlot ? `Prochaine date : ${short(dayKey(nextSlot.startsAt))}` : undefined,
     };
   } else if (nextSlot) {
-    status = { kind: "available", icon: "check", text: `Prochain créneau : ${formatDay(dayKey(nextSlot.startsAt), { weekday: "short", day: "numeric", month: "long" })}, ${formatTime(nextSlot.startsAt)}` };
+    status = { kind: "available", icon: "check", text: `Prochain : ${short(dayKey(nextSlot.startsAt))} · ${formatTime(nextSlot.startsAt)}` };
   } else {
     status = { kind: "short", icon: "alert", text: `Aucun créneau pour ${people}` };
   }
@@ -227,9 +229,12 @@ function ActivityCard({
           </li>
         </ul>
         <p className="card-price">{formatPrice(activity.pricePerPersonCents)} / pers. TTC</p>
-        <p className={`status status--${status.kind}`}>
-          <Icon name={status.icon} /> {status.text}
-        </p>
+        <div className="card-status">
+          <p className={`status status--${status.kind}`}>
+            <Icon name={status.icon} /> <span>{status.text}</span>
+          </p>
+          {status.next && <p className="status-next">{status.next}</p>}
+        </div>
       </div>
     </article>
   );

@@ -48,6 +48,7 @@ const paths: Record<string, ReactElement> = {
     </>
   ),
   arrow: <path d="M4 12h16M14 6l6 6-6 6" />,
+  chevron: <path d="m6 9 6 6 6-6" />,
   search: (
     <>
       <circle cx="10.5" cy="10.5" r="6.5" />

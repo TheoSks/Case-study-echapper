@@ -156,7 +156,7 @@ describe("Calendrier, horaires et activités complètes", () => {
     const user = userEvent.setup();
     open("/activites/atelier-ceramique?participants=6&date=2027-04-24");
     const short = screen.getByRole("radio", { name: /14 h 30/ }) as HTMLInputElement;
-    expect(short.closest("label")?.textContent).toContain("2 places restantes · pas assez pour 6");
+    expect(short.closest("label")?.textContent).toContain("2 places · pas assez pour 6");
     expect(short.disabled).toBe(false);
     await user.click(short);
     expect(screen.getByText("Il reste 2 places sur ce créneau.")).toBeTruthy();
@@ -176,7 +176,7 @@ describe("Accueil : recherche par activité, date et participants", () => {
   it("sans date : les activités qui ont de la place pour le groupe, l'escape game complet", () => {
     open("/");
     expect(screen.getByText(/2 activités ont de la place pour 2 personnes/)).toBeTruthy();
-    expect(screen.getByText("Complet sur toutes les dates proposées")).toBeTruthy();
+    expect(screen.getByText("Complet sur toutes les dates")).toBeTruthy();
   });
 
   it("choisir une date dans le calendrier met à jour les cartes", async () => {
@@ -188,18 +188,20 @@ describe("Accueil : recherche par activité, date et participants", () => {
     await user.click(firstAvailable);
     expect(screen.queryByRole("dialog")).toBeNull();
     expect(window.location.hash).toMatch(/date=\d{4}-\d{2}-\d{2}/);
-    expect(screen.getAllByText(/^Disponible le /).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/^Disponible · \d+ h/).length).toBeGreaterThan(0);
   });
 
   it("une date où le groupe ne tient pas : explication et prochaine date", () => {
     open("/?date=2027-04-24&participants=4");
-    expect(screen.getByText(/Complet ce jour-là pour 4 personnes · prochain :/)).toBeTruthy();
+    expect(screen.getByText("Complet ce jour-là")).toBeTruthy();
+    expect(screen.getByText(/^Prochaine date : /)).toBeTruthy();
   });
 
   it("hors saison, le kayak indique qu'il n'y a pas de créneau ce jour-là", () => {
     open("/?activite=a02&date=2027-01-16&participants=2");
     expect(screen.getByRole("heading", { name: "Ta recherche" })).toBeTruthy();
-    expect(screen.getByText(/Pas de créneau ce jour-là · prochain : .* avril/)).toBeTruthy();
+    expect(screen.getByText("Pas de créneau ce jour-là")).toBeTruthy();
+    expect(screen.getByText(/^Prochaine date : .* avr\./)).toBeTruthy();
     expect(screen.getAllByRole("article")).toHaveLength(1);
   });
 
