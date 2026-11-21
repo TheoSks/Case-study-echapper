@@ -227,16 +227,18 @@ a {
   }
 }
 
-/* ——— Visuel d'ouverture : une grande image, le titre posé dessus ——— */
+/* ——— Visuel d'ouverture : grande image (ou vidéo), promesse centrée ——— */
 .hero-banner {
   position: relative;
   display: flex;
-  align-items: flex-end;
-  min-height: clamp(26rem, 62vh, 36rem);
+  align-items: center;
+  min-height: clamp(32rem, 80vh, 46rem);
   color: var(--craie);
   overflow: hidden;
+  text-align: center;
 }
-.hero-banner img {
+.hero-banner img,
+.hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -245,29 +247,70 @@ a {
   object-position: center 60%;
 }
 .hero-banner::after {
-  /* Voile Pin pour garantir la lisibilité du texte (contraste), sans effet brillant. */
+  /* Voile Pin : lisibilité du texte centré, sans effet brillant. */
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgb(23 61 53 / 0.88) 0%, rgb(23 61 53 / 0.55) 40%, rgb(23 61 53 / 0) 75%);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 48%, rgb(23 61 53 / 0.55), rgb(23 61 53 / 0) 75%),
+    linear-gradient(to top, rgb(23 61 53 / 0.75) 0%, rgb(23 61 53 / 0.15) 45%, rgb(23 61 53 / 0.25) 100%);
 }
 .hero-banner-text {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: var(--space-3);
-  padding-top: var(--space-8);
-  padding-bottom: calc(var(--space-8) + var(--space-5));
+  justify-items: center;
+  gap: var(--space-5);
+  padding-top: var(--space-7);
+  padding-bottom: calc(var(--space-8) + var(--space-6));
 }
-.hero-banner .eyebrow {
-  color: var(--soleil);
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
+  border: 1px solid rgb(247 243 232 / 0.35);
+  border-radius: 999px;
+  background: rgb(23 61 53 / 0.35);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hero-eyebrow img {
+  position: static;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 .hero-banner h1 {
-  max-width: 14ch;
+  font-size: clamp(2.75rem, 1.4rem + 6vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  max-width: 15ch;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgb(23 61 53 / 0.35);
+}
+.hero-accent {
+  display: block;
+  color: var(--soleil);
 }
 .hero-banner .lead {
-  font-size: var(--text-lg);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   max-width: 34rem;
+  text-wrap: balance;
+}
+.hero-banner-text > * {
+  animation: rise-in 520ms var(--ease-out) backwards;
+}
+.hero-banner-text > :nth-child(2) {
+  animation-delay: 80ms;
+}
+.hero-banner-text > :nth-child(3) {
+  animation-delay: 160ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner-text > * {
+    animation-name: fade-in;
+  }
 }
 
 /* ——— Barre de recherche ——— */

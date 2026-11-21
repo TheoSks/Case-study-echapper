@@ -1,6 +1,7 @@
 import { useEffect, type CSSProperties } from "react";
 import { track } from "../analytics/track";
 import { ActivityImage, ResponsiveImage } from "../components/ActivityImage";
+import { HeroMedia } from "../components/HeroMedia";
 import { Icon, type IconName } from "../components/Icon";
 import { MAX_GROUP, SearchBar, type Search } from "../components/SearchBar";
 import { catalog } from "../data/catalog";
@@ -59,16 +60,15 @@ export function HomePage({ route }: { route: Route }) {
   return (
     <>
       <section className="hero-banner" aria-labelledby="hero-title">
-        <ResponsiveImage
-          name="hero-provence"
-          alt="Une calanque au soleil, avec des pins au-dessus de l'eau claire."
-          sizes="100vw"
-          eager
-        />
+        <HeroMedia />
         <div className="container hero-banner-text">
-          <p className="eyebrow">Ateliers, balades et jeux en Provence</p>
+          <p className="hero-eyebrow">
+            <img src="./logos/echappee-mark-inverse.svg" alt="" width={20} height={20} />
+            Ateliers, balades et jeux en Provence
+          </p>
           <h1 id="hero-title" tabIndex={-1}>
-            Sortir du quotidien. Tout près.
+            Sortir du quotidien.
+            <span className="hero-accent"> Tout près.</span>
           </h1>
           <p className="lead">De la matière, de l'air et le plaisir de faire quelque chose ensemble, toute l'année.</p>
         </div>

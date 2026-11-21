@@ -1,0 +1,3 @@
+Déposer ici la vidéo du visuel d'ouverture (MP4 H.264, ~1920 px, 10–20 s, muette, < 6 Mo),
+puis renseigner son chemin dans src/components/HeroMedia.tsx (HERO_VIDEO).
+Vérifier la licence d'utilisation de la vidéo avant de la publier.
