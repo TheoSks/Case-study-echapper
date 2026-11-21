@@ -2,14 +2,22 @@ import { remainingFor } from "../domain/booking";
 import type { Availability, Slot } from "../domain/types";
 import { capitalize, formatDate, formatTime, plural } from "../lib/format";
 
-/** Liste des créneaux : un seul choix possible (radio). Un créneau complet reste visible, désactivé, avec le mot « Complet ». */
+/**
+ * Liste des créneaux : un seul choix possible (radio).
+ * - Complet : visible, désactivé, mot « Complet » (impossible à réserver quel que soit le groupe).
+ * - Pas assez de places pour le groupe saisi : grisé et expliqué, mais sélectionnable,
+ *   car le nombre de participants reste modifiable.
+ */
 export function SlotPicker({
   slots,
   availability,
   selectedId,
   onSelect,
   error,
+  groupSize = null,
 }: {
+  /** Nombre de participants saisi, s'il est valide. */
+  groupSize?: number | null;
   slots: Slot[];
   availability: Availability;
   selectedId: string | null;
@@ -23,8 +31,9 @@ export function SlotPicker({
         {slots.map((slot) => {
           const remaining = remainingFor(availability, slot.id);
           const full = remaining <= 0;
+          const short = !full && groupSize !== null && remaining < groupSize;
           return (
-            <label key={slot.id} className={`slot${full ? " slot--full" : ""}`}>
+            <label key={slot.id} className={`slot${full ? " slot--full" : short ? " slot--short" : ""}`}>
               <input
                 type="radio"
                 name="slot"
@@ -40,7 +49,10 @@ export function SlotPicker({
                 {full ? (
                   <strong>Complet</strong>
                 ) : (
-                  <span className="muted">{plural(remaining, "place restante", "places restantes")}</span>
+                  <span className="muted">
+                    {plural(remaining, "place restante", "places restantes")}
+                    {short && ` · pas assez pour ${groupSize}`}
+                  </span>
                 )}
               </span>
             </label>

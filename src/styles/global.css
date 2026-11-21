@@ -286,6 +286,14 @@ a {
 .card h3 a:focus-visible {
   outline: none;
 }
+/* Carte qui ne convient pas au groupe (ou complète) : l'image s'efface, le texte reste lisible. */
+.card img {
+  transition: opacity 200ms ease, filter 200ms ease;
+}
+.card--unavailable img {
+  opacity: 0.55;
+  filter: grayscale(0.7);
+}
 .card-price {
   font-weight: 600;
 }
@@ -495,6 +503,13 @@ legend {
   cursor: not-allowed;
   background: var(--craie);
   border-style: dashed;
+}
+/* Pas assez de places pour le groupe : atténué mais sélectionnable. */
+.slot--short {
+  background: var(--craie);
+}
+.slot--short .slot-date {
+  color: var(--sauge);
 }
 .slot--full .slot-date {
   text-decoration: line-through;

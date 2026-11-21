@@ -13,7 +13,7 @@
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (62 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (63 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|
@@ -33,6 +33,7 @@ Tests : `npm test` (62 tests). Fichiers : `src/domain/booking.test.ts` (domaine)
 | 0, -2, 2,5, « abc » participants | Message en ligne, pas de passage au récapitulatif, rien d'enregistré |
 | 8 participants sur un créneau à 7 places | « Il reste 7 places sur ce créneau. » |
 | Clic sur un créneau complet | Impossible (désactivé, libellé « Complet ») |
+| 6 participants sur l'atelier céramique | Le créneau à 2 places est grisé, « 2 places restantes · pas assez pour 6 », mais reste sélectionnable (le nombre se modifie) ; sur l'accueil, les cartes qui ne conviennent pas sont atténuées |
 | Ouvrir l'escape game | Fiche consultable, indisponibilité expliquée, alternatives |
 | Double clic sur « Confirmer » | Une seule réservation, places décomptées une fois |
 | Retour arrière ou URL du récapitulatif après confirmation | « Cette réservation est déjà confirmée », aucun nouveau décompte |

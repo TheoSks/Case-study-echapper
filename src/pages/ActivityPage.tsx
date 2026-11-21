@@ -152,6 +152,7 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
             selectedId={slotId}
             onSelect={selectSlot}
             error={slotError}
+            groupSize={parsedParticipants.ok ? parsedParticipants.value : null}
           />
 
           {!full && (

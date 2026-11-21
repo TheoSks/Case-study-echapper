@@ -128,6 +128,18 @@ describe("Créneaux et activités complets", () => {
     expect(full.closest("label")?.textContent).toContain("Complet");
   });
 
+  it("un créneau sans assez de places pour le groupe est signalé mais reste sélectionnable", async () => {
+    const user = userEvent.setup();
+    open("/activites/atelier-ceramique?participants=6");
+    const short = screen.getByRole("radio", { name: /24 avril/ }) as HTMLInputElement;
+    expect(short.closest("label")?.textContent).toContain("2 places restantes · pas assez pour 6");
+    expect(short.disabled).toBe(false);
+    await user.click(short);
+    expect(screen.getByText("Il reste 2 places sur ce créneau.")).toBeTruthy();
+    const ok = screen.getByRole("radio", { name: /17 avril/ });
+    expect(ok.closest("label")?.textContent).not.toContain("pas assez");
+  });
+
   it("une activité complète reste consultable, explique l'indisponibilité et propose d'autres activités", () => {
     open("/activites/escape-game-mas");
     expect(screen.getByRole("heading", { name: "Escape game au mas" })).toBeTruthy();

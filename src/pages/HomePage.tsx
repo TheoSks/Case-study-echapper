@@ -112,7 +112,7 @@ function ActivityCard({
   }
 
   return (
-    <article className="card">
+    <article className={`card${status.kind === "available" ? "" : " card--unavailable"}`}>
       <ActivityImage activity={activity} sizes="(min-width: 60rem) 33vw, (min-width: 40rem) 50vw, 100vw" />
       <div className="card-body">
         <span className="category">
