@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { IntroOverlay } from "./components/IntroOverlay";
 import { Layout } from "./components/Layout";
 import { findActivityBySlug } from "./data/catalog";
 import { ActivityPage } from "./pages/ActivityPage";
@@ -25,11 +26,14 @@ export function App() {
   useReveal(route.path);
 
   return (
+    <>
+    <IntroOverlay />
     <Layout pageDemoTools={/^\/(reservation|confirmation)\//.test(route.path)}>
       <div key={route.path} className="page-enter">
         {renderPage(route)}
       </div>
     </Layout>
+    </>
   );
 }
 

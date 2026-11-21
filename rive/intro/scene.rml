@@ -1,0 +1,529 @@
+<Rive version="1" kind="fragment">
+    <!-- Animation d'ouverture d'Échappée : l'arche se dessine, le soleil apparaît, le nom arrive. -->
+    <Artboard defaultStateMachineId="0:7" styleId="0:5" width="900" height="400" name="Ouverture" id="0:2">
+        <LayoutComponentStyle name="Artboard Style" id="0:5"/>
+
+        <Fill name="Background">
+            <SolidColor colorValue="FFF7F3E8" name="Craie"/>
+        </Fill>
+
+        <Node x="109.5" y="129.2" scaleX="1.2" scaleY="1.2" name="Logo" id="0:20">
+        <Node x="110" y="0" opacity="0" name="Wordmark" id="0:31">
+            <Shape x="426.475" y="60.8973" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicAsymmetricVertex x="23.6674" y="-5.88153" rotation="1.5708" inDistance="3.9562" outDistance="1.40797"/>
+                    <CubicMirroredVertex x="22.4531" y="-2.62821" rotation="2.38717" distance="1.11103"/>
+                    <CubicDetachedVertex x="18.9236" y="-1.48684" inRotation="0" inDistance="1.54346"/>
+                    <StraightVertex x="-14.7706" y="-1.48684"/>
+                    <StraightVertex x="-14.7706" y="-4.62131"/>
+                    <CubicDetachedVertex x="7.82831" y="-4.62131" outRotation="0" outDistance="1.46854"/>
+                    <CubicAsymmetricVertex x="10.0311" y="-6.71571" rotation="-1.5708" inDistance="1.39627" outDistance="5.13351"/>
+                    <CubicMirroredVertex x="7.30954" y="-18.3815" rotation="-2.17229" distance="3.20642"/>
+                    <CubicAsymmetricVertex x="0.3125" y="-22.347" rotation="3.14159" inDistance="2.85028" outDistance="2.30035"/>
+                    <CubicMirroredVertex x="-5.73874" y="-20.2441" rotation="2.46165" distance="2.22966"/>
+                    <CubicMirroredVertex x="-9.8002" y="-14.0843" rotation="1.91641" distance="2.87466"/>
+                    <CubicAsymmetricVertex x="-11.261" y="-4.17765" rotation="1.5708" inDistance="3.89973" outDistance="7.16232"/>
+                    <CubicMirroredVertex x="-6.38739" y="12.0173" rotation="0.841306" distance="4.87487"/>
+                    <CubicAsymmetricVertex x="6.40918" y="17.4687" rotation="0" inDistance="5.28201" outDistance="3.4613"/>
+                    <CubicMirroredVertex x="15.369" y="14.991" rotation="-0.581681" distance="3.00636"/>
+                    <CubicDetachedVertex x="20.5562" y="8.34288" inRotation="1.89882" inDistance="2.93691" outRotation="-0.897552" outDistance="0.621045"/>
+                    <CubicMirroredVertex x="21.5408" y="7.34032" rotation="-0.596651" distance="0.325421"/>
+                    <CubicDetachedVertex x="22.3626" y="7.07251" inRotation="-3.12615" inDistance="0.278689" outRotation="0.0055713" outDistance="0.386175"/>
+                    <CubicMirroredVertex x="23.2548" y="7.56572" rotation="1.00244" distance="0.387587"/>
+                    <CubicDetachedVertex x="23.5433" y="8.88848" inRotation="-1.54151" inDistance="0.555422" outRotation="1.62783" outDistance="3.19936"/>
+                    <CubicMirroredVertex x="20.3755" y="17.648" rotation="2.20094" distance="3.27439"/>
+                    <CubicMirroredVertex x="12.5979" y="23.9753" rotation="2.69158" distance="3.61555"/>
+                    <CubicAsymmetricVertex x="1.43436" y="26.3344" rotation="3.14159" inDistance="4.1868" outDistance="4.96689"/>
+                    <CubicMirroredVertex x="-11.6735" y="23.174" rotation="-2.63216" distance="4.32029"/>
+                    <CubicMirroredVertex x="-20.4993" y="14.2931" rotation="-2.07658" distance="4.35945"/>
+                    <CubicAsymmetricVertex x="-23.6674" y="0.941151" rotation="-1.5708" inDistance="5.08769" outDistance="5.31496"/>
+                    <CubicMirroredVertex x="-20.5506" y="-13.1775" rotation="-1.10147" distance="4.59422"/>
+                    <CubicMirroredVertex x="-11.6535" y="-22.829" rotation="-0.54513" distance="4.50676"/>
+                    <CubicAsymmetricVertex x="2.06552" y="-26.3344" rotation="0" inDistance="5.29251" outDistance="4.43863"/>
+                    <CubicMirroredVertex x="13.5673" y="-23.6903" rotation="0.499658" distance="3.67899"/>
+                    <CubicMirroredVertex x="21.0393" y="-16.4311" rotation="1.05314" distance="3.54071"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="373.675" y="48.9935" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicAsymmetricVertex x="23.6675" y="6.02226" rotation="1.5708" inDistance="3.9562" outDistance="1.40797"/>
+                    <CubicMirroredVertex x="22.4531" y="9.27559" rotation="2.38715" distance="1.11101"/>
+                    <CubicDetachedVertex x="18.9236" y="10.417" inRotation="0" inDistance="1.54346"/>
+                    <StraightVertex x="-14.7706" y="10.417"/>
+                    <StraightVertex x="-14.7706" y="7.28249"/>
+                    <CubicDetachedVertex x="7.82834" y="7.28249" outRotation="0" outDistance="1.46854"/>
+                    <CubicAsymmetricVertex x="10.0312" y="5.18809" rotation="-1.5708" inDistance="1.39627" outDistance="5.13351"/>
+                    <CubicMirroredVertex x="7.30954" y="-6.47768" rotation="-2.17228" distance="3.2064"/>
+                    <CubicAsymmetricVertex x="0.312531" y="-10.4432" rotation="3.14159" inDistance="2.85028" outDistance="2.30035"/>
+                    <CubicMirroredVertex x="-5.73871" y="-8.34033" rotation="2.46165" distance="2.22966"/>
+                    <CubicMirroredVertex x="-9.80017" y="-2.18046" rotation="1.91641" distance="2.87466"/>
+                    <CubicAsymmetricVertex x="-11.2609" y="7.72615" rotation="1.5708" inDistance="3.89973" outDistance="7.16232"/>
+                    <CubicMirroredVertex x="-6.38739" y="23.9211" rotation="0.841306" distance="4.87487"/>
+                    <CubicAsymmetricVertex x="6.40918" y="29.3725" rotation="0" inDistance="5.28201" outDistance="3.46133"/>
+                    <CubicMirroredVertex x="15.369" y="26.8948" rotation="-0.581681" distance="3.00636"/>
+                    <CubicDetachedVertex x="20.5562" y="20.2467" inRotation="1.89882" inDistance="2.93691" outRotation="-0.89759" outDistance="0.621026"/>
+                    <CubicMirroredVertex x="21.5408" y="19.2441" rotation="-0.596651" distance="0.325421"/>
+                    <CubicDetachedVertex x="22.3626" y="18.9763" inRotation="-3.12615" inDistance="0.278689" outRotation="0.0055713" outDistance="0.386175"/>
+                    <CubicMirroredVertex x="23.2548" y="19.4695" rotation="1.00237" distance="0.387603"/>
+                    <CubicDetachedVertex x="23.5433" y="20.7923" inRotation="-1.54151" inDistance="0.555422" outRotation="1.62784" outDistance="3.19936"/>
+                    <CubicMirroredVertex x="20.3755" y="29.5518" rotation="2.20094" distance="3.27439"/>
+                    <CubicMirroredVertex x="12.598" y="35.8791" rotation="2.69158" distance="3.61557"/>
+                    <CubicAsymmetricVertex x="1.43439" y="38.2382" rotation="3.14159" inDistance="4.18677" outDistance="4.96689"/>
+                    <CubicMirroredVertex x="-11.6735" y="35.0778" rotation="-2.63216" distance="4.32029"/>
+                    <CubicMirroredVertex x="-20.4993" y="26.1969" rotation="-2.07658" distance="4.35945"/>
+                    <CubicAsymmetricVertex x="-23.6674" y="12.8449" rotation="-1.5708" inDistance="5.08769" outDistance="5.31496"/>
+                    <CubicMirroredVertex x="-20.5506" y="-1.2737" rotation="-1.10147" distance="4.59422"/>
+                    <CubicMirroredVertex x="-11.6535" y="-10.9252" rotation="-0.54513" distance="4.50676"/>
+                    <CubicAsymmetricVertex x="2.06552" y="-14.4306" rotation="0" inDistance="5.29248" outDistance="4.43863"/>
+                    <CubicMirroredVertex x="13.5673" y="-11.7865" rotation="0.499658" distance="3.67899"/>
+                    <CubicMirroredVertex x="21.0393" y="-4.52726" rotation="1.05313" distance="3.54073"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="4.49252" y="-31.6094" outRotation="-1.14629" outDistance="2.38706"/>
+                    <CubicMirroredVertex x="7.75833" y="-36.6788" rotation="-0.7897" distance="1.69597"/>
+                    <CubicDetachedVertex x="12.1941" y="-38.199" inRotation="-3.03375" inDistance="1.77346" outRotation="0.0862159" outDistance="1.66748"/>
+                    <CubicMirroredVertex x="15.9061" y="-36.2857" rotation="0.947697" distance="1.3939"/>
+                    <CubicDetachedVertex x="16.9233" y="-32.7105" inRotation="-1.46312" inDistance="1.25883" outRotation="1.6591" outDistance="1.5167"/>
+                    <CubicMirroredVertex x="15.2456" y="-28.7905" rotation="2.29981" distance="1.47824"/>
+                    <CubicDetachedVertex x="11.2735" y="-25.5938" inRotation="-0.553863" inDistance="1.95567"/>
+                    <CubicDetachedVertex x="1.50018" y="-18.5245" outRotation="2.68305" outDistance="0.415784"/>
+                    <CubicMirroredVertex x="0.309875" y="-18.2386" rotation="3.12614" distance="0.420766"/>
+                    <CubicDetachedVertex x="-0.721436" y="-18.6119" inRotation="0.763434" inDistance="0.369312" outRotation="-2.36112" outDistance="0.432178"/>
+                    <CubicMirroredVertex x="-1.07236" y="-19.6151" rotation="-1.37278" distance="0.372002"/>
+                    <CubicDetachedVertex x="-0.652985" y="-20.7496" inRotation="2.05585" inDistance="0.442656"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="315.655" y="73.1254" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="-9.37817" y="-36.0335" inRotation="-1.5708" inDistance="0.719738"/>
+                    <StraightVertex x="-9.37817" y="-29.4082"/>
+                    <StraightVertex x="-9.00751" y="-28.4347"/>
+                    <CubicDetachedVertex x="-9.00751" y="31.5294" outRotation="1.5708" outDistance="0.935188"/>
+                    <CubicMirroredVertex x="-8.57031" y="33.6191" rotation="1.00406" distance="0.54284"/>
+                    <CubicDetachedVertex x="-7.22308" y="34.5485" inRotation="-2.88129" inDistance="0.627872"/>
+                    <CubicDetachedVertex x="-4.02621" y="35.0903" outRotation="0.324709" outDistance="0.558706"/>
+                    <CubicMirroredVertex x="-2.85931" y="35.7962" rotation="0.866458" distance="0.383632"/>
+                    <CubicAsymmetricVertex x="-2.48669" y="36.8806" rotation="1.5708" inDistance="0.430611" outDistance="0.517143"/>
+                    <CubicMirroredVertex x="-3.01666" y="38.1094" rotation="2.43432" distance="0.464826"/>
+                    <CubicDetachedVertex x="-4.61316" y="38.5624" inRotation="0" inDistance="0.710999"/>
+                    <CubicDetachedVertex x="-26.0831" y="38.5624" outRotation="3.14159" outDistance="0.680206"/>
+                    <CubicMirroredVertex x="-27.6367" y="38.1108" rotation="-2.43889" distance="0.465863"/>
+                    <CubicAsymmetricVertex x="-28.17" y="36.8806" rotation="-1.5708" inDistance="0.519028" outDistance="0.417412"/>
+                    <CubicMirroredVertex x="-27.7841" y="35.8126" rotation="-0.853058" distance="0.391073"/>
+                    <CubicDetachedVertex x="-26.5961" y="35.0824" inRotation="2.79654" inDistance="0.568318"/>
+                    <CubicDetachedVertex x="-24.3382" y="34.559" outRotation="-0.285396" outDistance="0.640756"/>
+                    <CubicMirroredVertex x="-22.9848" y="33.6156" rotation="-1.00101" distance="0.532733"/>
+                    <CubicDetachedVertex x="-22.5537" y="31.5584" inRotation="1.5708" inDistance="0.922867"/>
+                    <CubicDetachedVertex x="-22.5537" y="-28.0087" outRotation="-1.5708" outDistance="0.721596"/>
+                    <CubicMirroredVertex x="-22.9004" y="-29.5701" rotation="-2.19724" distance="0.394207"/>
+                    <CubicDetachedVertex x="-24.0145" y="-30.177" inRotation="0.165108" inDistance="0.518619"/>
+                    <CubicDetachedVertex x="-27.2498" y="-30.3101" outRotation="-2.8999" outDistance="0.503307"/>
+                    <CubicMirroredVertex x="-28.3218" y="-30.87" rotation="-2.30017" distance="0.339064"/>
+                    <CubicAsymmetricVertex x="-28.6607" y="-31.8309" rotation="-1.5708" inDistance="0.387806" outDistance="0.45068"/>
+                    <CubicMirroredVertex x="-28.2415" y="-32.9135" rotation="-0.770148" distance="0.38931"/>
+                    <CubicDetachedVertex x="-26.8034" y="-33.7209" inRotation="2.7668" inDistance="0.729897"/>
+                    <CubicDetachedVertex x="-15.6568" y="-37.4458" outRotation="-0.369524" outDistance="1.00877"/>
+                    <CubicMirroredVertex x="-13.3678" y="-38.2143" rotation="-0.247663" distance="0.60378"/>
+                    <CubicAsymmetricVertex x="-11.7633" y="-38.4363" rotation="0" inDistance="0.484283" outDistance="0.792358"/>
+                    <CubicMirroredVertex x="-9.97647" y="-37.7747" rotation="0.835592" distance="0.594665"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="-11.2641" y="-23.8628" inRotation="-1.00139" inDistance="3.55389"/>
+                    <CubicDetachedVertex x="-12.939" y="-26.182" outRotation="-0.97215" outDistance="4.79573"/>
+                    <CubicMirroredVertex x="-3.8689" y="-35.3435" rotation="-0.570504" distance="3.9735"/>
+                    <CubicAsymmetricVertex x="7.29358" y="-38.5624" rotation="0" inDistance="4.09744" outDistance="4.13043"/>
+                    <CubicMirroredVertex x="18.3142" y="-35.4247" rotation="0.576588" distance="3.83698"/>
+                    <CubicMirroredVertex x="25.8999" y="-26.664" rotation="1.11439" distance="4.17613"/>
+                    <CubicAsymmetricVertex x="28.6607" y="-13.5522" rotation="1.5708" inDistance="4.9925" outDistance="5.68756"/>
+                    <CubicMirroredVertex x="25.4032" y="1.19973" rotation="2.05319" distance="4.68127"/>
+                    <CubicMirroredVertex x="16.5822" y="10.7811" rotation="2.59819" distance="4.33316"/>
+                    <CubicAsymmetricVertex x="4.11188" y="14.1418" rotation="3.14159" inDistance="4.60455" outDistance="4.04428"/>
+                    <CubicMirroredVertex x="-6.4184" y="11.4265" rotation="-2.5951" distance="3.48317"/>
+                    <CubicDetachedVertex x="-13.7354" y="3.44439" inRotation="1.07433" inDistance="3.99337"/>
+                    <CubicDetachedVertex x="-11.1498" y="0.896309" outRotation="1.07377" outDistance="3.20622"/>
+                    <CubicMirroredVertex x="-5.68066" y="7.24365" rotation="0.588575" distance="2.54566"/>
+                    <CubicAsymmetricVertex x="1.24377" y="9.36359" rotation="0" inDistance="2.49899" outDistance="2.55737"/>
+                    <CubicMirroredVertex x="8.11111" y="7.13973" rotation="-0.632942" distance="2.50638"/>
+                    <CubicMirroredVertex x="12.888" y="0.18589" rotation="-1.21727" distance="3.36119"/>
+                    <CubicAsymmetricVertex x="14.6335" y="-11.9947" rotation="-1.5708" inDistance="4.96708" outDistance="4.7346"/>
+                    <CubicMirroredVertex x="12.9783" y="-23.6732" rotation="-1.91782" distance="3.24446"/>
+                    <CubicMirroredVertex x="8.45294" y="-30.4871" rotation="-2.47946" distance="2.42609"/>
+                    <CubicAsymmetricVertex x="1.90366" y="-32.7244" rotation="3.14159" inDistance="2.45279" outDistance="2.3848"/>
+                    <CubicMirroredVertex x="-5.03183" y="-30.5385" rotation="2.56458" distance="2.67136"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="253.45" y="73.1254" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="-9.37814" y="-36.0335" inRotation="-1.5708" inDistance="0.719738"/>
+                    <StraightVertex x="-9.37814" y="-29.4082"/>
+                    <StraightVertex x="-9.00749" y="-28.4347"/>
+                    <CubicDetachedVertex x="-9.00749" y="31.5294" outRotation="1.5708" outDistance="0.935188"/>
+                    <CubicMirroredVertex x="-8.57031" y="33.6191" rotation="1.00403" distance="0.542848"/>
+                    <CubicDetachedVertex x="-7.22305" y="34.5485" inRotation="-2.88129" inDistance="0.627872"/>
+                    <CubicDetachedVertex x="-4.0262" y="35.0903" outRotation="0.324709" outDistance="0.558706"/>
+                    <CubicMirroredVertex x="-2.8593" y="35.7962" rotation="0.866458" distance="0.383632"/>
+                    <CubicAsymmetricVertex x="-2.48668" y="36.8806" rotation="1.5708" inDistance="0.430611" outDistance="0.517143"/>
+                    <CubicMirroredVertex x="-3.01666" y="38.1094" rotation="2.4343" distance="0.464814"/>
+                    <CubicDetachedVertex x="-4.61314" y="38.5624" inRotation="0" inDistance="0.711014"/>
+                    <CubicDetachedVertex x="-26.0831" y="38.5624" outRotation="3.14159" outDistance="0.680206"/>
+                    <CubicMirroredVertex x="-27.6367" y="38.1108" rotation="-2.43891" distance="0.465874"/>
+                    <CubicAsymmetricVertex x="-28.17" y="36.8806" rotation="-1.5708" inDistance="0.519028" outDistance="0.417412"/>
+                    <CubicMirroredVertex x="-27.7841" y="35.8126" rotation="-0.853029" distance="0.391084"/>
+                    <CubicDetachedVertex x="-26.5961" y="35.0824" inRotation="2.79652" inDistance="0.568289"/>
+                    <CubicDetachedVertex x="-24.3382" y="34.559" outRotation="-0.28539" outDistance="0.640771"/>
+                    <CubicMirroredVertex x="-22.9848" y="33.6156" rotation="-1.00101" distance="0.532733"/>
+                    <CubicDetachedVertex x="-22.5537" y="31.5584" inRotation="1.5708" inDistance="0.922867"/>
+                    <CubicDetachedVertex x="-22.5537" y="-28.0087" outRotation="-1.5708" outDistance="0.721596"/>
+                    <CubicMirroredVertex x="-22.9004" y="-29.5701" rotation="-2.19727" distance="0.394216"/>
+                    <CubicDetachedVertex x="-24.0144" y="-30.177" inRotation="0.165108" inDistance="0.518619"/>
+                    <CubicDetachedVertex x="-27.2498" y="-30.3101" outRotation="-2.89991" outDistance="0.503322"/>
+                    <CubicMirroredVertex x="-28.3218" y="-30.87" rotation="-2.30017" distance="0.339064"/>
+                    <CubicAsymmetricVertex x="-28.6607" y="-31.8309" rotation="-1.5708" inDistance="0.387806" outDistance="0.45068"/>
+                    <CubicMirroredVertex x="-28.2415" y="-32.9135" rotation="-0.77012" distance="0.38932"/>
+                    <CubicDetachedVertex x="-26.8034" y="-33.7209" inRotation="2.76681" inDistance="0.729911"/>
+                    <CubicDetachedVertex x="-15.6568" y="-37.4458" outRotation="-0.369519" outDistance="1.00878"/>
+                    <CubicMirroredVertex x="-13.3678" y="-38.2143" rotation="-0.24767" distance="0.603765"/>
+                    <CubicAsymmetricVertex x="-11.7633" y="-38.4363" rotation="0" inDistance="0.484299" outDistance="0.792343"/>
+                    <CubicMirroredVertex x="-9.97646" y="-37.7747" rotation="0.835573" distance="0.594675"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="-11.2641" y="-23.8628" inRotation="-1.00139" inDistance="3.55389"/>
+                    <CubicDetachedVertex x="-12.939" y="-26.182" outRotation="-0.972147" outDistance="4.79574"/>
+                    <CubicMirroredVertex x="-3.86888" y="-35.3435" rotation="-0.570502" distance="3.97351"/>
+                    <CubicAsymmetricVertex x="7.29358" y="-38.5624" rotation="0" inDistance="4.09741" outDistance="4.13046"/>
+                    <CubicMirroredVertex x="18.3142" y="-35.4247" rotation="0.576588" distance="3.83698"/>
+                    <CubicMirroredVertex x="25.8999" y="-26.664" rotation="1.1144" distance="4.17611"/>
+                    <CubicAsymmetricVertex x="28.6607" y="-13.5522" rotation="1.5708" inDistance="4.9925" outDistance="5.68756"/>
+                    <CubicMirroredVertex x="25.4032" y="1.19973" rotation="2.05319" distance="4.68127"/>
+                    <CubicMirroredVertex x="16.5822" y="10.7811" rotation="2.59819" distance="4.33319"/>
+                    <CubicAsymmetricVertex x="4.11191" y="14.1418" rotation="3.14159" inDistance="4.60452" outDistance="4.04431"/>
+                    <CubicMirroredVertex x="-6.41838" y="11.4265" rotation="-2.59511" distance="3.48318"/>
+                    <CubicDetachedVertex x="-13.7354" y="3.44439" inRotation="1.07433" inDistance="3.99336"/>
+                    <CubicDetachedVertex x="-11.1498" y="0.896309" outRotation="1.07376" outDistance="3.20623"/>
+                    <CubicMirroredVertex x="-5.68065" y="7.24365" rotation="0.588575" distance="2.54566"/>
+                    <CubicAsymmetricVertex x="1.24379" y="9.36359" rotation="0" inDistance="2.49898" outDistance="2.55736"/>
+                    <CubicMirroredVertex x="8.11115" y="7.13973" rotation="-0.632949" distance="2.50636"/>
+                    <CubicMirroredVertex x="12.888" y="0.18589" rotation="-1.21726" distance="3.3612"/>
+                    <CubicAsymmetricVertex x="14.6335" y="-11.9947" rotation="-1.5708" inDistance="4.96708" outDistance="4.7346"/>
+                    <CubicMirroredVertex x="12.9783" y="-23.6732" rotation="-1.91783" distance="3.24447"/>
+                    <CubicMirroredVertex x="8.45297" y="-30.4871" rotation="-2.47946" distance="2.42609"/>
+                    <CubicAsymmetricVertex x="1.90367" y="-32.7244" rotation="3.14159" inDistance="2.45277" outDistance="2.38478"/>
+                    <CubicMirroredVertex x="-5.0318" y="-30.5385" rotation="2.56458" distance="2.67136"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="196.431" y="60.8976" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="5.6172" y="18.8096" inRotation="1.5708" inDistance="2.29081"/>
+                    <StraightVertex x="5.6172" y="17.8115"/>
+                    <StraightVertex x="4.76379" y="17.7439"/>
+                    <CubicDetachedVertex x="4.76379" y="-14.8044" outRotation="-1.5708" outDistance="2.70266"/>
+                    <CubicMirroredVertex x="2.83644" y="-21.0418" rotation="-2.29399" distance="1.94157"/>
+                    <CubicAsymmetricVertex x="-2.62811" y="-23.2252" rotation="3.14159" inDistance="2.35814" outDistance="2.31778"/>
+                    <CubicMirroredVertex x="-7.9007" y="-21.6659" rotation="2.4266" distance="1.5856"/>
+                    <CubicDetachedVertex x="-9.69661" y="-17.9968" inRotation="-1.5708" inDistance="1.40652"/>
+                    <CubicDetachedVertex x="-9.69661" y="-13.7616" outRotation="1.5708" outDistance="1.97108"/>
+                    <CubicMirroredVertex x="-11.6606" y="-9.0792" rotation="2.42067" distance="1.74301"/>
+                    <CubicAsymmetricVertex x="-17.0171" y="-7.35342" rotation="3.14159" inDistance="2.26166" outDistance="1.86754"/>
+                    <CubicMirroredVertex x="-21.3513" y="-8.80983" rotation="-2.38178" distance="1.40963"/>
+                    <CubicAsymmetricVertex x="-22.8842" y="-12.8947" rotation="-1.5708" inDistance="1.7523" outDistance="2.1626"/>
+                    <CubicMirroredVertex x="-20.2965" y="-19.2189" rotation="-0.872095" distance="2.68203"/>
+                    <CubicMirroredVertex x="-12.6644" y="-24.2995" rotation="-0.377508" distance="3.61765"/>
+                    <CubicAsymmetricVertex x="-0.269302" y="-26.2998" rotation="0" inDistance="4.9005" outDistance="6.22728"/>
+                    <CubicMirroredVertex x="13.6618" y="-22.3636" rotation="0.708844" distance="4.03115"/>
+                    <CubicDetachedVertex x="18.2519" y="-11.5624" inRotation="-1.5708" inDistance="4.57667"/>
+                    <CubicDetachedVertex x="18.2519" y="16.742" outRotation="1.5708" outDistance="1.10339"/>
+                    <CubicMirroredVertex x="18.8952" y="19.2111" rotation="0.902078" distance="0.691638"/>
+                    <CubicAsymmetricVertex x="20.6574" y="20.0251" rotation="0" inDistance="0.746002" outDistance="0.698624"/>
+                    <CubicMirroredVertex x="22.343" y="19.4971" rotation="-0.691595" distance="0.551946"/>
+                    <CubicDetachedVertex x="23.3054" y="18.144" inRotation="1.94571" inDistance="0.591108" outRotation="-0.946913" outDistance="0.233352"/>
+                    <CubicMirroredVertex x="23.7435" y="17.6778" rotation="-0.661907" distance="0.197481"/>
+                    <CubicAsymmetricVertex x="24.3003" y="17.4957" rotation="0" inDistance="0.215424" outDistance="0.347305"/>
+                    <CubicMirroredVertex x="25.0833" y="17.8712" rotation="0.961497" distance="0.30526"/>
+                    <CubicAsymmetricVertex x="25.3454" y="18.882" rotation="1.5708" inDistance="0.423523" outDistance="1.0164"/>
+                    <CubicMirroredVertex x="24.225" y="22.1262" rotation="2.14825" distance="1.36827"/>
+                    <CubicMirroredVertex x="20.8493" y="25.0682" rotation="2.64491" distance="1.71013"/>
+                    <CubicAsymmetricVertex x="15.1634" y="26.2905" rotation="3.14159" inDistance="2.28714" outDistance="3.00815"/>
+                    <CubicMirroredVertex x="8.13417" y="24.2682" rotation="-2.46473" distance="2.15252"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <CubicAsymmetricVertex x="-25.3454" y="13.9398" rotation="-1.5708" inDistance="3.69021" outDistance="4.31465"/>
+                    <CubicMirroredVertex x="-19.7298" y="3.48253" rotation="-0.617196" distance="4.59063"/>
+                    <CubicAsymmetricVertex x="-3.5477" y="-0.502724" rotation="0" inDistance="7.04442" outDistance="2.29988"/>
+                    <CubicMirroredVertex x="2.56555" y="0.109207" rotation="0.225834" distance="1.82188"/>
+                    <CubicDetachedVertex x="7.27632" y="1.69138" inRotation="-2.69904" inDistance="1.51039"/>
+                    <CubicDetachedVertex x="6.38789" y="4.27204" outRotation="-2.72013" outDistance="1.41818"/>
+                    <CubicMirroredVertex x="2.42056" y="2.89267" rotation="-2.89542" distance="1.3928"/>
+                    <CubicAsymmetricVertex x="-2.03757" y="2.38354" rotation="3.14159" inDistance="1.62126" outDistance="3.01152"/>
+                    <CubicMirroredVertex x="-9.08186" y="4.85544" rotation="2.36722" distance="2.35665"/>
+                    <CubicAsymmetricVertex x="-11.6089" y="11.713" rotation="1.5708" inDistance="2.92376" outDistance="2.86591"/>
+                    <CubicMirroredVertex x="-9.38402" y="18.2846" rotation="0.796062" distance="2.12033"/>
+                    <CubicAsymmetricVertex x="-3.63577" y="20.5575" rotation="0" inDistance="2.34892" outDistance="1.91887"/>
+                    <CubicMirroredVertex x="1.91594" y="19.2287" rotation="-0.461282" distance="1.99028"/>
+                    <CubicDetachedVertex x="6.41716" y="15.5168" inRotation="2.2251" inDistance="2.0022"/>
+                    <CubicDetachedVertex x="7.39897" y="17.8343" outRotation="2.17456" outDistance="3.28711"/>
+                    <CubicMirroredVertex x="-0.136902" y="24.0965" rotation="2.7062" distance="3.48259"/>
+                    <CubicAsymmetricVertex x="-10.2625" y="26.2998" rotation="3.14159" inDistance="3.59273" outDistance="4.48824"/>
+                    <CubicMirroredVertex x="-21.1701" y="22.8874" rotation="-2.45641" distance="3.59487"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="137.448" y="45.2274" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="-10.6043" y="-38.3698" inRotation="-1.5708" inDistance="0.719735"/>
+                    <CubicDetachedVertex x="-10.6043" y="33.7396" outRotation="1.5708" outDistance="0.953743"/>
+                    <CubicMirroredVertex x="-10.1766" y="35.8554" rotation="1.01283" distance="0.538461"/>
+                    <CubicDetachedVertex x="-8.83192" y="36.8297" inRotation="-2.83614" inDistance="0.641031"/>
+                    <CubicDetachedVertex x="-6.43188" y="37.386" outRotation="0.379358" outDistance="0.962193"/>
+                    <CubicAsymmetricVertex x="-5.09122" y="39.0392" rotation="1.5708" inDistance="0.745796" outDistance="1.1556"/>
+                    <CubicDetachedVertex x="-7.1729" y="40.7726" inRotation="0" inDistance="1.38779"/>
+                    <CubicDetachedVertex x="-27.8647" y="40.7726" outRotation="3.14159" outDistance="0.680214"/>
+                    <CubicMirroredVertex x="-29.4183" y="40.321" rotation="-2.43892" distance="0.46588"/>
+                    <CubicAsymmetricVertex x="-29.9515" y="39.0908" rotation="-1.5708" inDistance="0.519028" outDistance="0.417412"/>
+                    <CubicMirroredVertex x="-29.5671" y="38.0214" rotation="-0.856414" distance="0.391175"/>
+                    <CubicDetachedVertex x="-28.3777" y="37.2926" inRotation="2.80076" inDistance="0.56943"/>
+                    <CubicDetachedVertex x="-25.9349" y="36.7692" outRotation="-0.295902" outDistance="0.642789"/>
+                    <CubicMirroredVertex x="-24.5816" y="35.8205" rotation="-0.997421" distance="0.529769"/>
+                    <CubicDetachedVertex x="-24.1505" y="33.7686" inRotation="1.5708" inDistance="0.922874"/>
+                    <CubicDetachedVertex x="-24.1505" y="-30.345" outRotation="-1.5708" outDistance="0.721598"/>
+                    <CubicMirroredVertex x="-24.4972" y="-31.9064" rotation="-2.19725" distance="0.394211"/>
+                    <CubicDetachedVertex x="-25.6112" y="-32.5133" inRotation="0.1651" inDistance="0.518626"/>
+                    <CubicDetachedVertex x="-28.8466" y="-32.6464" outRotation="-2.90406" outDistance="0.502803"/>
+                    <CubicMirroredVertex x="-29.9185" y="-33.2047" rotation="-2.29806" distance="0.339866"/>
+                    <CubicAsymmetricVertex x="-30.2575" y="-34.1672" rotation="-1.5708" inDistance="0.387808" outDistance="0.450679"/>
+                    <CubicMirroredVertex x="-29.8383" y="-35.2738" rotation="-0.798774" distance="0.400628"/>
+                    <CubicDetachedVertex x="-28.4002" y="-36.0701" inRotation="2.79697" inDistance="0.721661"/>
+                    <CubicDetachedVertex x="-16.8575" y="-39.7962" outRotation="-0.350059" outDistance="1.02002"/>
+                    <CubicMirroredVertex x="-14.5549" y="-40.5467" rotation="-0.255294" distance="0.596221"/>
+                    <CubicAsymmetricVertex x="-12.9193" y="-40.7726" rotation="0" inDistance="0.513542" outDistance="0.756058"/>
+                    <CubicMirroredVertex x="-11.1947" y="-40.111" rotation="0.842148" distance="0.591171"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <StraightVertex x="-12.0095" y="3.7101"/>
+                    <StraightVertex x="-13.8419" y="1.74731"/>
+                    <CubicDetachedVertex x="-11.6732" y="-0.21748" outRotation="-0.739535" outDistance="5.50815"/>
+                    <CubicMirroredVertex x="-1.05974" y="-8.21851" rotation="-0.494726" distance="3.41589"/>
+                    <CubicAsymmetricVertex x="7.53214" y="-10.6513" rotation="0" inDistance="2.7216" outDistance="4.02846"/>
+                    <CubicMirroredVertex x="16.8977" y="-6.73374" rotation="0.867348" distance="3.42463"/>
+                    <CubicDetachedVertex x="21.0488" y="4.31708" inRotation="-1.68639" inDistance="4.78749"/>
+                    <CubicDetachedVertex x="24.546" y="33.5469" outRotation="1.4565" outDistance="1.0041"/>
+                    <CubicMirroredVertex x="25.1343" y="35.788" rotation="1.06086" distance="0.568907"/>
+                    <CubicDetachedVertex x="26.5416" y="36.8167" inRotation="-2.86244" inDistance="0.68709"/>
+                    <CubicDetachedVertex x="28.7547" y="37.3295" outRotation="0.35716" outDistance="0.544509"/>
+                    <CubicMirroredVertex x="29.8887" y="38.0399" rotation="0.855903" distance="0.375012"/>
+                    <CubicAsymmetricVertex x="30.2574" y="39.0908" rotation="1.5708" inDistance="0.417412" outDistance="0.519028"/>
+                    <CubicMirroredVertex x="29.738" y="40.321" rotation="2.42589" distance="0.458857"/>
+                    <CubicDetachedVertex x="28.1521" y="40.7726" inRotation="0" inDistance="0.711014"/>
+                    <CubicDetachedVertex x="7.21088" y="40.7726" outRotation="3.14159" outDistance="1.4001"/>
+                    <CubicAsymmetricVertex x="5.11072" y="39.0392" rotation="-1.5708" inDistance="1.1556" outDistance="0.737244"/>
+                    <CubicDetachedVertex x="6.46213" y="37.386" inRotation="2.75679" inDistance="0.972022"/>
+                    <CubicDetachedVertex x="8.94402" y="36.8297" outRotation="-0.272702" outDistance="0.715734"/>
+                    <CubicMirroredVertex x="10.4806" y="35.7891" rotation="-0.981312" distance="0.602713"/>
+                    <CubicDetachedVertex x="10.8114" y="33.5751" inRotation="1.45388" inDistance="0.981716"/>
+                    <CubicDetachedVertex x="7.63316" y="6.53701" outRotation="-1.69431" outDistance="3.21646"/>
+                    <CubicMirroredVertex x="5.24222" y="-0.570564" rotation="-2.22979" distance="1.956"/>
+                    <CubicAsymmetricVertex x="-0.0875702" y="-2.89021" rotation="3.14159" inDistance="2.35548" outDistance="1.49944"/>
+                    <CubicMirroredVertex x="-4.75075" y="-1.72464" rotation="2.69177" distance="1.78712"/>
+                    <CubicDetachedVertex x="-9.93552" y="1.88351" inRotation="-0.722533" inDistance="2.46245"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="79.143" y="60.8835" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicAsymmetricVertex x="22.9537" y="-12.239" rotation="1.5708" inDistance="2.57103" outDistance="1.96957"/>
+                    <CubicMirroredVertex x="21.0834" y="-7.38531" rotation="2.34848" distance="1.77708"/>
+                    <CubicAsymmetricVertex x="16.078" y="-5.48595" rotation="3.14159" inDistance="2.0901" outDistance="2.08012"/>
+                    <CubicMirroredVertex x="11.2616" y="-7.29388" rotation="-2.32433" distance="1.65272"/>
+                    <CubicDetachedVertex x="9.56535" y="-12.1849" inRotation="1.5708" inDistance="2.05539"/>
+                    <CubicDetachedVertex x="9.56535" y="-14.6403" outRotation="-1.5708" outDistance="2.33415"/>
+                    <CubicMirroredVertex x="7.39629" y="-20.2307" rotation="-2.37497" distance="2.00767"/>
+                    <CubicAsymmetricVertex x="1.4483" y="-22.3198" rotation="3.14159" inDistance="2.51929" outDistance="2.36034"/>
+                    <CubicMirroredVertex x="-4.83028" y="-20.1324" rotation="2.46755" distance="2.33633"/>
+                    <CubicMirroredVertex x="-9.11822" y="-13.9123" rotation="1.93771" distance="2.88023"/>
+                    <CubicAsymmetricVertex x="-10.6681" y="-4.33795" rotation="1.5708" inDistance="3.6944" outDistance="4.62465"/>
+                    <CubicMirroredVertex x="-8.42583" y="7.37875" rotation="1.13216" distance="3.51969"/>
+                    <CubicMirroredVertex x="-2.28731" y="14.6107" rotation="0.56175" distance="3.06917"/>
+                    <CubicAsymmetricVertex x="6.56392" y="17.063" rotation="0" inDistance="3.30331" outDistance="3.28738"/>
+                    <CubicMirroredVertex x="14.9965" y="14.9386" rotation="-0.545349" distance="2.73041"/>
+                    <CubicDetachedVertex x="20.1851" y="8.89163" inRotation="1.97699" inDistance="2.8466" outRotation="-0.871446" outDistance="0.63099"/>
+                    <CubicMirroredVertex x="21.191" y="7.89627" rotation="-0.599533" distance="0.320248"/>
+                    <CubicDetachedVertex x="22.0355" y="7.63973" inRotation="-3.10918" inDistance="0.298764" outRotation="0.0243868" outDistance="0.397045"/>
+                    <CubicMirroredVertex x="22.9099" y="8.1567" rotation="1.06395" distance="0.383136"/>
+                    <CubicDetachedVertex x="23.1505" y="9.44558" inRotation="-1.52207" inDistance="0.5249" outRotation="1.68546" outDistance="3.25887"/>
+                    <CubicMirroredVertex x="19.7286" y="18.1206" rotation="2.21405" distance="3.18175"/>
+                    <CubicMirroredVertex x="12.1955" y="24.13" rotation="2.70304" distance="3.43915"/>
+                    <CubicAsymmetricVertex x="1.48792" y="26.3205" rotation="3.14159" inDistance="4.02468" outDistance="4.77081"/>
+                    <CubicMirroredVertex x="-11.2347" y="23.2591" rotation="-2.63877" distance="4.23516"/>
+                    <CubicMirroredVertex x="-19.9782" y="14.5161" rotation="-2.08065" distance="4.3397"/>
+                    <CubicAsymmetricVertex x="-23.1552" y="0.982285" rotation="-1.5708" inDistance="5.23482" outDistance="5.1659"/>
+                    <CubicMirroredVertex x="-19.8944" y="-12.9379" rotation="-1.08471" distance="4.65323"/>
+                    <CubicMirroredVertex x="-10.7528" y="-22.7149" rotation="-0.550008" distance="4.59876"/>
+                    <CubicAsymmetricVertex x="2.99117" y="-26.3205" rotation="0" inDistance="5.24213" outDistance="4.17555"/>
+                    <CubicMirroredVertex x="13.7167" y="-24.4066" rotation="0.40518" distance="3.23686"/>
+                    <CubicMirroredVertex x="20.5663" y="-19.2942" rotation="0.929601" distance="2.66089"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+            <Shape x="26.7898" y="48.9935" name="path">
+                <PointsPath isClosed="true" name="Path">
+                    <CubicAsymmetricVertex x="23.6675" y="6.02226" rotation="1.5708" inDistance="3.9562" outDistance="1.40797"/>
+                    <CubicMirroredVertex x="22.4531" y="9.27559" rotation="2.38716" distance="1.11102"/>
+                    <CubicDetachedVertex x="18.9236" y="10.417" inRotation="0" inDistance="1.54346"/>
+                    <StraightVertex x="-14.7706" y="10.417"/>
+                    <StraightVertex x="-14.7706" y="7.28249"/>
+                    <CubicDetachedVertex x="7.82831" y="7.28249" outRotation="0" outDistance="1.46855"/>
+                    <CubicAsymmetricVertex x="10.0311" y="5.18809" rotation="-1.5708" inDistance="1.39627" outDistance="5.13351"/>
+                    <CubicMirroredVertex x="7.30953" y="-6.47768" rotation="-2.17228" distance="3.20641"/>
+                    <CubicAsymmetricVertex x="0.312504" y="-10.4432" rotation="3.14159" inDistance="2.85028" outDistance="2.30035"/>
+                    <CubicMirroredVertex x="-5.73872" y="-8.34033" rotation="2.46165" distance="2.22967"/>
+                    <CubicMirroredVertex x="-9.80019" y="-2.18046" rotation="1.9164" distance="2.87466"/>
+                    <CubicAsymmetricVertex x="-11.2609" y="7.72615" rotation="1.5708" inDistance="3.89973" outDistance="7.16232"/>
+                    <CubicMirroredVertex x="-6.38739" y="23.9211" rotation="0.841308" distance="4.87486"/>
+                    <CubicAsymmetricVertex x="6.40917" y="29.3725" rotation="0" inDistance="5.282" outDistance="3.46132"/>
+                    <CubicMirroredVertex x="15.369" y="26.8948" rotation="-0.581683" distance="3.00634"/>
+                    <CubicDetachedVertex x="20.5562" y="20.2467" inRotation="1.89883" inDistance="2.93692" outRotation="-0.897581" outDistance="0.621031"/>
+                    <CubicMirroredVertex x="21.5408" y="19.2441" rotation="-0.596684" distance="0.325405"/>
+                    <CubicDetachedVertex x="22.3626" y="18.9763" inRotation="-3.12615" inDistance="0.278701" outRotation="0.0055713" outDistance="0.386175"/>
+                    <CubicMirroredVertex x="23.2548" y="19.4695" rotation="1.00241" distance="0.387593"/>
+                    <CubicDetachedVertex x="23.5433" y="20.7923" inRotation="-1.54149" inDistance="0.555422" outRotation="1.62783" outDistance="3.19936"/>
+                    <CubicMirroredVertex x="20.3755" y="29.5518" rotation="2.20094" distance="3.27439"/>
+                    <CubicMirroredVertex x="12.5979" y="35.8791" rotation="2.69158" distance="3.61556"/>
+                    <CubicAsymmetricVertex x="1.43437" y="38.2382" rotation="3.14159" inDistance="4.18677" outDistance="4.96688"/>
+                    <CubicMirroredVertex x="-11.6735" y="35.0778" rotation="-2.63216" distance="4.3203"/>
+                    <CubicMirroredVertex x="-20.4993" y="26.1969" rotation="-2.07658" distance="4.35945"/>
+                    <CubicAsymmetricVertex x="-23.6675" y="12.8449" rotation="-1.5708" inDistance="5.08769" outDistance="5.31496"/>
+                    <CubicMirroredVertex x="-20.5506" y="-1.2737" rotation="-1.10147" distance="4.59422"/>
+                    <CubicMirroredVertex x="-11.6535" y="-10.9252" rotation="-0.545132" distance="4.50674"/>
+                    <CubicAsymmetricVertex x="2.06551" y="-14.4306" rotation="0" inDistance="5.29249" outDistance="4.43864"/>
+                    <CubicMirroredVertex x="13.5673" y="-11.7865" rotation="0.499659" distance="3.67898"/>
+                    <CubicMirroredVertex x="21.0393" y="-4.52726" rotation="1.05313" distance="3.54072"/>
+                </PointsPath>
+                <PointsPath isClosed="true" name="Path">
+                    <CubicDetachedVertex x="4.4925" y="-31.6094" outRotation="-1.14629" outDistance="2.38706"/>
+                    <CubicMirroredVertex x="7.75831" y="-36.6788" rotation="-0.789705" distance="1.69596"/>
+                    <CubicDetachedVertex x="12.1941" y="-38.199" inRotation="-3.03375" inDistance="1.77346" outRotation="0.0862167" outDistance="1.66746"/>
+                    <CubicMirroredVertex x="15.9061" y="-36.2857" rotation="0.947704" distance="1.39389"/>
+                    <CubicDetachedVertex x="16.9233" y="-32.7105" inRotation="-1.46311" inDistance="1.25883" outRotation="1.6591" outDistance="1.5167"/>
+                    <CubicMirroredVertex x="15.2456" y="-28.7905" rotation="2.29982" distance="1.47825"/>
+                    <CubicDetachedVertex x="11.2735" y="-25.5938" inRotation="-0.553862" inDistance="1.95568"/>
+                    <CubicDetachedVertex x="1.50016" y="-18.5245" outRotation="2.68307" outDistance="0.415796"/>
+                    <CubicMirroredVertex x="0.309843" y="-18.2386" rotation="3.12614" distance="0.420748"/>
+                    <CubicDetachedVertex x="-0.721453" y="-18.6119" inRotation="0.763402" inDistance="0.369324" outRotation="-2.36115" outDistance="0.432191"/>
+                    <CubicMirroredVertex x="-1.07237" y="-19.6151" rotation="-1.3728" distance="0.372001"/>
+                    <CubicDetachedVertex x="-0.652994" y="-20.7496" inRotation="2.05588" inDistance="0.442664"/>
+                </PointsPath>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FF173D35" name="Color"/>
+                </Fill>
+            </Shape>
+        </Node>
+        <Node x="0" y="10" name="Group">
+            <Shape x="44" y="29" scaleX="0" scaleY="0" name="Sun" id="0:30">
+                <Ellipse originX="0.5" originY="0.5" width="13" height="13" name="Path"/>
+                <Fill name="Fill">
+                    <SolidColor colorValue="FFA9432E" name="Color"/>
+                </Fill>
+            </Shape>
+            <Node name="Group">
+                <Shape x="45.1565" y="62" name="Chemin">
+                    <PointsPath name="Path">
+                        <CubicDetachedVertex x="-2.15648" y="14" outRotation="-2.43934" outDistance="17.0294"/>
+                        <CubicDetachedVertex x="3.84352" y="-14" inRotation="0.965252" inDistance="15.8114"/>
+                    </PointsPath>
+                    <Stroke thickness="4.5" cap="round" join="round" name="Stroke">
+                        <SolidColor colorValue="FF173D35" name="Color"/>
+                        <TrimPath start="0" end="0" name="Tracé chemin" id="0:43"/>
+                    </Stroke>
+                </Shape>
+                <Shape x="44" y="42" name="Arche">
+                    <PointsPath name="Path">
+                        <StraightVertex x="-28" y="34"/>
+                        <CubicDetachedVertex x="-28" y="-6" outRotation="-1.5708" outDistance="18"/>
+                        <CubicMirroredVertex x="0" y="-34" rotation="0" distance="17"/>
+                        <CubicDetachedVertex x="28" y="-6" inRotation="-1.5708" inDistance="18"/>
+                        <StraightVertex x="28" y="34"/>
+                        <StraightVertex x="15" y="34"/>
+                    </PointsPath>
+                    <PointsPath name="Path">
+                        <StraightVertex x="-28" y="34"/>
+                        <StraightVertex x="-15" y="34"/>
+                    </PointsPath>
+                    <Stroke thickness="4.5" cap="round" join="round" name="Stroke">
+                        <SolidColor colorValue="FF173D35" name="Color"/>
+                        <TrimPath start="0" end="0" name="Tracé arche" id="0:41"/>
+                    </Stroke>
+                </Shape>
+            </Node>
+        </Node>
+
+        </Node>
+
+        <StateMachine name="Ouverture" id="0:7">
+            <StateMachineLayer name="Layer 1" id="0:8">
+                <AnyState x="200" y="-120"/>
+                <ExitState x="400" y="-120"/>
+                <EntryState>
+                    <StateTransition stateToId="0:12"/>
+                </EntryState>
+                <AnimationState x="200" animationId="0:6" id="0:12"/>
+            </StateMachineLayer>
+        </StateMachine>
+
+        <LinearAnimation fps="60" duration="150" loopValue="oneShot" name="Ouverture" id="0:6">
+            <KeyedObject objectId="0:41">
+                <KeyedProperty property="end">
+                    <KeyFrameDouble frame="0" value="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.65" y1="0" x2="0.35" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="54" value="1" interpolationType="hold"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:43">
+                <KeyedProperty property="end">
+                    <KeyFrameDouble frame="0" value="0" interpolationType="hold"/>
+                    <KeyFrameDouble frame="30" value="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.65" y1="0" x2="0.35" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="72" value="1" interpolationType="hold"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:30">
+                <KeyedProperty property="scaleX">
+                    <KeyFrameDouble frame="0" value="0" interpolationType="hold"/>
+                    <KeyFrameDouble frame="48" value="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.34" y1="1.56" x2="0.64" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="72" value="1" interpolationType="hold"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY">
+                    <KeyFrameDouble frame="0" value="0" interpolationType="hold"/>
+                    <KeyFrameDouble frame="48" value="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.34" y1="1.56" x2="0.64" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="72" value="1" interpolationType="hold"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:31">
+                <KeyedProperty property="opacity">
+                    <KeyFrameDouble frame="0" value="0" interpolationType="hold"/>
+                    <KeyFrameDouble frame="60" value="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.23" y1="1" x2="0.32" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="102" value="1" interpolationType="hold"/>
+                </KeyedProperty>
+                <KeyedProperty property="x">
+                    <KeyFrameDouble frame="0" value="128" interpolationType="hold"/>
+                    <KeyFrameDouble frame="60" value="128" interpolationType="cubic"><CubicEaseInterpolator x1="0.23" y1="1" x2="0.32" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble frame="102" value="110" interpolationType="hold"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+    </Artboard>
+</Rive>
