@@ -44,7 +44,12 @@ function renderPage(route: Route) {
 
   if (segments[0] === "activites" && segments[1]) {
     const activity = findActivityBySlug(segments[1]);
-    if (activity) return <ActivityPage key={activity.id} activity={activity} route={route} />;
+    if (activity) return <ActivityPage
+          // Une autre date ou un autre créneau dans l'URL repart d'un état propre.
+          key={`${activity.id}|${route.query.get("date") ?? ""}|${route.query.get("creneau") ?? ""}`}
+          activity={activity}
+          route={route}
+        />;
   }
 
   if (segments[0] === "reservation" && segments[1]) {

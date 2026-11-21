@@ -187,6 +187,17 @@ describe("Calendrier, horaires et activités complètes", () => {
   });
 });
 
+describe("Navigation par URL", () => {
+  it("changer seulement la date dans l'URL d'une fiche ouverte met la fiche à jour", async () => {
+    open("/activites/kayak-calanques?date=2027-04-25");
+    expect(screen.getByRole("radio", { name: /15 h/ })).toBeTruthy();
+    act(() => {
+      window.location.hash = "/activites/kayak-calanques?date=2027-04-18";
+    });
+    expect(await screen.findByRole("radio", { name: /9 h 30/ })).toBeTruthy();
+  });
+});
+
 describe("Accueil : recherche par activité, date et participants", () => {
   it("sans date : les activités qui ont de la place pour le groupe, l'escape game complet", () => {
     open("/");

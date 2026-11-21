@@ -13,7 +13,7 @@
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (74 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (75 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|
