@@ -1,3 +1,6 @@
-Déposer ici la vidéo du visuel d'ouverture (MP4 H.264, ~1920 px, 10–20 s, muette, < 6 Mo),
-puis renseigner son chemin dans src/components/HeroMedia.tsx (HERO_VIDEO).
-Vérifier la licence d'utilisation de la vidéo avant de la publier.
+Vidéo du visuel d'ouverture (MP4 H.264, ~1600-1920 px, 10-20 s, muette, < 6 Mo).
+Chemin déclaré dans src/components/HeroMedia.tsx (HERO_VIDEO).
+
+Les fichiers .mp4 de ce dossier sont exclus de Git (.gitignore) : la vidéo actuelle provient
+d'une chaîne YouTube (logo incrusté) et ne doit pas être publiée sans l'autorisation de son auteur.
+Sans fichier, le site affiche automatiquement l'image des calanques.

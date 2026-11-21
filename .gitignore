@@ -2,3 +2,6 @@ node_modules
 dist
 *.local
 .DS_Store
+
+# Vidéo d'ouverture : droits à confirmer avant publication (voir public/videos/LISEZMOI.txt)
+public/videos/*.mp4
