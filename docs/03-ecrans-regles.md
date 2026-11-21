@@ -4,8 +4,8 @@
 
 | Écran | Étape du tunnel (brief) | Événement analytics |
 |---|---|---|
-| **Accueil** : accroche ; « Vous serez combien ? » (À deux / En famille / Entre amis, nombre exact) et « Quand ? » (week-ends déduits des créneaux, pas de calendrier) avec résultat en direct ; mosaïque des activités ; 3 cartes avec lieu, durée, âge, prix TTC et disponibilité écrite (atténuées si aucun créneau ne convient) ; encart « Mode démo » quand les places ont été modifiées ; « Comment ça marche » ; bandeau de marque | Découverte | `view_item_list` |
-| **Fiche activité** : infos clés, « ce que tu vas vivre », créneaux (choix unique), participants, total TTC en direct, « Réserver », « Proposer cette sortie à ton groupe » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
+| **Accueil** : grande image et accroche ; barre de recherche **Activité · Date · Participants** (calendrier mensuel : jours disponibles, complets barrés, sans créneau grisés) ; cartes avec lieu, durée, âge, prix TTC et disponibilité pour la recherche (« Disponible le … à … », « Complet ce jour-là pour N personnes · prochain : … », « Pas de créneau ce jour-là ») ; encart « Mode démo » ; « Comment ça marche » ; bandeau de marque | Découverte | `view_item_list`, `search` |
+| **Fiche activité** : infos clés, « ce que tu vas vivre », calendrier puis horaires du jour (choix unique), participants, total TTC en direct, « Réserver », « Proposer cette sortie à ton groupe » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
 | **Récapitulatif** : activité, créneau, lieu, participants, prix unitaire, **total TTC**, mention « réservation simulée », « Confirmer » | Récapitulatif | `view_summary` |
 | **Confirmation** : récapitulatif, « Préviens ton groupe » (partage), « Et ensuite ? » en 3 étapes, suggestion saisonnière ; décompte des places visible dans les outils de démo | Confirmation | `booking_confirmed` (avec les paramètres de campagne de l'arrivée) |
 
@@ -13,7 +13,7 @@
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (68 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (73 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|
@@ -31,10 +31,11 @@ Tests : `npm test` (68 tests). Fichiers : `src/domain/booking.test.ts` (domaine)
 | Action | Résultat attendu |
 |---|---|
 | 0, -2, 2,5, « abc » participants | Message en ligne, pas de passage au récapitulatif, rien d'enregistré |
-| 8 participants sur un créneau à 7 places | « Il reste 7 places sur ce créneau. » |
+| 8 participants sur le kayak du dimanche 18 avril, 9 h 30 (7 places) | « Il reste 7 places sur ce créneau. » |
 | Clic sur un créneau complet | Impossible (désactivé, libellé « Complet ») |
-| 4 participants, week-end du 24–25 avril | « Aucune activité n'a de place » ; à 2, seule la céramique convient, le kayak indique « Pas de créneau ce week-end » |
-| 6 participants sur l'atelier céramique | Le créneau à 2 places est grisé, « 2 places restantes · pas assez pour 6 », mais reste sélectionnable (le nombre se modifie) ; sur l'accueil, les cartes qui ne conviennent pas sont atténuées |
+| Accueil, 4 participants, samedi 24 avril | Céramique : « Complet ce jour-là pour 4 personnes · prochain : … » |
+| Accueil, kayak, samedi 16 janvier | « Pas de créneau ce jour-là · prochain : … avril » (activité saisonnière) |
+| 6 participants sur l'atelier céramique du samedi 24 avril | L'horaire à 2 places est grisé, « 2 places restantes · pas assez pour 6 », mais reste sélectionnable (le nombre se modifie) ; sur l'accueil, les cartes qui ne conviennent pas sont atténuées |
 | Ouvrir l'escape game | Fiche consultable, indisponibilité expliquée, alternatives |
 | Double clic sur « Confirmer » | Une seule réservation, places décomptées une fois |
 | Retour arrière ou URL du récapitulatif après confirmation | « Cette réservation est déjà confirmée », aucun nouveau décompte |

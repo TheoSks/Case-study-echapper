@@ -6,6 +6,7 @@ import { randomId } from "../lib/ids";
 
 export type FunnelEvent =
   | "view_item_list" // accueil : liste des activités
+  | "search" // recherche : activité, date, participants
   | "view_item" // étape 1 : consultation d'une activité
   | "select_slot" // étape 2 : sélection d'un créneau
   | "begin_checkout" // étape 3 : démarrage = validation du créneau + nombre de participants

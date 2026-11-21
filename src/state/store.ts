@@ -8,7 +8,7 @@ import type { BookingRequest, BookingState, Catalog } from "../domain/types";
 import { catalog } from "../data/catalog";
 import { randomReference } from "../lib/ids";
 
-const STORAGE_KEY = "echappee:demo:v1";
+const STORAGE_KEY = "echappee:demo:v2";
 
 export interface BookingStore {
   getState(): BookingState;

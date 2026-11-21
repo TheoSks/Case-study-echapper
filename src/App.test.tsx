@@ -11,9 +11,10 @@ function open(path: string) {
   return render(<App />);
 }
 
+// Dimanche 18 avril 2027 : un seul horaire de kayak (9 h 30, 7 places), créneau de démonstration fixe.
 async function reachSummary(user: ReturnType<typeof userEvent.setup>, participants = "2") {
-  open("/activites/kayak-calanques");
-  await user.click(screen.getByRole("radio", { name: /18 avril/ }));
+  open("/activites/kayak-calanques?date=2027-04-18");
+  await user.click(screen.getByRole("radio", { name: /9 h 30/ }));
   const input = screen.getByLabelText("Participants");
   await user.clear(input);
   await user.type(input, participants);
@@ -27,6 +28,7 @@ beforeEach(() => {
 describe("Parcours de réservation", () => {
   it("de la fiche à la confirmation : total TTC avant confirmation, places déduites du seul créneau", async () => {
     const user = userEvent.setup();
+    const before = bookingStore.getState().availability;
     await reachSummary(user, "3");
 
     expect(screen.getByRole("heading", { name: "Vérifie ta réservation" })).toBeTruthy();
@@ -42,7 +44,9 @@ describe("Parcours de réservation", () => {
     expect(screen.getByRole("heading", { name: "C'est réservé." })).toBeTruthy();
     expect(screen.getByText(/Places sur ce créneau/).textContent).toContain("7 avant, 4 après");
     const { availability, bookings } = bookingStore.getState();
-    expect(availability).toMatchObject({ "a02-s1": 4, "a01-s1": 6, "a01-s2": 2, "a02-s2": 0 });
+    for (const [slotId, remaining] of Object.entries(before)) {
+      expect(availability[slotId]).toBe(slotId === "a02-s1" ? 4 : remaining);
+    }
     expect(Object.keys(bookings)).toHaveLength(1);
   });
 
@@ -99,11 +103,11 @@ describe("Saisies invalides : rien n'est enregistré, les disponibilités ne cha
     expect(bookingStore.getState()).toBe(before);
   });
 
-  it("sans créneau choisi, « Réserver » explique ce qui manque", async () => {
+  it("sans horaire choisi, « Réserver » explique ce qui manque", async () => {
     const user = userEvent.setup();
-    open("/activites/kayak-calanques");
+    open("/activites/kayak-calanques?date=2027-04-18");
     await user.click(screen.getAllByRole("button", { name: /^Réserver/ })[0]);
-    expect(screen.getByText("Choisis un créneau pour continuer.")).toBeTruthy();
+    expect(screen.getByText("Choisis un horaire pour continuer.")).toBeTruthy();
   });
 
   it("une URL modifiée à la main (99 participants) est refusée au récapitulatif", () => {
@@ -121,24 +125,41 @@ describe("Saisies invalides : rien n'est enregistré, les disponibilités ne cha
   });
 });
 
-describe("Créneaux et activités complets", () => {
-  it("un créneau complet est affiché, désactivé et indiqué « Complet »", () => {
-    open("/activites/kayak-calanques");
-    const full = screen.getByRole("radio", { name: /25 avril/ });
-    expect((full as HTMLInputElement).disabled).toBe(true);
+describe("Calendrier, horaires et activités complètes", () => {
+  it("le calendrier distingue jours disponibles, complets et sans créneau", () => {
+    open("/activites/kayak-calanques?date=2027-04-18");
+    expect(screen.getByText("Avril 2027")).toBeTruthy();
+    const full = screen.getByRole("button", { name: "dimanche 25 avril, complet" }) as HTMLButtonElement;
+    expect(full.disabled).toBe(true);
+    const none = screen.getByRole("button", { name: "lundi 19 avril, pas de créneau" }) as HTMLButtonElement;
+    expect(none.disabled).toBe(true);
+    expect(screen.getByRole("button", { name: "dimanche 18 avril, disponible" }).getAttribute("aria-pressed")).toBe("true");
+  });
+
+  it("le kayak est saisonnier : aucun créneau en hiver", async () => {
+    const user = userEvent.setup();
+    open("/activites/kayak-calanques?date=2027-04-18");
+    await user.click(screen.getByRole("button", { name: "Mois précédent" }));
+    await user.click(screen.getByRole("button", { name: "Mois précédent" }));
+    expect(screen.getByText("Février 2027")).toBeTruthy();
+    expect(screen.queryAllByRole("button", { name: /disponible$/ })).toHaveLength(0);
+  });
+
+  it("un horaire complet est affiché, désactivé et indiqué « Complet »", () => {
+    open("/activites/kayak-calanques?date=2027-04-25");
+    const full = screen.getByRole("radio", { name: /15 h/ }) as HTMLInputElement;
+    expect(full.disabled).toBe(true);
     expect(full.closest("label")?.textContent).toContain("Complet");
   });
 
-  it("un créneau sans assez de places pour le groupe est signalé mais reste sélectionnable", async () => {
+  it("un horaire sans assez de places pour le groupe est signalé mais reste sélectionnable", async () => {
     const user = userEvent.setup();
-    open("/activites/atelier-ceramique?participants=6");
-    const short = screen.getByRole("radio", { name: /24 avril/ }) as HTMLInputElement;
+    open("/activites/atelier-ceramique?participants=6&date=2027-04-24");
+    const short = screen.getByRole("radio", { name: /14 h 30/ }) as HTMLInputElement;
     expect(short.closest("label")?.textContent).toContain("2 places restantes · pas assez pour 6");
     expect(short.disabled).toBe(false);
     await user.click(short);
     expect(screen.getByText("Il reste 2 places sur ce créneau.")).toBeTruthy();
-    const ok = screen.getByRole("radio", { name: /17 avril/ });
-    expect(ok.closest("label")?.textContent).not.toContain("pas assez");
   });
 
   it("une activité complète reste consultable, explique l'indisponibilité et propose d'autres activités", () => {
@@ -149,48 +170,46 @@ describe("Créneaux et activités complets", () => {
     expect(screen.queryByRole("button", { name: /^Réserver/ })).toBeNull();
     expect(screen.getByRole("link", { name: "Atelier céramique" })).toBeTruthy();
   });
+});
 
-  it("accueil : les choix rapides donnent le bon résultat pour chaque groupe", async () => {
-    const user = userEvent.setup();
+describe("Accueil : recherche par activité, date et participants", () => {
+  it("sans date : les activités qui ont de la place pour le groupe, l'escape game complet", () => {
     open("/");
-    for (const [label, size] of [["À deux", 2], ["En famille", 4], ["Entre amis", 6]] as const) {
-      await user.click(screen.getByRole("button", { name: new RegExp(label) }));
-      expect(screen.getByText(new RegExp(`de la place pour ${size} personnes`)).textContent).toContain("2 activités ont");
-    }
-    const input = screen.getByLabelText("Nombre exact de participants");
-    await user.clear(input);
-    await user.type(input, "8");
-    expect(screen.getAllByText("Aucun créneau pour 8 personnes")).toHaveLength(2);
+    expect(screen.getByText(/2 activités ont de la place pour 2 personnes/)).toBeTruthy();
+    expect(screen.getByText("Complet sur toutes les dates proposées")).toBeTruthy();
   });
 
-  it("accueil : la date affine le résultat (scénarios par week-end)", async () => {
+  it("choisir une date dans le calendrier met à jour les cartes", async () => {
     const user = userEvent.setup();
     open("/");
-    await user.click(screen.getByRole("button", { name: "Week-end du 24–25 avril" }));
-    // À deux : seule la céramique (créneau du 24, 2 places) convient ; le kayak du 25 est complet.
-    expect(screen.getByText(/de la place pour 2 personnes, le week-end du 24–25 avril/).textContent).toContain("1 activité a");
-    expect(screen.getByText("Pas de créneau ce week-end pour 2 personnes")).toBeTruthy();
-    // En famille : plus rien ce week-end-là.
-    await user.click(screen.getByRole("button", { name: /En famille/ }));
-    expect(screen.getByText(/Aucune activité/)).toBeTruthy();
-    await user.click(screen.getByRole("button", { name: "Week-end du 17–18 avril" }));
-    expect(screen.getByText(/de la place pour 4 personnes, le week-end du 17–18 avril/).textContent).toContain("2 activités ont");
+    await user.click(screen.getByRole("button", { name: /Choisir une date/ }));
+    const dialog = screen.getByRole("dialog", { name: "Choisir une date" });
+    const firstAvailable = within(dialog).getAllByRole("button", { name: /disponible$/ })[0];
+    await user.click(firstAvailable);
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(window.location.hash).toMatch(/date=\d{4}-\d{2}-\d{2}/);
+    expect(screen.getAllByText(/^Disponible le /).length).toBeGreaterThan(0);
   });
 
-  it("accueil : signale quand les tests ont modifié les places, et permet de réinitialiser", async () => {
+  it("une date où le groupe ne tient pas : explication et prochaine date", () => {
+    open("/?date=2027-04-24&participants=4");
+    expect(screen.getByText(/Complet ce jour-là pour 4 personnes · prochain :/)).toBeTruthy();
+  });
+
+  it("hors saison, le kayak indique qu'il n'y a pas de créneau ce jour-là", () => {
+    open("/?activite=a02&date=2027-01-16&participants=2");
+    expect(screen.getByRole("heading", { name: "Ta recherche" })).toBeTruthy();
+    expect(screen.getByText(/Pas de créneau ce jour-là · prochain : .* avril/)).toBeTruthy();
+    expect(screen.getAllByRole("article")).toHaveLength(1);
+  });
+
+  it("signale quand les tests ont modifié les places, et permet de réinitialiser", async () => {
     const user = userEvent.setup();
     act(() => bookingStore.fillSlot("a02-s1"));
     open("/");
     expect(screen.getByText(/tes tests ont modifié les places/)).toBeTruthy();
-    expect(screen.getAllByText("Complet sur les dates proposées")).toHaveLength(2);
     await user.click(screen.getAllByRole("button", { name: "Réinitialiser la démo" })[0]);
     expect(screen.queryByText(/tes tests ont modifié les places/)).toBeNull();
-    expect(screen.getAllByText("Complet sur les dates proposées")).toHaveLength(1);
-  });
-
-  it("l'accueil l'indique en toutes lettres sur la carte", () => {
-    open("/");
-    expect(screen.getByText("Complet sur les dates proposées")).toBeTruthy();
   });
 });
 
@@ -200,13 +219,13 @@ describe("Mesure du tunnel", () => {
   it("« démarrage » (begin_checkout) uniquement quand créneau ET participants sont valides", async () => {
     window.dataLayer = [];
     const user = userEvent.setup();
-    open("/activites/kayak-calanques");
+    open("/activites/kayak-calanques?date=2027-04-18");
     const reserve = () => user.click(screen.getAllByRole("button", { name: /^Réserver/ })[0]);
 
-    await reserve(); // sans créneau
+    await reserve(); // sans horaire
     expect(events()).not.toContain("begin_checkout");
 
-    await user.click(screen.getByRole("radio", { name: /18 avril/ }));
+    await user.click(screen.getByRole("radio", { name: /9 h 30/ }));
     const input = screen.getByLabelText("Participants");
     await user.clear(input);
     await user.type(input, "0");

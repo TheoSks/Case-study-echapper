@@ -48,6 +48,12 @@ const paths: Record<string, ReactElement> = {
     </>
   ),
   arrow: <path d="M4 12h16M14 6l6 6-6 6" />,
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m16 16 5 5" />
+    </>
+  ),
   heart: <path d="M20.3 5.8a5 5 0 0 0-7.1 0L12 7l-1.2-1.2a5 5 0 0 0-7.1 7.1L12 21l8.3-8.1a5 5 0 0 0 0-7.1Z" />,
   check: (
     <>

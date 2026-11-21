@@ -1,13 +1,16 @@
 // Données fictives de la démo.
 // - activities.json : contenu éditorial. En production, il viendrait du CMS headless (traduit par langue).
-// - slots.json : inventaire des places. En production, il viendrait du moteur de réservation (stock partagé avec le B2B).
+// - slots.json : les 6 créneaux de démonstration des règles métier (dates et places fixes).
+// - schedule.ts : le reste du planning sur l'année, généré de façon déterministe.
+// En production, créneaux et places viendraient du moteur de réservation (stock partagé avec le B2B).
 import type { Activity, Catalog, Slot } from "../domain/types";
 import activities from "./activities.json";
 import slots from "./slots.json";
+import { generateSchedule } from "./schedule";
 
 export const catalog: Catalog = {
   activities: activities as Activity[],
-  slots: slots as Slot[],
+  slots: generateSchedule(slots as Slot[]),
 };
 
 export function findActivityBySlug(slug: string): Activity | undefined {

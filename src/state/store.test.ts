@@ -45,9 +45,9 @@ describe("Store de session : places cohérentes pendant la session", () => {
 
   it("repart des données initiales si le stockage est corrompu ou incohérent", () => {
     const storage = memoryStorage();
-    storage.setItem("echappee:demo:v1", "{pas du json");
+    storage.setItem("echappee:demo:v2", "{pas du json");
     expect(createBookingStore(catalog, storage).getState().availability["a02-s1"]).toBe(7);
-    storage.setItem("echappee:demo:v1", JSON.stringify({ availability: { "a02-s1": 999 }, bookings: {} }));
+    storage.setItem("echappee:demo:v2", JSON.stringify({ availability: { "a02-s1": 999 }, bookings: {} }));
     expect(createBookingStore(catalog, storage).getState().availability["a02-s1"]).toBe(7);
   });
 

@@ -15,7 +15,12 @@ export function SlotPicker({
   onSelect,
   error,
   groupSize = null,
+  legend = "Choisis un créneau",
+  timeOnly = false,
 }: {
+  legend?: string;
+  /** Afficher seulement l'heure (la date est déjà choisie dans le calendrier). */
+  timeOnly?: boolean;
   /** Nombre de participants saisi, s'il est valide. */
   groupSize?: number | null;
   slots: Slot[];
@@ -26,8 +31,8 @@ export function SlotPicker({
 }) {
   return (
     <fieldset aria-describedby={error ? "slot-error" : undefined}>
-      <legend>Choisis un créneau</legend>
-      <div className="slot-list">
+      <legend>{legend}</legend>
+      <div className={`slot-list${timeOnly ? " slot-list--times" : ""}`}>
         {slots.map((slot) => {
           const remaining = remainingFor(availability, slot.id);
           const full = remaining <= 0;
@@ -43,7 +48,7 @@ export function SlotPicker({
                 onChange={() => onSelect(slot.id)}
               />
               <span className="slot-date">
-                {capitalize(formatDate(slot.startsAt))} · {formatTime(slot.startsAt)}
+                {timeOnly ? formatTime(slot.startsAt) : `${capitalize(formatDate(slot.startsAt))} · ${formatTime(slot.startsAt)}`}
               </span>
               <span className="slot-meta">
                 {full ? (

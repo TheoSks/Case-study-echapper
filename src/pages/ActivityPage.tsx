@@ -3,6 +3,7 @@ import { track } from "../analytics/track";
 import { ActivityImage } from "../components/ActivityImage";
 import { Icon } from "../components/Icon";
 import { ParticipantsInput } from "../components/ParticipantsInput";
+import { DatePicker } from "../components/DatePicker";
 import { SlotPicker } from "../components/SlotPicker";
 import { catalog } from "../data/catalog";
 import {
@@ -17,6 +18,8 @@ import {
 } from "../domain/booking";
 import type { Activity, BookingError } from "../domain/types";
 import { formatDuration, formatPrice } from "../lib/format";
+import { MAX_MONTH, MIN_MONTH, dayStatus, nextAvailableDay, slotsOn } from "../lib/availability";
+import { dayKey, formatDay, monthKey } from "../lib/dates";
 import { randomId } from "../lib/ids";
 import { pageUrl, shareOrCopy } from "../lib/share";
 import { href, navigate, withQuery, type Route } from "../router";
@@ -34,6 +37,27 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
       : null,
   );
   const [participants, setParticipants] = useState(route.query.get("participants") ?? "2");
+
+  // Date : celle de la recherche si elle a des horaires, sinon le premier jour qui convient au groupe.
+  const groupForDate = parseParticipants(participants);
+  const [day, setDay] = useState<string | null>(() => {
+    const fromSlot = initialSlot ? slots.find((s) => s.id === initialSlot) : undefined;
+    if (fromSlot) return dayKey(fromSlot.startsAt);
+    const requested = route.query.get("date");
+    if (requested && slotsOn(requested, [activity.id]).length > 0) return requested;
+    const size = groupForDate.ok ? groupForDate.value : 1;
+    return (
+      nextAvailableDay(state.availability, [activity.id], size) ??
+      nextAvailableDay(state.availability, [activity.id], 1) ??
+      (slots[0] ? dayKey(slots[0].startsAt) : null)
+    );
+  });
+  const [month, setMonth] = useState(() => monthKey(day ?? `${MIN_MONTH}-01`));
+  const daySlots = day ? slotsOn(day, [activity.id]) : [];
+  const selectDay = (next: string) => {
+    setDay(next);
+    setSlotId(null);
+  };
   const [submitted, setSubmitted] = useState(false);
   const panelRef = useRef<HTMLElement>(null);
 
@@ -53,9 +77,9 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
       : undefined;
   const slotBecameFull = validation && !validation.ok && validation.errors.some((e) => e.code === "slot_full");
   const slotError = slotBecameFull
-    ? "Ce créneau vient d'être complet. Choisis un autre créneau."
+    ? "Cet horaire vient d'être complet. Choisis-en un autre."
     : submitted && !slotId && !full
-      ? "Choisis un créneau pour continuer."
+      ? "Choisis un horaire pour continuer."
       : undefined;
   // Le total est visible dès que le nombre de participants est valide, même avant le choix du créneau.
   const total = validation
@@ -140,14 +164,14 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
       <div className={`activity-layout${full ? "" : " has-sticky-bar"}`}>
         <aside className="booking-panel" ref={panelRef} aria-labelledby="booking-title" id="reserver">
           <div>
-            {!full && <p className="steps">Étape 1 sur 2 · Créneau et participants</p>}
+            {!full && <p className="steps">Étape 1 sur 2 · Date, horaire et participants</p>}
             <h2 id="booking-title">Réserver</h2>
           </div>
 
           {full && (
             <div className="notice notice--full" role="status">
               <strong>Cette activité est complète sur toutes les dates proposées.</strong>
-              <p>Les créneaux ci-dessous n'ont plus de place. Tu peux découvrir une autre sortie :</p>
+              <p>Toutes ses dates affichent complet. Tu peux découvrir une autre sortie :</p>
               {alternatives.length > 0 && (
                 <ul>
                   {alternatives.map((a) => {
@@ -164,14 +188,37 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
             </div>
           )}
 
-          <SlotPicker
-            slots={slots}
-            availability={state.availability}
-            selectedId={slotId}
-            onSelect={selectSlot}
-            error={slotError}
-            groupSize={parsedParticipants.ok ? parsedParticipants.value : null}
-          />
+          <div className="field">
+            <p className="field-label" id="date-label">
+              Choisis une date
+            </p>
+            <DatePicker
+              month={month}
+              onMonthChange={setMonth}
+              selected={day}
+              onSelect={selectDay}
+              statusOf={(d) => {
+                const st = dayStatus(state.availability, [activity.id], d, 1);
+                // Un jour avec des places mais pas assez pour le groupe reste sélectionnable : le nombre se modifie.
+                return st === "short" ? "available" : st;
+              }}
+              minMonth={MIN_MONTH}
+              maxMonth={MAX_MONTH}
+            />
+          </div>
+
+          {day && daySlots.length > 0 && (
+            <SlotPicker
+              legend={`Horaires du ${formatDay(day)}`}
+              timeOnly
+              slots={daySlots}
+              availability={state.availability}
+              selectedId={slotId}
+              onSelect={selectSlot}
+              error={slotError}
+              groupSize={parsedParticipants.ok ? parsedParticipants.value : null}
+            />
+          )}
 
           {!full && (
             <>

@@ -172,14 +172,28 @@ describe("Règle : une activité complète reste consultable", () => {
 });
 
 describe("Données de démo", () => {
-  it("3 activités, 6 créneaux, capacité ≤ 10 et places initiales cohérentes", () => {
+  it("3 activités ; les 6 créneaux de démonstration gardent leurs places", () => {
     expect(catalog.activities).toHaveLength(3);
-    expect(catalog.slots).toHaveLength(6);
+    const demo = Object.fromEntries(
+      ["a01-s1", "a01-s2", "a02-s1", "a02-s2", "a03-s1", "a03-s2"].map((id) => [id, catalog.slots.find((s) => s.id === id)?.initialRemaining]),
+    );
+    expect(demo).toEqual({ "a01-s1": 6, "a01-s2": 2, "a02-s1": 7, "a02-s2": 0, "a03-s1": 0, "a03-s2": 0 });
+  });
+
+  it("planning cohérent : capacité ≤ 10, places entre 0 et la capacité, identifiants uniques", () => {
+    expect(new Set(catalog.slots.map((s) => s.id)).size).toBe(catalog.slots.length);
     for (const slot of catalog.slots) {
       expect(slot.capacity).toBeLessThanOrEqual(10);
       expect(slot.initialRemaining).toBeGreaterThanOrEqual(0);
       expect(slot.initialRemaining).toBeLessThanOrEqual(slot.capacity);
       expect(catalog.activities.some((a) => a.id === slot.activityId)).toBe(true);
     }
+  });
+
+  it("saisonnalité : la céramique toute l'année, le kayak d'avril à octobre", () => {
+    const months = (activityId: string) =>
+      new Set(catalog.slots.filter((s) => s.activityId === activityId).map((s) => s.startsAt.slice(0, 7)));
+    expect(months("a01").size).toBeGreaterThanOrEqual(11);
+    expect([...months("a02")].every((m) => m >= "2027-04" && m <= "2027-10")).toBe(true);
   });
 });
