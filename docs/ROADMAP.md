@@ -8,7 +8,7 @@
 | # | Sujet | Livrable | Temps | Statut |
 |---|---|---|---|---|
 | 1 | Cadrage du besoin | `docs/01-cadrage.md` | 15 min | ✅ fini |
-| 2 | Parcours global & fidélisation | `docs/02-parcours.md` | 20 min | 🟡 décisions prises, à rédiger |
+| 2 | Parcours global & fidélisation | `docs/02-parcours.md` | 20 min | ✅ fini |
 | 3 | Écrans & règles métier | `docs/03-ecrans-regles.md` | 10 min | 🟡 validé, à formaliser |
 | 4 | Prototype de réservation | Application + tests | 1 h 30 | 🟠 scaffold fait |
 | 5 | Recommandation technique | `docs/05-technique.md` | 20 min | ⚪ à faire |
@@ -75,7 +75,7 @@ Légende : ⚪ à faire · 🟠 en cours · 🟡 décidé, à rédiger · ✅ fi
 **Objectif** : figer ce qu'on construit avant de coder.
 
 **Validé**
-- E1 Accueil (sélecteur « Vous serez combien ? », 3 cartes) · E2 Fiche activité (créneaux, participants, total) · E3 Récapitulatif (total TTC, mention simulée, revérification) · E4 Confirmation (référence, places restantes, .ics, frise « Et ensuite ? ») · Mes réservations / réinitialiser / journal analytics.
+- E1 Accueil (sélecteur « Vous serez combien ? », 3 cartes) · E2 Fiche activité (créneaux, participants, total) · E3 Récapitulatif (total TTC, mention simulée, revérification) · E4 Confirmation (référence, places restantes, .ics, partage avec le groupe, frise « Et ensuite ? ») · Mes réservations / réinitialiser / journal analytics.
 - **Aucun champ de données personnelles dans le prototype** (règle « aucune donnée personnelle réelle collectée »). La saisie du prénom et de l'email est *proposée* pour la production : un encart sur le récapitulatif l'indique. Le tunnel du prototype colle ainsi exactement aux 5 étapes du brief.
 - 3 activités, 6 créneaux, **capacité ≤ 10 par créneau** : la seule limite visible reste « les places restantes », comme dans le brief. Dates fixes en avril 2027, prix par personne TTC.
 - Démarrage de la réservation = validation du créneau et du nombre de participants (clic « Réserver »).
