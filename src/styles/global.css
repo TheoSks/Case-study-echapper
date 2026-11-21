@@ -310,6 +310,10 @@ a {
 }
 .hero-banner img,
 .hero-video {
+  /* Légèrement assombrie : les reflets du soleil ne concurrencent plus le texte. */
+  filter: brightness(0.82) saturate(1.08);
+}
+.hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -324,8 +328,16 @@ a {
   inset: 0;
   /* Voile léger : concentré derrière le texte, les couleurs de l'image restent vives ailleurs. */
   background:
-    radial-gradient(ellipse 55% 45% at 50% 50%, rgb(23 61 53 / 0.42), rgb(23 61 53 / 0) 80%),
-    linear-gradient(to top, rgb(23 61 53 / 0.5) 0%, rgb(23 61 53 / 0) 35%);
+    radial-gradient(ellipse 60% 50% at 50% 52%, rgb(23 61 53 / 0.78), rgb(23 61 53 / 0.45) 55%, rgb(23 61 53 / 0.1) 85%, rgb(23 61 53 / 0) 100%),
+    linear-gradient(to top, rgb(23 61 53 / 0.55) 0%, rgb(23 61 53 / 0) 35%);
+}
+@media (max-width: 52rem) {
+  /* Sur mobile, le texte occupe toute la largeur : le voile s'élargit. */
+  .hero-banner::after {
+    background:
+      radial-gradient(ellipse 100% 48% at 50% 50%, rgb(23 61 53 / 0.82), rgb(23 61 53 / 0.5) 60%, rgb(23 61 53 / 0.15) 90%),
+      linear-gradient(to top, rgb(23 61 53 / 0.55) 0%, rgb(23 61 53 / 0) 35%);
+  }
 }
 .hero-banner-text {
   position: relative;
@@ -359,14 +371,15 @@ a {
   letter-spacing: -0.015em;
   max-width: 15ch;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgb(23 61 53 / 0.5);
+  text-shadow: 0 1px 2px rgb(15 40 35 / 0.45), 0 2px 28px rgb(23 61 53 / 0.65);
 }
 .hero-accent {
   display: block;
   color: var(--soleil);
 }
 .hero-banner .lead {
-  text-shadow: 0 1px 12px rgb(23 61 53 / 0.6);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgb(15 40 35 / 0.55), 0 1px 16px rgb(23 61 53 / 0.75);
   font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   max-width: 34rem;
   text-wrap: balance;
