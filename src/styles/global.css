@@ -322,9 +322,10 @@ a {
   content: "";
   position: absolute;
   inset: 0;
+  /* Voile léger : concentré derrière le texte, les couleurs de l'image restent vives ailleurs. */
   background:
-    radial-gradient(ellipse 70% 60% at 50% 48%, rgb(23 61 53 / 0.55), rgb(23 61 53 / 0) 75%),
-    linear-gradient(to top, rgb(23 61 53 / 0.75) 0%, rgb(23 61 53 / 0.15) 45%, rgb(23 61 53 / 0.25) 100%);
+    radial-gradient(ellipse 55% 45% at 50% 50%, rgb(23 61 53 / 0.42), rgb(23 61 53 / 0) 80%),
+    linear-gradient(to top, rgb(23 61 53 / 0.5) 0%, rgb(23 61 53 / 0) 35%);
 }
 .hero-banner-text {
   position: relative;
@@ -358,13 +359,14 @@ a {
   letter-spacing: -0.015em;
   max-width: 15ch;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgb(23 61 53 / 0.35);
+  text-shadow: 0 2px 24px rgb(23 61 53 / 0.5);
 }
 .hero-accent {
   display: block;
   color: var(--soleil);
 }
 .hero-banner .lead {
+  text-shadow: 0 1px 12px rgb(23 61 53 / 0.6);
   font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   max-width: 34rem;
   text-wrap: balance;

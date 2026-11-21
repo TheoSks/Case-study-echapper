@@ -6,7 +6,7 @@ import { ResponsiveImage } from "./ActivityImage";
  * Tant qu'aucune vidéo n'est fournie, l'image des calanques s'affiche.
  * Format conseillé : MP4 (H.264) 1920 px, 10–20 s, sans son, moins de 6 Mo.
  */
-// Fichier local, hors Git tant que les droits ne sont pas confirmés : s'il manque, l'image s'affiche.
+// Vidéo fournie par l'auteur du projet (droits détenus). S'il manque, l'image s'affiche.
 export const HERO_VIDEO: string | null = "./videos/provence-drone.mp4";
 
 /** Pas de vidéo si l'utilisateur demande moins d'animations ou d'économiser ses données : l'image suffit. */
