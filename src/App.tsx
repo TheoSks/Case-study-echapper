@@ -16,7 +16,13 @@ export function App() {
     document.querySelector<HTMLElement>("main h1")?.focus({ preventScroll: true });
   }, [route.path]);
 
-  return <Layout>{renderPage(route)}</Layout>;
+  return (
+    <Layout>
+      <div key={route.path} className="page-enter">
+        {renderPage(route)}
+      </div>
+    </Layout>
+  );
 }
 
 function renderPage(route: Route) {

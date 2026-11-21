@@ -32,8 +32,10 @@ export function ConfirmationPage({ reference }: { reference: string }) {
 
   return (
     <div className="narrow">
-      <Icon name="check" className="success-mark" />
-      <h1 tabIndex={-1}>C'est réservé.</h1>
+      <SuccessMark />
+      <h1 tabIndex={-1} className="success-title">
+        C'est réservé.
+      </h1>
       <p>
         Réservation simulée : rien n'a été payé et aucun email n'a été envoyé. Garde ta référence{" "}
         <strong>{booking.reference}</strong>.
@@ -179,4 +181,23 @@ function ShareWithGroup({ booking, activity, slot }: { booking: Booking; activit
 function pickSuggestion(booked: Activity, availability: Record<string, number>): Activity | undefined {
   const others = catalog.activities.filter((a) => a.id !== booked.id && !isActivityFull(catalog, availability, a.id));
   return others.find((a) => a.weatherDependent !== booked.weatherDependent) ?? others[0];
+}
+
+/** Coche de confirmation, dessinée au trait (même style que les pictogrammes du kit). */
+function SuccessMark() {
+  return (
+    <svg
+      className="success-mark"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9" pathLength={1} />
+      <path d="m8 12.5 2.8 2.8L16.5 9.5" pathLength={1} />
+    </svg>
+  );
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { track } from "../analytics/track";
 import { ActivityImage, ResponsiveImage } from "../components/ActivityImage";
 import { Icon } from "../components/Icon";
@@ -70,8 +70,8 @@ export function HomePage({ route }: { route: Route }) {
             </p>
           </div>
           <ul className="cards">
-            {catalog.activities.map((activity) => (
-              <li key={activity.id}>
+            {catalog.activities.map((activity, index) => (
+              <li key={activity.id} style={{ "--i": index } as CSSProperties}>
                 <ActivityCard activity={activity} availability={availability} groupSize={groupSize} />
               </li>
             ))}

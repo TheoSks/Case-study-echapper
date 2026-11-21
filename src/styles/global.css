@@ -146,10 +146,12 @@ a {
   font: 600 var(--text-base) / 1 var(--font-body);
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  transition:
+    background-color 150ms ease,
+    transform 160ms var(--ease-out);
 }
-.btn:active {
-  transform: scale(0.98);
+.btn:active:not([disabled]) {
+  transform: scale(0.97);
 }
 .btn-primary {
   background: var(--color-cta-bg);
@@ -458,6 +460,15 @@ legend {
   border-radius: var(--radius);
   cursor: pointer;
   background: var(--color-surface);
+}
+.slot {
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+.slot:not(.slot--full):active {
+  transform: scale(0.99);
 }
 .slot input {
   width: 1.25rem;
@@ -779,10 +790,70 @@ legend {
   gap: var(--space-4);
 }
 
+/* ——— Micro-animations ——— */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Changement d'écran : le contenu arrive au lieu d'apparaître d'un coup. */
+.page-enter {
+  animation: rise-in 260ms var(--ease-out) backwards;
+}
+
+/* Cartes d'activités : apparition échelonnée (--i = position de la carte). */
+.cards > li {
+  animation: rise-in 320ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 80ms);
+}
+
+/* Les messages d'erreur apparaissent sans bouger. */
+.error {
+  animation: fade-in 150ms ease-out both;
+}
+
+/* Confirmation : le cercle puis la coche se dessinent. */
+.success-mark circle,
+.success-mark path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.success-mark circle {
+  animation: draw 420ms var(--ease-out) 120ms forwards;
+}
+.success-mark path {
+  animation: draw 260ms var(--ease-out) 460ms forwards;
+}
+.success-title {
+  animation: rise-in 320ms var(--ease-out) 200ms backwards;
+}
+
+/* Animations réduites : on garde les fondus, on retire les déplacements. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition: none !important;
+  .page-enter,
+  .cards > li,
+  .success-title {
+    animation-name: fade-in;
+  }
+  .btn:active:not([disabled]),
+  .slot:not(.slot--full):active {
+    transform: none;
+  }
+  .success-mark circle,
+  .success-mark path {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
