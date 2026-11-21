@@ -9,8 +9,8 @@
 |---|---|---|---|---|
 | 1 | Cadrage du besoin | `docs/01-cadrage.md` | 15 min | ✅ fini |
 | 2 | Parcours global & fidélisation | `docs/02-parcours.md` | 20 min | ✅ fini |
-| 3 | Écrans & règles métier | `docs/03-ecrans-regles.md` | 10 min | 🟡 validé, à formaliser |
-| 4 | Prototype de réservation | Application + tests | 1 h 30 | 🟠 scaffold fait |
+| 3 | Écrans & règles métier | `docs/03-ecrans-regles.md` | 10 min | ✅ fini |
+| 4 | Prototype de réservation | Application + tests | 1 h 30 | ✅ fini (62 tests) |
 | 5 | Recommandation technique | `docs/05-technique.md` | 20 min | ⚪ à faire |
 | 6 | Plan de mesure | `docs/06-mesure.md` | 20 min | ⚪ à faire |
 | 7 | Livraison (README, Git, démo) | `README.md`, dépôt GitHub | 15 min | ⚪ à faire |

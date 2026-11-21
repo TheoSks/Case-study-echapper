@@ -1,0 +1,41 @@
+# 3 · Écrans & règles métier
+
+## Les écrans du prototype
+
+| Écran | Étape du tunnel (brief) | Événement analytics |
+|---|---|---|
+| **Accueil** : accroche, « Vous serez combien ? », 3 cartes avec lieu, durée, âge, prix TTC et disponibilité écrite | Découverte | `view_item_list` |
+| **Fiche activité** : infos clés, « ce que tu vas vivre », créneaux (choix unique), participants, total TTC en direct, « Réserver » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
+| **Récapitulatif** : activité, créneau, lieu, participants, prix unitaire, **total TTC**, mention « réservation simulée », « Confirmer » | Récapitulatif | `view_summary` |
+| **Confirmation** : référence, récapitulatif, places restantes, partage avec le groupe, « Et ensuite ? », suggestion | Confirmation | `booking_confirmed` |
+
+**Démarrage de la réservation** : clic sur « Réserver » avec un créneau choisi **et** un nombre de participants valide. Un clic sans créneau ou avec une saisie invalide n'est pas un démarrage : il déclenche `booking_error`.
+
+## Règles métier → écran → preuve
+
+Tests : `npm test` (62 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+
+| Règle du brief | Où | Test |
+|---|---|---|
+| Une activité complète reste consultable et son indisponibilité est compréhensible | Escape game : fiche ouverte, encadré « complète sur toutes les dates proposées », créneaux affichés « Complet », liens vers les autres activités ; carte d'accueil « Complet sur les dates proposées » | `App.test` › Créneaux et activités complets |
+| Un seul créneau, un nombre entier de participants > 0, sans dépasser les places restantes | Créneaux en boutons radio ; saisie validée en direct avec message explicite | `booking.test` › participants, places restantes · `App.test` › Saisies invalides |
+| Un créneau complet ne peut pas être réservé ; règles vérifiées au moment de confirmer | Créneau complet désactivé ; la confirmation revérifie tout contre l'état des places au moment du clic. Outil de démo pour le montrer | `booking.test` › revérifie au moment de confirmer · `App.test` › créneau devenu complet |
+| Avant confirmation : activité, créneau, participants, total TTC | Récapitulatif | `App.test` › de la fiche à la confirmation |
+| Après confirmation : places déduites du seul créneau choisi, récapitulatif affiché, décompte unique | Confirmation ; identifiant de parcours (`draftId`) rendant la confirmation idempotente, bouton désactivé, historique remplacé | `booking.test` › seul créneau, une seule fois · `App.test` › double clic, retour sur le récapitulatif |
+| Une saisie invalide n'enregistre rien et ne modifie pas les disponibilités | Fiche (saisie), récapitulatif (URL modifiée à la main) | `booking.test` › état strictement inchangé · `App.test` › URL modifiée |
+| Places cohérentes pendant la session ; persistance documentée | `sessionStorage` : conservées au rechargement, remises à zéro à la fermeture de l'onglet ou via « Réinitialiser la démo » | `store.test` |
+| Réservation clairement simulée : ni paiement, ni email, ni donnée personnelle | Bandeau sur toutes les pages, encadré sur le récapitulatif, phrase sur la confirmation. Aucun champ de donnée personnelle | `App.test` › Mention de simulation |
+
+## Cas limites joués devant le jury
+
+| Action | Résultat attendu |
+|---|---|
+| 0, -2, 2,5, « abc » participants | Message en ligne, pas de passage au récapitulatif, rien d'enregistré |
+| 8 participants sur un créneau à 7 places | « Il reste 7 places sur ce créneau. » |
+| Clic sur un créneau complet | Impossible (désactivé, libellé « Complet ») |
+| Ouvrir l'escape game | Fiche consultable, indisponibilité expliquée, alternatives |
+| Double clic sur « Confirmer » | Une seule réservation, places décomptées une fois |
+| Retour arrière ou URL du récapitulatif après confirmation | « Cette réservation est déjà confirmée », aucun nouveau décompte |
+| Outil de démo « le créneau devient complet », puis « Confirmer » | Refus explicite, rien d'enregistré |
+| URL modifiée (`participants=99`) | Refus explicite au récapitulatif, pas de bouton « Confirmer » |
+| Rechargement de la page | Places conservées |
