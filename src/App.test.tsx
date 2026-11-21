@@ -150,15 +150,42 @@ describe("Créneaux et activités complets", () => {
     expect(screen.getByRole("link", { name: "Atelier céramique" })).toBeTruthy();
   });
 
-  it("accueil : un choix rapide indique combien d'activités ont de la place pour le groupe", async () => {
+  it("accueil : les choix rapides donnent le bon résultat pour chaque groupe", async () => {
     const user = userEvent.setup();
     open("/");
-    await user.click(screen.getByRole("button", { name: /Entre amis/ }));
-    expect(screen.getByText(/de la place pour 6 personnes/).textContent).toContain("2 activités ont");
-    const input = screen.getByLabelText("Ou indique le nombre exact");
+    for (const [label, size] of [["À deux", 2], ["En famille", 4], ["Entre amis", 6]] as const) {
+      await user.click(screen.getByRole("button", { name: new RegExp(label) }));
+      expect(screen.getByText(new RegExp(`de la place pour ${size} personnes`)).textContent).toContain("2 activités ont");
+    }
+    const input = screen.getByLabelText("Nombre exact de participants");
     await user.clear(input);
     await user.type(input, "8");
     expect(screen.getAllByText("Aucun créneau pour 8 personnes")).toHaveLength(2);
+  });
+
+  it("accueil : la date affine le résultat (scénarios par week-end)", async () => {
+    const user = userEvent.setup();
+    open("/");
+    await user.click(screen.getByRole("button", { name: "Week-end du 24–25 avril" }));
+    // À deux : seule la céramique (créneau du 24, 2 places) convient ; le kayak du 25 est complet.
+    expect(screen.getByText(/de la place pour 2 personnes, le week-end du 24–25 avril/).textContent).toContain("1 activité a");
+    expect(screen.getByText("Pas de créneau ce week-end pour 2 personnes")).toBeTruthy();
+    // En famille : plus rien ce week-end-là.
+    await user.click(screen.getByRole("button", { name: /En famille/ }));
+    expect(screen.getByText(/Aucune activité/)).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Week-end du 17–18 avril" }));
+    expect(screen.getByText(/de la place pour 4 personnes, le week-end du 17–18 avril/).textContent).toContain("2 activités ont");
+  });
+
+  it("accueil : signale quand les tests ont modifié les places, et permet de réinitialiser", async () => {
+    const user = userEvent.setup();
+    act(() => bookingStore.fillSlot("a02-s1"));
+    open("/");
+    expect(screen.getByText(/tes tests ont modifié les places/)).toBeTruthy();
+    expect(screen.getAllByText("Complet sur les dates proposées")).toHaveLength(2);
+    await user.click(screen.getAllByRole("button", { name: "Réinitialiser la démo" })[0]);
+    expect(screen.queryByText(/tes tests ont modifié les places/)).toBeNull();
+    expect(screen.getAllByText("Complet sur les dates proposées")).toHaveLength(1);
   });
 
   it("l'accueil l'indique en toutes lettres sur la carte", () => {

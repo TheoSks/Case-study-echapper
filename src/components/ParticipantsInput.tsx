@@ -11,9 +11,13 @@ export function ParticipantsInput({
   max,
   error,
   label = "Participants",
+  labelHidden = false,
   hint = "Organisateur compris. Groupe de plus de 10 ? Une demande de devis sera proposée dans la version en ligne.",
 }: {
   label?: string;
+  /** Libellé lu par les lecteurs d'écran mais masqué à l'écran (quand le contexte le donne déjà). */
+  labelHidden?: boolean;
+  /** Aide sous le champ ; chaîne vide pour ne rien afficher. */
   hint?: string;
   value: string;
   onChange: (value: string) => void;
@@ -29,7 +33,7 @@ export function ParticipantsInput({
 
   return (
     <div className="field">
-      <label className="field-label" htmlFor={id}>
+      <label className={labelHidden ? "visually-hidden" : "field-label"} htmlFor={id}>
         {label}
       </label>
       <div className="stepper">
@@ -49,7 +53,7 @@ export function ParticipantsInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? `${errorId} ${hintId}` : hintId}
+          aria-describedby={[error ? errorId : "", hint ? hintId : ""].filter(Boolean).join(" ") || undefined}
         />
         <button
           type="button"
@@ -60,9 +64,11 @@ export function ParticipantsInput({
           +
         </button>
       </div>
-      <p className="field-hint" id={hintId}>
-        {hint}
-      </p>
+      {hint && (
+        <p className="field-hint" id={hintId}>
+          {hint}
+        </p>
+      )}
       {error && (
         <p className="error" id={errorId} role="alert">
           {error}

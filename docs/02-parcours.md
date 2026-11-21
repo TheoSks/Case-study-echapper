@@ -68,7 +68,7 @@ Le brief exclut la conception de campagnes d'acquisition. Pour la découverte, o
 
 | ✅ Construit et vérifié (prototype) | 🟡 Proposé pour le lancement (non développé) | ⏭️ Reporté |
 |---|---|---|
-| Catalogue et filtre « Vous serez combien ? » | Paiement du total en ligne | Compte client |
+| Catalogue, « Vous serez combien ? » et « Quand ? » (par week-end), résultat en direct | Paiement du total en ligne | Compte client |
 | Fiche activité, disponibilité écrite en toutes lettres, activité complète consultable | Saisie du prénom et de l'email, consentement séparé pour les relances | Relance des réservations abandonnées |
 | Réservation d'un créneau, revérification à la confirmation | Email de confirmation (J0) | Liste d'attente sur un créneau complet |
 | Récapitulatif TTC, confirmation, places déduites une seule fois | Email de préparation et météo (J-2) | Rappel par SMS (J-1) |
@@ -93,7 +93,8 @@ Le prototype n'envoie aucun email : la frise « Et ensuite ? » décrit ce que f
 | 6 | **Relance des abandons reportée** | Elle suppose d'avoir l'email et le consentement avant la fin du parcours |
 | 7 | **Carte cadeau reportée malgré son potentiel** (Noël) | Complexité du paiement et de la comptabilité. Premier candidat pour la V2 |
 | 8 | **Partage avec le groupe construit dans le prototype** | Peu coûteux, sans donnée collectée, et il rend concret le rôle de l'organisateur |
-| 9 | **Pas de filtre par type d'activité** | Avec 3 activités, un filtre n'apporte rien ; la taille du groupe est le vrai critère d'adaptation. À revoir quand le catalogue grandira |
+| 9 | **Pas de filtre par type d'activité** | Avec 3 activités, un filtre n'apporte rien ; la taille du groupe et la date sont les vrais critères d'adaptation. À revoir quand le catalogue grandira |
+| 10 | **Date choisie par week-end, pas de calendrier** | L'organisateur raisonne en « combien » et « quand ». Le brief exclut un calendrier complexe : des choix par week-end, déduits des créneaux, suffisent au lancement |
 
 ## Conformité au brief
 
