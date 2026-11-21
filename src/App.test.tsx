@@ -168,7 +168,7 @@ describe("Calendrier, horaires et activités complètes", () => {
     expect(screen.getByText("Cette activité est complète sur toutes les dates proposées.")).toBeTruthy();
     expect(screen.getAllByRole("radio").every((r) => (r as HTMLInputElement).disabled)).toBe(true);
     expect(screen.queryByRole("button", { name: /^Réserver/ })).toBeNull();
-    expect(screen.getByRole("link", { name: "Atelier céramique" })).toBeTruthy();
+    expect(screen.getAllByRole("link", { name: /Atelier céramique/ }).length).toBeGreaterThan(0);
   });
 });
 

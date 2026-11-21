@@ -1014,8 +1014,7 @@ a {
   }
   .booking-panel {
     position: sticky;
-    top: var(--space-4);
-    order: 2;
+    top: 5.5rem;
   }
 }
 
@@ -1398,6 +1397,194 @@ legend {
 }
 .suggestion:hover h3 {
   text-decoration: underline;
+}
+
+/* ——— Fiche activité : en-tête, points clés, contenus ——— */
+.activity-head {
+  display: grid;
+  gap: var(--space-4);
+  align-items: end;
+}
+@media (min-width: 52rem) {
+  .activity-head {
+    grid-template-columns: 1fr auto;
+  }
+}
+.activity-title {
+  display: grid;
+  gap: var(--space-3);
+}
+.activity-share {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+.activity-share .btn {
+  min-height: 2.75rem;
+  font-size: var(--text-sm);
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.highlights li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 999px;
+  background: var(--blanc);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.highlights .icon {
+  color: var(--argile);
+}
+
+.activity-content > .content-block:first-child {
+  margin-top: 0;
+}
+.check-list {
+  list-style: none;
+  padding: 0 !important;
+}
+.check-list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.check-list .icon {
+  margin-top: 0.15rem;
+  color: var(--argile);
+}
+.two-cols {
+  display: grid;
+  gap: 0 var(--space-6);
+}
+@media (min-width: 40rem) {
+  .two-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.meeting-card {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+.meeting-card .next-step-icon {
+  flex-shrink: 0;
+  margin: 0;
+}
+.meeting-place {
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.know-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-5);
+}
+.know-list div {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.know-list div:last-child {
+  border-bottom: 0;
+}
+.know-list dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+}
+.know-list dt .icon {
+  color: var(--argile);
+}
+.know-list dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+.panel-price {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+}
+.panel-price strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--pin);
+}
+.panel-reassure {
+  text-align: center;
+  margin-top: calc(-1 * var(--space-2));
+}
+.sticky-bar small {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+.related-card {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform 160ms var(--ease-out);
+}
+.related-card img {
+  width: 7rem;
+  height: 5.5rem;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.related-body {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.related-body strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+.related-body .muted {
+  font-size: var(--text-sm);
+}
+@media (hover: hover) and (pointer: fine) {
+  .related-card:hover strong {
+    text-decoration: underline;
+  }
+}
+.related-card:active {
+  transform: scale(0.99);
 }
 
 /* ——— Confirmation ——— */

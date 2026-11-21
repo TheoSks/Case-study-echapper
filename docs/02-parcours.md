@@ -97,6 +97,7 @@ Le prototype n'envoie aucun email : la frise « Et ensuite ? » décrit ce que f
 | 9 | **Pas de filtre par type d'activité** | Avec 3 activités, un filtre n'apporte rien ; la taille du groupe et la date sont les vrais critères d'adaptation. À revoir quand le catalogue grandira |
 | 10 | **Recherche sur le modèle du marché : Activité · Date · Participants** | Benchmark (GetYourGuide, Funbooker, Airbnb Expériences) : l'organisateur raisonne en « quoi », « quand » et « combien ». Le calendrier ne propose que les jours où un horaire peut accueillir le groupe ; les jours complets restent visibles, barrés |
 | 11 | **Planning sur l'année, avec saisonnalité** | Céramique toute l'année, kayak d'avril à octobre : c'est la réalité d'une activité de plein air, et la base de la relance saisonnière |
+| 12 | **Fiche activité sur le modèle d'Airbnb Expériences** | Repris : points clés sous le titre, « Ce que tu vas vivre » concret, « Où se retrouver », « À savoir », réservation toujours visible, suggestions en fin de page. Écartés : avis et notes (la marque interdit de revendiquer des avis), profil d'hôte (personne inventée), favoris (pas de compte), galerie (une image par activité), carte (service externe) |
 
 ## Conformité au brief
 

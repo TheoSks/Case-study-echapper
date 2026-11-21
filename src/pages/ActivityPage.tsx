@@ -143,8 +143,15 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
     (a) => a.id !== activity.id && !isActivityFull(catalog, state.availability, a.id),
   );
 
+  const capacity = Math.max(...slots.map((s) => s.capacity));
+  const ready = Boolean(slotId && validation?.ok);
+  const showPanel = () => {
+    panelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const others = catalog.activities.filter((a) => a.id !== activity.id);
+
   return (
-    <div className="container">
+    <div className="container activity-page">
       <a className="link-back" href={href(withQuery("/", { participants }))}>
         <Icon name="arrow" /> Toutes les activités
       </a>
@@ -154,18 +161,144 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
       </div>
 
       <header className="activity-head">
-        <span className="category">
-          <Icon name={activity.icon} /> {activity.categoryLabel}
-        </span>
-        <h1 tabIndex={-1}>{activity.title}</h1>
-        <p className="lead">{activity.tagline}</p>
+        <div className="activity-title">
+          <span className="category">
+            <Icon name={activity.icon} /> {activity.categoryLabel}
+          </span>
+          <h1 tabIndex={-1}>{activity.title}</h1>
+          <p className="lead">{activity.tagline}</p>
+        </div>
+        <div className="activity-share">
+          <button type="button" className="btn btn-secondary" onClick={proposeToGroup}>
+            <Icon name="people" /> Proposer à ton groupe
+          </button>
+          {shareFeedback && (
+            <p role="status" className="field-hint">
+              {shareFeedback}
+            </p>
+          )}
+        </div>
       </header>
 
+      <ul className="highlights" aria-label="En bref">
+        <li>
+          <Icon name="pin" /> {activity.location}
+        </li>
+        <li>
+          <Icon name="clock" /> {formatDuration(activity.durationMinutes)}
+        </li>
+        <li>
+          <Icon name="people" /> Jusqu'à {capacity} par créneau
+        </li>
+        <li>
+          <Icon name="heart" /> Dès {activity.minAge} ans
+        </li>
+        <li>
+          <Icon name="explore" /> En français
+        </li>
+        {activity.weatherDependent && (
+          <li>
+            <Icon name="calendar" /> D'avril à octobre
+          </li>
+        )}
+      </ul>
+
       <div className={`activity-layout${full ? "" : " has-sticky-bar"}`}>
+        <div className="activity-content">
+          <section className="content-block" aria-labelledby="vivre">
+            <h2 id="vivre">Ce que tu vas vivre</h2>
+            <p>{activity.description}</p>
+            <ul className="check-list">
+              {activity.experience.map((item) => (
+                <li key={item}>
+                  <Icon name="check" /> {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <div className="two-cols">
+            <section className="content-block" aria-labelledby="inclus">
+              <h2 id="inclus">Inclus</h2>
+              <ul className="check-list">
+                {activity.included.map((item) => (
+                  <li key={item}>
+                    <Icon name="check" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="content-block" aria-labelledby="prevoir">
+              <h2 id="prevoir">À prévoir</h2>
+              <ul className="check-list">
+                {activity.toBring.map((item) => (
+                  <li key={item}>
+                    <Icon name="arrow" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <section className="content-block" aria-labelledby="rdv">
+            <h2 id="rdv">Où se retrouver</h2>
+            <div className="meeting-card">
+              <span className="next-step-icon">
+                <Icon name="pin" />
+              </span>
+              <div>
+                <p className="meeting-place">{activity.meetingPoint}</p>
+                <p className="muted">
+                  {activity.location} · Arrive 10 minutes avant le début. L'itinéraire détaillé accompagnera la
+                  confirmation dans la version en ligne.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="content-block" aria-labelledby="savoir">
+            <h2 id="savoir">À savoir</h2>
+            <dl className="know-list">
+              <div>
+                <dt>
+                  <Icon name="people" /> Participants
+                </dt>
+                <dd>
+                  Dès {activity.minAge} ans, jusqu'à {capacity} par créneau. Au-delà de 10, une demande de devis sera
+                  proposée.
+                </dd>
+              </div>
+              {activity.weatherDependent && (
+                <div>
+                  <dt>
+                    <Icon name="explore" /> Météo
+                  </dt>
+                  <dd>Activité en extérieur, maintenue selon la météo. Les conditions de report seront précisées dans la version en ligne.</dd>
+                </div>
+              )}
+              <div>
+                <dt>
+                  <Icon name="calendar" /> Annulation
+                </dt>
+                <dd>Conditions d'annulation et de report précisées dans la version en ligne.</dd>
+              </div>
+              <div>
+                <dt>
+                  <Icon name="heart" /> Accessibilité
+                </dt>
+                <dd>Une question sur l'accès ? L'équipe répond avant la réservation (version en ligne).</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+
         <aside className="booking-panel" ref={panelRef} aria-labelledby="booking-title" id="reserver">
           <div>
             {!full && <p className="steps">Étape 1 sur 2 · Date, horaire et participants</p>}
             <h2 id="booking-title">Réserver</h2>
+            <p className="panel-price">
+              <strong>{formatPrice(activity.pricePerPersonCents)}</strong> par personne, TTC
+            </p>
           </div>
 
           {full && (
@@ -236,92 +369,69 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
               <button type="button" className="btn btn-primary btn-block" onClick={startBooking}>
                 Réserver <Icon name="arrow" />
               </button>
-              <button type="button" className="btn-link" onClick={proposeToGroup}>
-                <Icon name="people" /> Proposer cette sortie à ton groupe
-              </button>
-              {shareFeedback && (
-                <p role="status" className="field-hint" style={{ textAlign: "center", marginTop: "-0.5rem" }}>
-                  {shareFeedback}
-                </p>
-              )}
+              <p className="field-hint panel-reassure">Réservation simulée : rien n'est payé à cette étape.</p>
             </>
           )}
         </aside>
-
-        <div>
-          <dl className="key-facts">
-            <div>
-              <dt>
-                <Icon name="pin" /> Lieu
-              </dt>
-              <dd>{activity.meetingPoint}</dd>
-            </div>
-            <div>
-              <dt>
-                <Icon name="clock" /> Durée
-              </dt>
-              <dd>{formatDuration(activity.durationMinutes)}</dd>
-            </div>
-            <div>
-              <dt>
-                <Icon name="people" /> Âge minimum
-              </dt>
-              <dd>{activity.minAge} ans</dd>
-            </div>
-            <div>
-              <dt>Prix</dt>
-              <dd>{formatPrice(activity.pricePerPersonCents)} par personne, TTC</dd>
-            </div>
-          </dl>
-
-          {activity.weatherDependent && (
-            <div className="notice" style={{ marginTop: "1rem" }}>
-              <strong>Activité en extérieur</strong>
-              <p>Elle dépend de la météo. Les conditions de report seront précisées dans la version en ligne.</p>
-            </div>
-          )}
-
-          <section className="content-block" aria-labelledby="vivre">
-            <h2 id="vivre">Ce que tu vas vivre</h2>
-            <p>{activity.description}</p>
-            <ul>
-              {activity.experience.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="content-block" aria-labelledby="inclus">
-            <h2 id="inclus">Inclus</h2>
-            <ul>
-              {activity.included.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="content-block" aria-labelledby="prevoir">
-            <h2 id="prevoir">À prévoir</h2>
-            <ul>
-              {activity.toBring.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-        </div>
       </div>
+
+      <section className="section" aria-labelledby="aussi">
+        <div className="section-head">
+          <h2 id="aussi">Tu aimeras aussi</h2>
+        </div>
+        <ul className="related">
+          {others.map((a) => {
+            const next = nextAvailableSlot(catalog, state.availability, a.id);
+            return (
+              <li key={a.id}>
+                <a className="related-card" href={href(withQuery(`/activites/${a.slug}`, { participants }))}>
+                  <ActivityImage activity={a} sizes="(min-width: 52rem) 20vw, 40vw" />
+                  <span className="related-body">
+                    <span className="category">
+                      <Icon name={a.icon} /> {a.categoryLabel}
+                    </span>
+                    <strong>{a.title}</strong>
+                    <span className="muted">
+                      {a.location} · {formatPrice(a.pricePerPersonCents)} / pers. · {next ? "Places disponibles" : "Complet"}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       {!full && (
         <div className="sticky-bar">
           <div>
-            <span className="muted" style={{ fontSize: "0.875rem" }}>
-              Total TTC
-            </span>
-            <div className="total-amount">{total !== null ? formatPrice(total) : "—"}</div>
+            {ready && total !== null ? (
+              <>
+                <span className="muted" style={{ fontSize: "0.875rem" }}>
+                  Total TTC
+                </span>
+                <div className="total-amount">{formatPrice(total)}</div>
+              </>
+            ) : (
+              <>
+                <span className="muted" style={{ fontSize: "0.875rem" }}>
+                  Dès
+                </span>
+                <div className="total-amount">
+                  {formatPrice(activity.pricePerPersonCents)} <small>/ pers.</small>
+                </div>
+              </>
+            )}
           </div>
-          <button type="button" className="btn btn-primary" onClick={startBooking}>
-            Réserver
-          </button>
+          {ready ? (
+            <button type="button" className="btn btn-primary" onClick={startBooking}>
+              Réserver
+            </button>
+          ) : (
+            <button type="button" className="btn btn-primary" onClick={showPanel}>
+              Choisir une date
+            </button>
+          )}
         </div>
       )}
     </div>
