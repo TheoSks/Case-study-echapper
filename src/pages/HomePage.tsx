@@ -3,7 +3,6 @@ import { track } from "../analytics/track";
 import { ResponsiveImage } from "../components/ActivityImage";
 import { ActivityCard } from "../components/ActivityCard";
 import { HeroMedia } from "../components/HeroMedia";
-import { Icon, type IconName } from "../components/Icon";
 import { MAX_GROUP, SearchBar, type Search } from "../components/SearchBar";
 import { catalog } from "../data/catalog";
 import { parseParticipants } from "../domain/booking";
@@ -123,45 +122,47 @@ export function HomePage({ route }: { route: Route }) {
           <div className="section-head">
             <h2 id="comment">Comment ça marche</h2>
           </div>
-          <ol className="next-steps">
-            <Step icon="search" step={1} title="Choisis ta sortie" text="Une activité, une date, ton groupe : tu vois tout de suite ce qui a de la place." />
-            <Step icon="calendar" step={2} title="Réserve en deux minutes" text="Un horaire, le nombre de participants, et le total TTC affiché avant de confirmer." />
-            <Step icon="people" step={3} title="Préviens ton groupe" text="Lieu, heure et ce qu'il faut prévoir, à partager en un geste." />
+          <ol className="how-steps">
+            <HowStep step="01" title="Choisis ta sortie" text="Une activité, une date, ton groupe : tu vois tout de suite ce qui a de la place." />
+            <HowStep step="02" title="Réserve en deux minutes" text="Un horaire, le nombre de participants, et le total TTC affiché avant de confirmer." />
+            <HowStep step="03" title="Préviens ton groupe" text="Lieu, heure et ce qu’il faut prévoir, à partager en un geste." />
           </ol>
         </section>
 
-        <section className="section" id="groupes" aria-labelledby="groupes-title">
-          <div className="section-head">
-            <h2 id="groupes-title">Groupes & contact</h2>
+        <section className="section groups-split" id="groupes" aria-labelledby="groupes-title">
+          <div className="groups-media">
+            <ResponsiveImage
+              name="a03-escape-game"
+              alt="Une table en bois avec une carte ancienne et un coffret à énigmes."
+              sizes="(min-width: 52rem) 40vw, 100vw"
+            />
           </div>
-          <div className="contact-grid">
-            <article className="contact-card">
-              <span className="next-step-icon">
-                <Icon name="people" />
-              </span>
+          <div className="groups-body">
+            <p className="eyebrow">Groupes & contact</p>
+            <h2 id="groupes-title">Une sortie à plusieurs, on s’en occupe avec toi</h2>
+            <div className="groups-item">
               <h3>Plus de 10 participants ?</h3>
               <p className="muted">
-                Anniversaire, association, sortie de famille élargie : l'équipe prépare un devis adapté à ton groupe,
+                Anniversaire, association, sortie de famille élargie : l’équipe prépare un devis adapté à ton groupe,
                 avec une date et une activité sur mesure.
               </p>
-              <p className="contact-note">
-                <span className="tag">Version en ligne</span> Formulaire de demande de devis, réponse par l'équipe.
+              <p className="groups-cta">
+                Demande de devis
+                <span className="tag">Version en ligne</span>
               </p>
-            </article>
-            <article className="contact-card">
-              <span className="next-step-icon">
-                <Icon name="heart" />
-              </span>
+            </div>
+            <div className="groups-item">
               <h3>Une question avant de réserver ?</h3>
               <p className="muted">
-                Accès, météo, âge minimum, accessibilité : l'équipe d'Échappée répond par téléphone et par email,
+                Accès, météo, âge minimum, accessibilité : l’équipe d’Échappée répond par téléphone et par email,
                 comme elle le fait déjà pour ses clients professionnels.
               </p>
-              <p className="contact-note">
-                <span className="tag">Version en ligne</span> Téléphone et email de contact. Ce prototype ne collecte
-                aucune donnée.
+              <p className="groups-cta">
+                Téléphone et email
+                <span className="tag">Version en ligne</span>
               </p>
-            </article>
+            </div>
+            <p className="field-hint">Ce prototype ne collecte aucune donnée : formulaire et coordonnées arrivent avec la version en ligne.</p>
           </div>
         </section>
 
@@ -183,13 +184,10 @@ export function HomePage({ route }: { route: Route }) {
   );
 }
 
-function Step({ icon, step, title, text }: { icon: IconName; step: number; title: string; text: string }) {
+function HowStep({ step, title, text }: { step: string; title: string; text: string }) {
   return (
-    <li className="next-step">
-      <span className="next-step-icon">
-        <Icon name={icon} />
-      </span>
-      <span className="timeline-when">Étape {step}</span>
+    <li className="how-step">
+      <span className="how-num">{step}</span>
       <h3>{title}</h3>
       <p className="muted">{text}</p>
     </li>
