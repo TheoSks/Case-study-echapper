@@ -4,6 +4,8 @@ Cas pratique Product Builder : le lancement du site B2C d'Échappée, opérateur
 
 Le prototype permet de **découvrir l'offre, trouver une activité adaptée et réserver** (de façon simulée), sur mobile et sur ordinateur, avec des activités et des créneaux fictifs.
 
+**Démo en ligne : https://casestudyechapper.vercel.app/**
+
 > **Réservation simulée.** Aucun paiement n'est effectué, aucun email n'est envoyé et aucune donnée personnelle n'est collectée. Seules les places de la démo sont mises à jour, dans le navigateur.
 
 ## Le parcours
@@ -130,6 +132,8 @@ Les créneaux de démonstration servent aux cas limites : le **dimanche 18 avril
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Organisation du travail |
 
 ## Déploiement
+
+Déployé sur Vercel : **https://casestudyechapper.vercel.app/**
 
 Le build est un site statique (`dist/`) avec des chemins relatifs. Sur **Vercel** : framework « Vite », commande de build `npm run build`, dossier de sortie `dist`. Aucune variable d'environnement n'est nécessaire.
 
