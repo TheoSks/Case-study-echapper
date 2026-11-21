@@ -20,11 +20,18 @@ export function slotsOn(day: string, activityIds: string[]): Slot[] {
   return (slotsByDay.get(day) ?? []).filter((s) => activityIds.includes(s.activityId));
 }
 
-/** Disponible si au moins un horaire a assez de places pour le groupe ; complet si tous sont à 0 ; « short » sinon. */
+/** Seuil « peu de places » : le meilleur horaire du jour en a 3 ou moins. */
+export const FEW_PLACES = 3;
+
+/**
+ * Disponible si au moins un horaire a assez de places pour le groupe (« few » s'il en reste 3 ou moins) ;
+ * complet si tous sont à 0 ; « short » s'il reste des places, mais pas assez pour le groupe.
+ */
 export function dayStatus(availability: Availability, activityIds: string[], day: string, size: number): DayStatus {
   const slots = slotsOn(day, activityIds);
   if (slots.length === 0) return undefined;
-  if (slots.some((s) => remainingFor(availability, s.id) >= size)) return "available";
+  const best = Math.max(...slots.map((s) => remainingFor(availability, s.id)));
+  if (best >= size) return best <= FEW_PLACES ? "few" : "available";
   if (slots.every((s) => remainingFor(availability, s.id) <= 0)) return "full";
   return "short";
 }
@@ -36,7 +43,11 @@ export function nextAvailableDay(
   size: number,
   from = days[0],
 ): string | undefined {
-  return days.find((day) => day >= from && dayStatus(availability, activityIds, day, size) === "available");
+  return days.find((day) => {
+    if (day < from) return false;
+    const status = dayStatus(availability, activityIds, day, size);
+    return status === "available" || status === "few";
+  });
 }
 
 /** Premier horaire qui convient, un jour donné. */

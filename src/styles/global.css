@@ -680,31 +680,41 @@ a {
   font: 400 var(--text-sm) var(--font-body);
   cursor: default;
 }
-.dp-day--available {
+/* Disponible : gras + point vert Pin */
+.dp-day--available,
+.dp-day--few {
   color: var(--pin);
   font-weight: 700;
   cursor: pointer;
   transition: background-color 150ms ease;
 }
-.dp-day--available::after {
-  /* Pastille Soleil : un horaire convient ce jour-là (doublée par le libellé lu à voix haute). */
+.dp-day--available::after,
+.dp-day--few::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 18%;
-  width: 4px;
-  height: 4px;
-  margin-left: -2px;
+  bottom: 16%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
   border-radius: 50%;
-  background: var(--argile);
+  background: var(--pin);
 }
-.dp-day--available:hover {
+/* Peu de places : point Soleil cerclé (le contour garde le point visible sur fond clair) */
+.dp-day--few::after {
+  background: var(--soleil);
+  box-shadow: 0 0 0 1px var(--argile);
+}
+.dp-day--available:hover,
+.dp-day--few:hover {
   background: var(--craie);
 }
+/* Complet : barré, en Argile */
 .dp-day--full,
 .dp-day--short {
-  color: var(--sauge);
+  color: var(--argile);
   text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
 }
 .dp-day[aria-pressed="true"] {
   background: var(--pin);
@@ -712,10 +722,12 @@ a {
 }
 .dp-day[aria-pressed="true"]::after {
   background: var(--soleil);
+  box-shadow: none;
 }
 .dp-legend {
   display: flex;
-  gap: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
   font-size: 0.75rem;
   color: var(--sauge);
 }
@@ -725,13 +737,19 @@ a {
   gap: var(--space-2);
 }
 .dp-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--argile);
+  background: var(--pin);
+}
+.dp-dot--few {
+  background: var(--soleil);
+  box-shadow: 0 0 0 1px var(--argile);
 }
 .dp-strike {
+  color: var(--argile);
   text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
 }
 
 /* Horaires du jour : une ligne par horaire, l'heure à gauche, les places à droite. */

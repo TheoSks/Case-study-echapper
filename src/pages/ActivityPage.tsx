@@ -336,7 +336,7 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
               statusOf={(d) => {
                 const st = dayStatus(state.availability, [activity.id], d, 1);
                 // Un jour avec des places mais pas assez pour le groupe reste sélectionnable : le nombre se modifie.
-                return st === "short" ? "available" : st;
+                return st === "short" ? "few" : st;
               }}
               minMonth={MIN_MONTH}
               maxMonth={MAX_MONTH}

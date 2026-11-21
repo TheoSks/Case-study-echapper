@@ -141,6 +141,14 @@ describe("Calendrier, horaires et activités complètes", () => {
     expect(screen.getByRole("button", { name: "dimanche 18 avril, disponible" }).getAttribute("aria-pressed")).toBe("true");
   });
 
+  it("le calendrier signale les jours où il reste peu de places (3 ou moins), toujours sélectionnables", () => {
+    open("/activites/atelier-ceramique?date=2027-04-24");
+    const few = screen.getByRole("button", { name: "samedi 24 avril, peu de places" }) as HTMLButtonElement;
+    expect(few.disabled).toBe(false);
+    expect(few.className).toContain("dp-day--few");
+    expect(screen.getByRole("button", { name: "samedi 17 avril, disponible" }).className).toContain("dp-day--available");
+  });
+
   it("le kayak est saisonnier : aucun créneau en hiver", async () => {
     const user = userEvent.setup();
     open("/activites/kayak-calanques?date=2027-04-18");

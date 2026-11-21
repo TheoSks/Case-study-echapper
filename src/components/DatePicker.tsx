@@ -1,8 +1,8 @@
 import { Icon } from "./Icon";
 import { WEEKDAYS, addMonths, formatDay, formatMonth, monthGrid } from "../lib/dates";
 
-/** État d'un jour : au moins un horaire convient, des horaires existent mais aucun ne convient, ou aucun horaire. */
-export type DayStatus = "available" | "full" | "short" | undefined;
+/** État d'un jour : disponible, peu de places, complet, pas assez de places pour le groupe, ou aucun horaire. */
+export type DayStatus = "available" | "few" | "full" | "short" | undefined;
 
 /**
  * Calendrier mensuel (comme sur les plateformes d'activités) : seuls les jours disponibles se sélectionnent ;
@@ -65,7 +65,15 @@ export function DatePicker({
           if (!day) return <span key={`empty-${i}`} />;
           const status = statusOf(day);
           const label =
-            status === "available" ? "disponible" : status === "full" ? "complet" : status === "short" ? shortLabel : "pas de créneau";
+            status === "available"
+              ? "disponible"
+              : status === "few"
+                ? "peu de places"
+                : status === "full"
+                  ? "complet"
+                  : status === "short"
+                    ? shortLabel
+                    : "pas de créneau";
           return (
             <button
               key={day}
@@ -73,7 +81,7 @@ export function DatePicker({
               className={`dp-day${status ? ` dp-day--${status}` : ""}`}
               aria-pressed={selected === day}
               aria-label={`${formatDay(day)}, ${label}`}
-              disabled={status !== "available"}
+              disabled={status !== "available" && status !== "few"}
               onClick={() => onSelect(day)}
             >
               {Number(day.slice(8))}
@@ -84,6 +92,9 @@ export function DatePicker({
       <p className="dp-legend" aria-hidden="true">
         <span className="dp-legend-item">
           <span className="dp-dot" /> Disponible
+        </span>
+        <span className="dp-legend-item">
+          <span className="dp-dot dp-dot--few" /> Peu de places
         </span>
         <span className="dp-legend-item">
           <span className="dp-strike">12</span> Complet
