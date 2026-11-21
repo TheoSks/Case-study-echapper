@@ -227,9 +227,139 @@ a {
 }
 @media (min-width: 52rem) {
   .hero {
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-7);
-    padding: var(--space-7) 0;
+    padding: var(--space-6) 0 var(--space-7);
+  }
+  .hero-media {
+    position: relative;
+  }
+  .hero-media img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+/* ——— Trouver une activité adaptée ——— */
+.finder {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+.finder-title {
+  font-size: 1.75rem;
+}
+.finder-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border: 2px solid var(--galet);
+  border-radius: 999px;
+  background: var(--blanc);
+  color: var(--pin);
+  font: 600 var(--text-base) var(--font-body);
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+.chip-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--craie);
+  font-size: var(--text-sm);
+}
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    border-color: var(--pin);
+  }
+}
+.chip:active {
+  transform: scale(0.97);
+}
+.chip[aria-pressed="true"] {
+  background: var(--pin);
+  border-color: var(--pin);
+  color: var(--craie);
+}
+.chip[aria-pressed="true"] .chip-count {
+  background: var(--soleil);
+  color: var(--pin);
+}
+.finder .field-label {
+  font-size: var(--text-sm);
+}
+.finder-result {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  animation: fade-in 200ms ease-out;
+}
+@media (min-width: 30rem) {
+  .finder-result {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+/* ——— Bandeau de marque ——— */
+.brand-band {
+  display: grid;
+  margin: var(--space-6) 0;
+  background: var(--pin);
+  color: var(--craie);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.brand-band-text {
+  display: grid;
+  gap: var(--space-4);
+  align-content: center;
+  padding: var(--space-7) var(--space-5);
+}
+.brand-mark {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+.brand-quote {
+  font-family: var(--font-display);
+  font-size: var(--title-md);
+  line-height: 1.15;
+}
+.brand-band-media img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+@media (min-width: 52rem) {
+  .brand-band {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .brand-band-text {
+    padding: var(--space-8) var(--space-7);
+  }
+  .brand-band-media img {
+    aspect-ratio: auto;
+    min-height: 24rem;
   }
 }
 

@@ -11,8 +11,10 @@ export function ParticipantsInput({
   max,
   error,
   label = "Participants",
+  hint = "Organisateur compris. Groupe de plus de 10 ? Une demande de devis sera proposée dans la version en ligne.",
 }: {
   label?: string;
+  hint?: string;
   value: string;
   onChange: (value: string) => void;
   /** Plafond des boutons + (places restantes du créneau choisi). */
@@ -59,7 +61,7 @@ export function ParticipantsInput({
         </button>
       </div>
       <p className="field-hint" id={hintId}>
-        Organisateur compris. Groupe de plus de 10 ? Une demande de devis sera proposée dans la version en ligne.
+        {hint}
       </p>
       {error && (
         <p className="error" id={errorId} role="alert">

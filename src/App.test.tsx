@@ -150,6 +150,17 @@ describe("Créneaux et activités complets", () => {
     expect(screen.getByRole("link", { name: "Atelier céramique" })).toBeTruthy();
   });
 
+  it("accueil : un choix rapide indique combien d'activités ont de la place pour le groupe", async () => {
+    const user = userEvent.setup();
+    open("/");
+    await user.click(screen.getByRole("button", { name: /Entre amis/ }));
+    expect(screen.getByText(/de la place pour 6 personnes/).textContent).toContain("2 activités ont");
+    const input = screen.getByLabelText("Ou indique le nombre exact");
+    await user.clear(input);
+    await user.type(input, "8");
+    expect(screen.getAllByText("Aucun créneau pour 8 personnes")).toHaveLength(2);
+  });
+
   it("l'accueil l'indique en toutes lettres sur la carte", () => {
     open("/");
     expect(screen.getByText("Complet sur les dates proposées")).toBeTruthy();

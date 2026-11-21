@@ -4,7 +4,7 @@
 
 | Écran | Étape du tunnel (brief) | Événement analytics |
 |---|---|---|
-| **Accueil** : accroche, « Vous serez combien ? », 3 cartes avec lieu, durée, âge, prix TTC et disponibilité écrite | Découverte | `view_item_list` |
+| **Accueil** : accroche, « Vous serez combien ? » (choix rapides À deux / En famille / Entre amis, nombre exact, résultat en direct), 3 cartes avec lieu, durée, âge, prix TTC et disponibilité écrite (atténuées si aucun créneau ne convient), « Comment ça marche », bandeau de marque | Découverte | `view_item_list` |
 | **Fiche activité** : infos clés, « ce que tu vas vivre », créneaux (choix unique), participants, total TTC en direct, « Réserver », « Proposer cette sortie à ton groupe » ; barre fixe sur mobile | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
 | **Récapitulatif** : activité, créneau, lieu, participants, prix unitaire, **total TTC**, mention « réservation simulée », « Confirmer » | Récapitulatif | `view_summary` |
 | **Confirmation** : récapitulatif, « Préviens ton groupe » (partage), « Et ensuite ? » en 3 étapes, suggestion saisonnière ; décompte des places visible dans les outils de démo | Confirmation | `booking_confirmed` (avec les paramètres de campagne de l'arrivée) |
@@ -13,7 +13,7 @@
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (65 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (66 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|
