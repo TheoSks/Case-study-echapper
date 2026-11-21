@@ -1,0 +1,59 @@
+/*
+ * Tokens de marque Échappée.
+ * Source : guide de marque, page 04 « Couleur » et page 05 « Typographie ».
+ * Le kit ne fournit pas de dossier tokens/ : les valeurs sont recopiées du guide.
+ *
+ * Paires de contraste validées par le guide (≥ 4,5:1, texte courant) :
+ *   Pin sur Craie 10.79:1 · Craie sur Pin 10.79:1 · Craie sur Argile 5.37:1 · Pin sur Soleil 7.76:1
+ * Règle du guide : Soleil et Galet ne servent jamais seuls au texte sur Craie.
+ */
+
+:root {
+  /* Palette du guide */
+  --pin: #173d35; /* Texte / structure */
+  --craie: #f7f3e8; /* Fond principal */
+  --argile: #a9432e; /* Accent / caractère */
+  --soleil: #f2cc6b; /* Accent léger */
+  --sauge: #617267; /* Texte secondaire */
+  --galet: #d9d9c8; /* Décor / séparateur */
+  --blanc: #ffffff; /* Fond des blocs d'information (cartes du guide, pages 05 et 07) */
+
+  /* Rôles (dérivés du guide, à l'usage du prototype) */
+  --color-text: var(--pin);
+  --color-text-muted: var(--sauge);
+  --color-bg: var(--craie);
+  --color-surface: var(--blanc);
+  --color-border: var(--galet);
+  --color-accent: var(--argile);
+  --color-highlight: var(--soleil);
+  --color-cta-bg: var(--pin);
+  --color-cta-text: var(--craie);
+  /* Le guide ne définit pas de couleur d'erreur : on reprend Argile (« caractère »),
+     toujours accompagnée d'un texte explicite, jamais seule. */
+  --color-error: var(--argile);
+  --color-focus: var(--argile);
+
+  /* Typographie (guide p. 05) : Fraunces raconte, Manrope informe */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-sm: 0.875rem; /* 14 px — libellés */
+  --text-base: 1rem; /* 16 px — texte */
+  --text-lg: 1.125rem; /* 18 px — texte */
+  --title-sm: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --title-md: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --title-lg: clamp(2.25rem, 1.4rem + 3.6vw, 4rem); /* 32–64 px */
+
+  /* Non fournis par le guide : choix du prototype, sobres (« calme visuel », « pas d'effets brillants ») */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --radius: 6px;
+  --radius-lg: 12px;
+  --max-width: 72rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
