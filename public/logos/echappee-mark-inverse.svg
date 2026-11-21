@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" role="img" aria-label="Échappée · symbole">
+<title>Échappée · symbole</title>
+<desc>Symbole original : une arche, un soleil et un chemin. Logotype échappée vectorisé, accents conservés.</desc>
+<g fill="none" stroke="#F7F3E8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 76V36C16 18 27 8 44 8S72 18 72 36V76H59M16 76H29"/>
+<path d="M43 76C30 65 58 61 49 48"/>
+</g>
+<circle cx="44" cy="29" r="6.5" fill="#F2CC6B"/>
+</svg>

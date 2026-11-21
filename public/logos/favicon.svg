@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Échappée · icône">
+<title>Échappée · icône</title>
+<rect width="64" height="64" rx="16" fill="#173D35"/>
+<path d="M16 51V29C16 18 22 12 32 12S48 18 48 29V51M31 51C23 43 41 40 35 34" fill="none" stroke="#F7F3E8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="32" cy="25" r="4" fill="#F2CC6B"/>
+</svg>
