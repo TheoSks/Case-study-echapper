@@ -4,7 +4,7 @@ import { ActivityImage } from "../components/ActivityImage";
 import { Icon } from "../components/Icon";
 import { catalog } from "../data/catalog";
 import { errorMessage, validateBooking } from "../domain/booking";
-import type { BookingError, BookingRequest } from "../domain/types";
+import type { BookingError, BookingRequest, PaymentMode } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { href, navigate, withQuery, type Route } from "../router";
 import { bookingStore, useBookingState } from "../state/store";
@@ -24,6 +24,7 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
   const [errors, setErrors] = useState<BookingError[]>(initial.ok ? [] : initial.errors);
   const [submitting, setSubmitting] = useState(false);
   const [simulated, setSimulated] = useState(false);
+  const [paymentMode, setPaymentMode] = useState<PaymentMode>("organizer");
   const alreadyConfirmed = state.bookings[draftId];
 
   useEffect(() => {
@@ -83,11 +84,12 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
   }
 
   const { activity, slot, participants, unitPriceCents, totalCents } = initial.value;
+  const split = paymentMode === "split" && participants > 1;
 
   const confirm = () => {
     if (submitting) return;
     setSubmitting(true);
-    const result = bookingStore.confirm(request);
+    const result = bookingStore.confirm({ ...request, paymentMode });
     if (result.ok) {
       if (!result.alreadyConfirmed) {
         track("booking_confirmed", {
@@ -97,6 +99,7 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
           participants: result.booking.participants,
           value: result.booking.totalCents / 100,
           currency: "EUR",
+          payment_mode: result.booking.paymentMode,
         });
       }
       navigate(`/confirmation/${result.booking.reference}`, { replace: true });
@@ -151,6 +154,12 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
               <dt>Total TTC</dt>
               <dd>{formatPrice(totalCents)}</dd>
             </div>
+            {split && (
+              <div className="summary-share">
+                <dt>Ta part aujourd'hui</dt>
+                <dd>{formatPrice(unitPriceCents)}</dd>
+              </div>
+            )}
           </dl>
         </section>
         <div className="checkout-main">
@@ -184,13 +193,52 @@ export function SummaryPage({ draftId, route }: { draftId: string; route: Route 
             </div>
           </section>
 
+          {participants > 1 && (
+            <section className="checkout-block" aria-labelledby="qui-regle">
+              <h2 id="qui-regle">Qui règle ?</h2>
+              <fieldset>
+                <legend className="visually-hidden">Mode de règlement</legend>
+                <div className="slot-list payment-options">
+                  <label className="slot">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="organizer"
+                      checked={paymentMode === "organizer"}
+                      onChange={() => setPaymentMode("organizer")}
+                    />
+                    <span className="slot-date">Je règle pour tout le groupe</span>
+                    <span className="slot-meta muted">{formatPrice(totalCents)}</span>
+                  </label>
+                  <label className="slot">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="split"
+                      checked={paymentMode === "split"}
+                      onChange={() => setPaymentMode("split")}
+                    />
+                    <span className="slot-date">Chacun règle sa part</span>
+                    <span className="slot-meta muted">{formatPrice(unitPriceCents)} / pers.</span>
+                  </label>
+                </div>
+              </fieldset>
+              {split && (
+                <p className="muted payment-hint">
+                  Les {participants} places sont bloquées pour ton groupe dès maintenant : personne ne peut les prendre.
+                  Tu règles ta part, puis tu envoies un lien à tes participants pour qu'ils règlent la leur sous 48 h.
+                </p>
+              )}
+            </section>
+          )}
+
           <section className="checkout-block checkout-block--muted" aria-labelledby="coordonnees">
             <h2 id="coordonnees">
               Coordonnées et paiement <span className="tag">Version en ligne</span>
             </h2>
             <p className="muted">
               Ici, la version en ligne demanderait ton prénom et ton email (pour la confirmation et la préparation de
-              ta sortie), puis le paiement sécurisé du total. Ce prototype ne demande et ne collecte aucune donnée.
+              ta sortie), puis le paiement sécurisé {split ? "de ta part" : "du total"}. Ce prototype ne demande et ne collecte aucune donnée.
             </p>
           </section>
 

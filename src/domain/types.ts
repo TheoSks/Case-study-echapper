@@ -49,7 +49,15 @@ export interface BookingRequest {
   activityId: string;
   slotId: string;
   participants: unknown;
+  /** Qui règle : l'organisateur pour tout le groupe (par défaut) ou chacun sa part. */
+  paymentMode?: PaymentMode;
 }
+
+/**
+ * Mode de règlement. « split » : l'organisateur bloque les places du groupe et règle sa part ;
+ * chaque participant règle la sienne via un lien. Les places sont décomptées une seule fois, à la confirmation.
+ */
+export type PaymentMode = "organizer" | "split";
 
 export interface Booking {
   reference: string;
@@ -59,6 +67,8 @@ export interface Booking {
   participants: number;
   unitPriceCents: number;
   totalCents: number;
+  /** Absent sur les réservations enregistrées avant l'option : équivaut à « organizer ». */
+  paymentMode?: PaymentMode;
   confirmedAt: string;
 }
 

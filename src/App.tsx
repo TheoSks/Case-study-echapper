@@ -5,6 +5,7 @@ import { findActivityBySlug } from "./data/catalog";
 import { ActivityPage } from "./pages/ActivityPage";
 import { ConfirmationPage } from "./pages/ConfirmationPage";
 import { HomePage } from "./pages/HomePage";
+import { SharePage } from "./pages/SharePage";
 import { SummaryPage } from "./pages/SummaryPage";
 import { useReveal } from "./lib/reveal";
 import { href, useRoute, type Route } from "./router";
@@ -55,6 +56,8 @@ function renderPage(route: Route) {
   if (segments[0] === "reservation" && segments[1]) {
     return <SummaryPage key={segments[1]} draftId={segments[1]} route={route} />;
   }
+
+  if (segments[0] === "part" && !segments[1]) return <SharePage route={route} />;
 
   if (segments[0] === "confirmation" && segments[1]) {
     return <ConfirmationPage reference={segments[1]} />;

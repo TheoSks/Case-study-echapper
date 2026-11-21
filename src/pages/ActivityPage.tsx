@@ -18,7 +18,7 @@ import {
   validateBooking,
 } from "../domain/booking";
 import type { Activity, BookingError } from "../domain/types";
-import { formatDuration, formatPrice } from "../lib/format";
+import { formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { MAX_MONTH, MIN_MONTH, dayStatus, nextAvailableDay, slotsOn } from "../lib/availability";
 import { dayKey, formatDay, monthKey } from "../lib/dates";
 import { randomId } from "../lib/ids";
@@ -130,13 +130,22 @@ export function ActivityPage({ activity, route }: { activity: Activity; route: R
 
   // Avant de réserver, l'organisateur cherche souvent l'accord de son groupe.
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
+  // Si un horaire est choisi, le lien l'emporte : chacun arrive sur le même créneau,
+  // qu'on réserve ensuite pour tout le groupe ou chacun de son côté.
   const proposeToGroup = async () => {
+    const chosen = slotId ? slots.find((s) => s.id === slotId) : undefined;
+    const when = chosen
+      ? ` ${formatDate(chosen.startsAt)} à ${formatTime(chosen.startsAt)} (il reste ${plural(remainingFor(state.availability, chosen.id), "place")})`
+      : "";
     const outcome = await shareOrCopy({
       title: `${activity.title} · Échappée`,
-      text: `Ça vous dit ? ${activity.title} à ${activity.location}, ${formatDuration(activity.durationMinutes)}, ${formatPrice(activity.pricePerPersonCents)} par personne.`,
-      url: pageUrl(`/activites/${activity.slug}`),
+      text: `Ça vous dit ? ${activity.title}${when}, à ${activity.location}, ${formatDuration(activity.durationMinutes)}, ${formatPrice(activity.pricePerPersonCents)} par personne.`,
+      url: pageUrl(
+        chosen ? withQuery(`/activites/${activity.slug}`, { creneau: chosen.id }) : `/activites/${activity.slug}`,
+      ),
     });
-    if (outcome === "native" || outcome === "copied") track("share_activity", { method: outcome, activity_id: activity.id });
+    if (outcome === "native" || outcome === "copied")
+      track("share_activity", { method: outcome, activity_id: activity.id, slot_id: chosen?.id });
     setShareFeedback(
       outcome === "copied" ? "Lien copié : colle-le dans ta conversation de groupe." : outcome === "failed" ? "Le partage n'est pas disponible sur ce navigateur." : null,
     );

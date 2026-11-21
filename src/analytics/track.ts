@@ -14,7 +14,9 @@ export type FunnelEvent =
   | "booking_confirmed" // étape 5 : confirmation
   | "booking_error" // friction : règle métier non respectée
   | "share_booking" // partage des infos avec le groupe, après réservation
-  | "share_activity"; // proposition de la sortie au groupe, avant réservation
+  | "share_activity" // proposition de la sortie au groupe, avant réservation
+  | "share_payment" // paiement partagé : l'organisateur envoie le lien de paiement aux participants
+  | "pay_share"; // paiement partagé : un participant règle sa part (simulé)
 
 type Params = Record<string, string | number | boolean | undefined>;
 

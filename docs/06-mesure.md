@@ -35,9 +35,10 @@ Paramètres communs à tous les événements : `session_id`, `timestamp`, et, s'
 | `select_slot` | `activity_id`, `slot_id` | Étape 2 | ✅ |
 | `begin_checkout` | `activity_id`, `slot_id`, `participants`, `value`, `currency` | Étape 3 : démarrage | ✅ |
 | `view_summary` | `activity_id`, `slot_id`, `participants`, `value`, `currency` | Étape 4 | ✅ |
-| `booking_confirmed` | `booking_reference`, `activity_id`, `slot_id`, `participants`, `value`, `currency` | Étape 5 ; transmis aux régies comme conversion (`purchase` dans GA4) | ✅ |
+| `booking_confirmed` | `booking_reference`, `activity_id`, `slot_id`, `participants`, `value`, `currency`, `payment_mode` (`organizer` ou `split`) | Étape 5 ; transmis aux régies comme conversion (`purchase` dans GA4) | ✅ |
 | `booking_error` | `step` (`activity`, `summary`, `confirm`), `error_code` | Frictions : quelle règle bloque, à quelle étape | ✅ |
-| `share_activity` / `share_booking` | `method`, `activity_id` ou `booking_reference` | Rôle de l'organisateur, bouche-à-oreille | ✅ |
+| `share_activity` / `share_booking` | `method`, `activity_id` (et `slot_id` si un horaire est choisi) ou `booking_reference` | Rôle de l'organisateur, bouche-à-oreille | ✅ |
+| `share_payment` / `pay_share` | `booking_reference`, `participants` ou `value` | Paiement partagé : lien envoyé par l'organisateur, part réglée par un participant ; part des groupes qui paient séparément (H8) | ✅ |
 | `experiment_viewed` | `experiment_id`, `variant` | Exposition à une variante A/B | 🟡 proposé |
 | Événements emails (envoi, ouverture, clic) | `message` (J-2, J+1, relance), `booking_reference` | Efficacité des points de contact après réservation | 🟡 proposé (outil d'emailing) |
 
@@ -92,6 +93,7 @@ Dans le prototype, chaque événement est poussé dans `window.dataLayer` et aff
 | **Cookies pour reconnaître un client qui revient** | Insuffisants : effacés, refusés, différents d'un appareil à l'autre | **Email haché saisi à la réservation**, côté serveur |
 | **Email différent d'une réservation à l'autre** | Le même client compte pour deux nouveaux clients : réachat sous-estimé | Proposer de retrouver ses réservations par email ; compte client plus tard (reporté) |
 | **Réservations de groupe** | Seul l'organisateur est identifié ; les participants sont invisibles | Le réachat **sous-estime** la fidélité réelle ; les liens partagés (`share_*` avec paramètres de suivi) mesurent une partie du bouche-à-oreille |
+| **Réservations séparées d'un même groupe** | Un groupe compte pour plusieurs réservations : le panier moyen baisse, « réservations » ne veut plus dire « groupes » | Les repérer (même créneau, quelques minutes d'écart, arrivée par un lien `share_activity` avec `slot_id`) ; suivre la part de `payment_mode = split`. Effet positif : chaque participant laisse son email, le réachat est mieux mesuré |
 | **Recul de 6 mois** | Pas de réachat mesurable avant 6 mois | Indicateurs avancés (voir plus haut) |
 | **Saisonnalité** | Les cohortes d'été et d'hiver ne se comparent pas directement | Lire le réachat par cohorte mensuelle |
 | **Faible volume au lancement** | Taux instables, A/B tests non concluants | Période de référence (hypothèse H10) avant de fixer des cibles |

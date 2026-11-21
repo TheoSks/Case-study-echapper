@@ -133,6 +133,8 @@ export function confirmBooking(
     participants,
     unitPriceCents,
     totalCents: total,
+    // Le partage n'a de sens qu'à plusieurs ; il ne change ni le total ni le décompte des places.
+    paymentMode: request.paymentMode === "split" && participants > 1 ? "split" : "organizer",
     confirmedAt: context.now.toISOString(),
   };
 

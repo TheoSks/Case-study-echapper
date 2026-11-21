@@ -7,7 +7,7 @@ import { findBookingByReference, isActivityFull, remainingFor } from "../domain/
 import type { Activity, Booking, Slot } from "../domain/types";
 import { capitalize, formatDate, formatDuration, formatPrice, formatTime, plural } from "../lib/format";
 import { pageUrl, shareOrCopy } from "../lib/share";
-import { href, navigate } from "../router";
+import { href, navigate, withQuery } from "../router";
 import { bookingStore, useBookingState } from "../state/store";
 
 export function ConfirmationPage({ reference }: { reference: string }) {
@@ -42,6 +42,9 @@ export function ConfirmationPage({ reference }: { reference: string }) {
           {activity.title} · {formatDate(slot.startsAt)} à {formatTime(slot.startsAt)}
         </p>
         <p className="sim-note">Réservation simulée : rien n'a été payé, aucun email n'a été envoyé.</p>
+        {booking.paymentMode === "split" && (
+          <p className="muted">Les places de ton groupe sont bloquées. Il reste à chacun à régler sa part.</p>
+        )}
       </header>
 
       <div className="confirmation-grid">
@@ -79,7 +82,11 @@ export function ConfirmationPage({ reference }: { reference: string }) {
           </dl>
         </section>
 
-        <ShareWithGroup booking={booking} activity={activity} slot={slot} />
+        {booking.paymentMode === "split" ? (
+          <SplitPayment booking={booking} activity={activity} slot={slot} />
+        ) : (
+          <ShareWithGroup booking={booking} activity={activity} slot={slot} />
+        )}
       </div>
 
       <section className="section" aria-labelledby="ensuite">
@@ -210,6 +217,79 @@ function ShareWithGroup({ booking, activity, slot }: { booking: Booking; activit
       </button>
       {feedback === "copied" && <p role="status">Infos copiées : colle-les dans ta conversation de groupe.</p>}
       {feedback === "failed" && <p role="status">Le partage n'est pas disponible : copie le texte ci-dessus.</p>}
+    </section>
+  );
+}
+
+/** Délai laissé aux participants pour régler leur part (hypothèse, à valider avec le client). */
+const SHARE_DEADLINE_HOURS = 48;
+
+/**
+ * Paiement partagé : les places du groupe sont déjà bloquées et décomptées une fois.
+ * L'organisateur a réglé sa part ; il envoie à ses participants un lien pour régler la leur.
+ */
+function SplitPayment({ booking, activity, slot }: { booking: Booking; activity: Activity; slot: Slot }) {
+  const [feedback, setFeedback] = useState<"copied" | "failed" | null>(null);
+  const others = booking.participants - 1;
+  const deadline = new Date(new Date(booking.confirmedAt).getTime() + SHARE_DEADLINE_HOURS * 3_600_000).toISOString();
+  const link = pageUrl(withQuery("/part", { activite: activity.id, creneau: slot.id, ref: booking.reference }));
+  const text = [
+    `${activity.title} avec Échappée`,
+    `${capitalize(formatDate(slot.startsAt))} à ${formatTime(slot.startsAt)} (${formatDuration(activity.durationMinutes)})`,
+    `Rendez-vous : ${activity.meetingPoint}`,
+    `Ta place est bloquée. Règle ta part (${formatPrice(booking.unitPriceCents)}) avant le ${formatDate(deadline)} à ${formatTime(deadline)} :`,
+  ].join("\n");
+
+  const share = async () => {
+    const outcome = await shareOrCopy({ title: `${activity.title} · ta part`, text, url: link });
+    if (outcome === "native" || outcome === "copied") {
+      track("share_payment", { method: outcome, booking_reference: booking.reference, participants: booking.participants });
+    }
+    setFeedback(outcome === "copied" ? "copied" : outcome === "failed" ? "failed" : null);
+  };
+
+  return (
+    <section className="share-card" aria-labelledby="parts">
+      <span className="next-step-icon">
+        <Icon name="people" />
+      </span>
+      <h2 id="parts">Chacun règle sa part</h2>
+      <dl className="split-progress">
+        <div>
+          <dt>Parts réglées</dt>
+          <dd>1 sur {booking.participants}</dd>
+        </div>
+        <div>
+          <dt>Reste à régler</dt>
+          <dd>
+            {plural(others, "part")} · {formatPrice(others * booking.unitPriceCents)}
+          </dd>
+        </div>
+      </dl>
+      <div
+        className="split-bar"
+        role="progressbar"
+        aria-label="Parts réglées"
+        aria-valuemin={0}
+        aria-valuemax={booking.participants}
+        aria-valuenow={1}
+      >
+        <span style={{ width: `${100 / booking.participants}%` }} />
+      </div>
+      <p>
+        Envoie le lien à tes participants : ils règlent {formatPrice(booking.unitPriceCents)} chacun, avant le{" "}
+        {formatDate(deadline)} à {formatTime(deadline)}.
+      </p>
+      <pre className="share-preview">{text}</pre>
+      <button type="button" className="btn btn-primary btn-block" onClick={share}>
+        Envoyer le lien de paiement
+      </button>
+      {feedback === "copied" && <p role="status">Lien copié : colle-le dans ta conversation de groupe.</p>}
+      {feedback === "failed" && <p role="status">Le partage n'est pas disponible : copie le texte ci-dessus.</p>}
+      <p className="split-note">
+        <span className="tag">Version en ligne</span> Chacun reçoit des rappels ; une part non réglée à l'échéance est
+        à la charge de l'organisateur ou remise en vente, selon la règle choisie avec Échappée.
+      </p>
     </section>
   );
 }

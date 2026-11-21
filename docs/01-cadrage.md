@@ -57,7 +57,7 @@ Ce que ça implique :
 | H5 | **Français et anglais** au lancement | Architecture prête pour d'autres langues. Prototype en français uniquement |
 | H6 | **Pas de compte client** | En production, l'email saisi à la réservation identifie le client qui revient. Le prototype ne demande aucune donnée personnelle |
 | H7 | **Trafic majoritairement mobile** | Conception mobile d'abord |
-| H8 | **Une réservation = un organisateur** | Un seul contact par réservation, quel que soit le nombre de participants |
+| H8 | **Une réservation = un organisateur** | Un seul contact par réservation, quel que soit le nombre de participants. Si les membres d'un groupe préfèrent réserver chacun de leur côté, rien ne casse : le stock est unique et chaque réservation est revérifiée. Le risque est le **groupe éclaté** (le dernier trouve le créneau complet) ; le prototype y répond par un lien qui garde le créneau et par le **paiement partagé** (places bloquées pour tout le groupe, chacun règle sa part). À vérifier dans les données (voir [mesure](06-mesure.md)) |
 | H9 | **Contraintes par activité** : âge minimum, savoir nager pour le kayak | Affichées sur la fiche, non contrôlées dans le prototype |
 | H10 | **Pas d'objectif chiffré** au lancement | Canal nouveau : les premières semaines servent de période de référence avant de fixer des cibles |
 
@@ -79,5 +79,6 @@ Ce que ça implique :
 | Q10 | Les équipes peuvent-elles accueillir des particuliers le week-end et en soirée ? | Créneaux ouverts au public |
 | Q11 | Qui édite les contenus, et à quel rythme ? | Choix du CMS, autonomie du marketing |
 | Q12 | Quels outils existent déjà : CRM, emailing, gestion du consentement ? | Points de contact après réservation, RGPD |
+| Q13 | Vos groupes paient-ils ensemble ou chacun sa part ? Une part non réglée à l'échéance : à la charge de l'organisateur, ou place remise en vente ? | Paiement partagé (H8) : délai, relances, conditions de vente |
 
 Hors périmètre : le portail B2B et les clients entreprises.

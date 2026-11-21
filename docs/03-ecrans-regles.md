@@ -7,13 +7,13 @@
 | **Accueil** : grande image et accroche ; barre de recherche **Activité · Date · Participants** (calendrier mensuel : disponible = point vert, peu de places (3 ou moins) = point Soleil, complet = barré Argile, sans créneau = grisé ; légende et libellés lus à voix haute) ; cartes avec lieu, durée, âge, prix TTC et disponibilité pour la recherche (« Disponible le … à … », « Complet ce jour-là pour N personnes · prochain : … », « Pas de créneau ce jour-là ») ; encart « Mode démo » ; « Comment ça marche » ; bandeau de marque | Découverte | `view_item_list`, `search` |
 | **Fiche activité** : titre et « Proposer à ton groupe », points clés (lieu, durée, capacité, âge, langue, saison), « Ce que tu vas vivre », « Inclus » / « À prévoir », « Où se retrouver », « À savoir » ; panneau de réservation fixe (prix, calendrier, horaires du jour, participants, total TTC, « Réserver ») ; « D'autres échappées » (mêmes cartes que l'accueil) ; barre mobile « Dès … · Choisir une date » puis « Total · Réserver » | Consultation d'une activité, sélection d'un créneau, **démarrage** | `view_item`, `select_slot`, `begin_checkout` |
 | **Récapitulatif** (deux colonnes, sur le modèle « Confirmer et payer ») : « Ta sortie » (date, participants avec « Modifier », rendez-vous), « Coordonnées et paiement » marqué « version en ligne » sans aucun champ, mention « réservation simulée », « Confirmer » ; carte récapitulative avec détail du prix et **total TTC**, placée **avant** le bouton dans l'ordre de lecture (en haut sur mobile, à droite sur ordinateur) | Récapitulatif | `view_summary` |
-| **Confirmation** : récapitulatif, « Préviens ton groupe » (partage), « Et ensuite ? » en 3 étapes, suggestion saisonnière ; décompte des places visible dans les outils de démo | Confirmation | `booking_confirmed` (avec les paramètres de campagne de l'arrivée) |
+| **Confirmation** : récapitulatif, « Préviens ton groupe » (partage) ou, en paiement partagé, « Chacun règle sa part » (parts réglées, lien de paiement), « Et ensuite ? » en 3 étapes, suggestion saisonnière ; décompte des places visible dans les outils de démo | Confirmation | `booking_confirmed` (avec les paramètres de campagne de l'arrivée) |
 
 **Démarrage de la réservation** : clic sur « Réserver » avec un créneau choisi **et** un nombre de participants valide. Un clic sans créneau ou avec une saisie invalide n'est pas un démarrage : il déclenche `booking_error`.
 
 ## Règles métier → écran → preuve
 
-Tests : `npm test` (75 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
+Tests : `npm test` (83 tests). Fichiers : `src/domain/booking.test.ts` (domaine), `src/state/store.test.ts` (session), `src/App.test.tsx` (parcours dans l'interface).
 
 | Règle du brief | Où | Test |
 |---|---|---|

@@ -76,6 +76,7 @@ Le brief exclut la conception de campagnes d'acquisition. Pour la découverte, o
 | Outil de démo : simuler un créneau devenu complet, réinitialiser | Email de remerciement, avis et photos (J+1) | Carte cadeau |
 | **Partage avec le groupe** : proposer la sortie avant de réserver, puis transmettre lieu, heure et « à prévoir » après (partage natif du téléphone, copie sur ordinateur) | Relance saisonnière, rappel annuel pour les groupes | Programme de fidélité, parrainage |
 | Frise « Et ensuite ? » montrant les prochains points de contact | Demande de devis au-delà de 10 personnes | Avis affichés sur le site |
+| **Réserver à plusieurs** : lien qui garde le créneau, choix « Qui règle ? », suivi des parts, page du participant (paiement simulé) | Paiement partagé réel (liens de paiement, échéance, relances) | |
 | Événements du tunnel (`dataLayer` local, sans outil connecté) | Page d'infos pratiques : météo, annulation, accès | Acompte pour les groupes, annulation en ligne |
 | Mention « réservation simulée » sur tout le parcours | Site en anglais | Autres langues |
 | | Ajout à l'agenda (.ics) | Espace « Mes réservations » |
@@ -94,6 +95,7 @@ Le prototype n'envoie aucun email : la frise « Et ensuite ? » décrit ce que f
 | 6 | **Relance des abandons reportée** | Elle suppose d'avoir l'email et le consentement avant la fin du parcours |
 | 7 | **Carte cadeau reportée malgré son potentiel** (Noël) | Complexité du paiement et de la comptabilité. Premier candidat pour la V2 |
 | 8 | **Partage avec le groupe construit dans le prototype** | Peu coûteux, sans donnée collectée, et il rend concret le rôle de l'organisateur |
+| 8 bis | **Paiement partagé montré en façade, pas branché** | Beaucoup de groupes d'amis paient chacun leur part. Réserver séparément marche déjà mais éclate le groupe ; le paiement partagé bloque toutes les places en une fois. Le brief exclut le paiement : on montre le parcours (choix, suivi, page participant), le reste est proposé |
 | 9 | **Pas de filtre par type d'activité** | Avec 3 activités, un filtre n'apporte rien ; la taille du groupe et la date sont les vrais critères d'adaptation. À revoir quand le catalogue grandira |
 | 10 | **Recherche sur le modèle du marché : Activité · Date · Participants** | Benchmark (GetYourGuide, Funbooker, Airbnb Expériences) : l'organisateur raisonne en « quoi », « quand » et « combien ». Le calendrier ne propose que les jours où un horaire peut accueillir le groupe ; les jours complets restent visibles, barrés |
 | 11 | **Planning sur l'année, avec saisonnalité** | Céramique toute l'année, kayak d'avril à octobre : c'est la réalité d'une activité de plein air, et la base de la relance saisonnière |

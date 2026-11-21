@@ -77,7 +77,7 @@ flowchart LR
 | **Rôle** | Seule source de vérité des créneaux et des places, partagée avec le B2B ; prise de réservation fiable |
 | **Recommandation** | Dépend de la question Q1 du cadrage (« dans quel outil vivent les places aujourd'hui ? »). Si l'outil actuel a une API : on s'y branche. Sinon, une solution de réservation pour activités de loisirs avec API, plutôt qu'un développement sur mesure |
 | **Exigences, quelle que soit la solution** | Décompte **atomique** des places ; **clé d'idempotence** à la confirmation (l'équivalent du `draftId` du prototype) ; **blocage temporaire des places** pendant le paiement (10 minutes environ) pour éviter de vendre deux fois la dernière place ; revérification serveur de toutes les règles (le site ne fait que guider) |
-| **Paiement** | **Stripe** : paiement du total en ligne (H4). La réservation n'est confirmée qu'à la réception de la confirmation de paiement |
+| **Paiement** | **Stripe** : paiement du total en ligne (H4). La réservation n'est confirmée qu'à la réception de la confirmation de paiement. **Paiement partagé** (proposé) : l'organisateur bloque les places du groupe et règle sa part ; chaque participant règle la sienne par un lien de paiement (Stripe Payment Links ou Checkout), avec une échéance (48 h dans le prototype) au-delà de laquelle la part revient à l'organisateur ou la place est remise en vente |
 
 ### Le multilingue · FR et EN au lancement
 
@@ -127,7 +127,7 @@ flowchart LR
 | Site | Vite + React, application d'une page, URLs avec `#` | Next.js, rendu serveur, URLs par langue |
 | Contenu | `src/data/activities.json` | Storyblok |
 | Créneaux et places | `src/data/slots.json` + `sessionStorage` | Moteur de réservation (API), stock partagé B2B |
-| Règles métier | `src/domain`, testées (75 tests) | Même logique, appliquée **côté serveur** ; le site ne fait que guider |
+| Règles métier | `src/domain`, testées (83 tests) | Même logique, appliquée **côté serveur** ; le site ne fait que guider |
 | Décompte unique | `draftId` (confirmation idempotente) | Clé d'idempotence + transaction en base + blocage temporaire des places |
 | Paiement | Aucun (simulé) | Stripe |
 | Langues | Français, formats `Intl` centralisés | FR + EN, `next-intl`, traductions dans Storyblok |

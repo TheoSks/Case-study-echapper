@@ -150,6 +150,25 @@ describe("Règle : une même confirmation ne décompte les places qu'une fois", 
   });
 });
 
+describe("Paiement partagé : chacun règle sa part", () => {
+  it("bloque toutes les places du groupe en une fois, au même total TTC", () => {
+    const result = confirmBooking(catalog, initialState(catalog), request({ participants: 3, paymentMode: "split" }), ctx());
+    expect(result.ok && result.booking.paymentMode).toBe("split");
+    expect(result.ok && result.booking.totalCents).toBe(3 * 3900);
+    expect(result.state.availability["a02-s1"]).toBe(4);
+  });
+
+  it("seul, il n'y a rien à partager : l'organisateur règle", () => {
+    const result = confirmBooking(catalog, initialState(catalog), request({ participants: 1, paymentMode: "split" }), ctx());
+    expect(result.ok && result.booking.paymentMode).toBe("organizer");
+  });
+
+  it("par défaut, l'organisateur règle pour tout le groupe", () => {
+    const result = confirmBooking(catalog, initialState(catalog), request(), ctx());
+    expect(result.ok && result.booking.paymentMode).toBe("organizer");
+  });
+});
+
 describe("Règle : une saisie invalide n'enregistre rien et ne modifie pas les disponibilités", () => {
   it.each([0, -3, 2.5, "abc", "", 99])("participants = %j : état strictement inchangé", (participants) => {
     const before = initialState(catalog);

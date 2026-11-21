@@ -12,8 +12,9 @@ Le prototype permet de **découvrir l'offre, trouver une activité adaptée et r
 |---|---|
 | **Accueil** | Rechercher par activité, date (calendrier des jours disponibles) et nombre de participants ; voir ce qui a de la place |
 | **Fiche activité** | Infos clés, « Ce que tu vas vivre », « À savoir » ; choisir une date, un horaire et le nombre de participants ; total TTC en direct |
-| **Récapitulatif** | Activité, créneau, participants, total TTC, mention « réservation simulée » ; confirmer |
-| **Confirmation** | Récapitulatif, partage des infos avec le groupe, prochaines étapes, suggestion d'une autre activité |
+| **Récapitulatif** | Activité, créneau, participants, total TTC, mention « réservation simulée » ; choisir qui règle (l'organisateur pour tous, ou chacun sa part) ; confirmer |
+| **Confirmation** | Récapitulatif, partage des infos avec le groupe (ou, en paiement partagé, suivi des parts et lien de paiement), prochaines étapes, suggestion d'une autre activité |
+| **Ta part** (`#/part`) | Page du participant ouverte depuis le lien de paiement : sortie, rendez-vous, part TTC, « Régler ma part » (simulé) |
 
 ## Prérequis et dépendances
 
@@ -43,7 +44,7 @@ npm run preview    # sert le build : http://localhost:4173
 ## Tests
 
 ```bash
-npm test           # 75 tests (Vitest)
+npm test           # 83 tests (Vitest)
 npm run typecheck  # vérification des types TypeScript
 ```
 
@@ -100,6 +101,7 @@ Les créneaux de démonstration servent aux cas limites : le **dimanche 18 avril
 | Récapitulatif avant confirmation | Activité, créneau, participants et total TTC, affichés avant le bouton |
 | Décompte unique, sur le seul créneau choisi | Confirmation idempotente : double clic, retour arrière ou rechargement ne décomptent pas deux fois |
 | Saisie invalide | Rien n'est enregistré, les disponibilités ne changent pas (y compris avec une URL modifiée) |
+| Réserver à plusieurs | Le lien « Proposer à ton groupe » emporte le créneau choisi ; en paiement partagé, les places du groupe sont bloquées et décomptées **une seule fois**, chacun règle ensuite sa part (simulé) |
 | Réservation clairement simulée | Bandeau sur toutes les pages, mentions au récapitulatif et à la confirmation, aucun champ de donnée personnelle |
 
 **Démarrage de la réservation** (indicateur du brief) : clic sur « Réserver » avec un horaire choisi **et** un nombre de participants valide (événement `begin_checkout`).

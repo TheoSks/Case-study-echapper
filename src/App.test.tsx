@@ -278,6 +278,68 @@ describe("Mesure du tunnel", () => {
   });
 });
 
+describe("Réserver à plusieurs : même créneau, paiement partagé", () => {
+  it("« Proposer à ton groupe » transmet le créneau choisi : chacun arrive sur le même horaire", async () => {
+    const user = userEvent.setup();
+    open("/activites/kayak-calanques?date=2027-04-18");
+    await user.click(screen.getByRole("radio", { name: /9 h 30/ }));
+    await user.click(screen.getByRole("button", { name: /Proposer à ton groupe/ }));
+    const shared = await navigator.clipboard.readText();
+    expect(shared).toMatch(/dimanche 18 avril à 9 h 30 \(il reste 7 places\)/);
+    const link = shared.slice(shared.indexOf("#"));
+    expect(link).toBe("#/activites/kayak-calanques?creneau=a02-s1");
+
+    // Un ami ouvre le lien : le même horaire est déjà sélectionné.
+    act(() => {
+      window.location.hash = link;
+    });
+    expect((await screen.findByRole("radio", { name: /9 h 30/ }) as HTMLInputElement).checked).toBe(true);
+  });
+
+  it("« Chacun règle sa part » : places du groupe bloquées une fois, suivi des parts, lien de paiement", async () => {
+    window.dataLayer = [];
+    const user = userEvent.setup();
+    await reachSummary(user, "3");
+    await user.click(screen.getByRole("radio", { name: /Chacun règle sa part/ }));
+    const summary = screen.getByRole("region", { name: "Récapitulatif de la réservation" });
+    expect(within(summary).getByText("Ta part aujourd'hui")).toBeTruthy();
+    expect(within(summary).getAllByText(/117\s€/)).toHaveLength(2); // le total TTC reste affiché
+    await user.click(screen.getByRole("button", { name: "Confirmer la réservation" }));
+
+    expect(screen.getByRole("heading", { name: "Chacun règle sa part" })).toBeTruthy();
+    expect(screen.getByText("1 sur 3")).toBeTruthy();
+    expect(screen.getByText(/2 parts · 78\s€/)).toBeTruthy();
+    expect(bookingStore.getState().availability["a02-s1"]).toBe(4);
+    expect(window.dataLayer.find((e) => e.event === "booking_confirmed")).toMatchObject({ payment_mode: "split", value: 117 });
+
+    await user.click(screen.getByRole("button", { name: "Envoyer le lien de paiement" }));
+    const shared = await navigator.clipboard.readText();
+    expect(shared).toMatch(/#\/part\?activite=a02&creneau=a02-s1&ref=/);
+  });
+
+  it("seul, le choix « Qui règle ? » n'apparaît pas", async () => {
+    const user = userEvent.setup();
+    await reachSummary(user, "1");
+    expect(screen.queryByRole("heading", { name: "Qui règle ?" })).toBeNull();
+  });
+
+  it("le participant règle sa part depuis le lien, sans toucher aux places", async () => {
+    const user = userEvent.setup();
+    const before = bookingStore.getState().availability;
+    open("/part?activite=a02&creneau=a02-s1&ref=ECH-TEST01");
+    expect(screen.getByText("Ton groupe t'a gardé une place")).toBeTruthy();
+    expect(within(screen.getByRole("region", { name: "Ta part de la sortie" })).getByText(/39\s€/)).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: /Régler ma part/ }));
+    expect(screen.getByText("Ta part est réglée.")).toBeTruthy();
+    expect(bookingStore.getState().availability).toEqual(before);
+  });
+
+  it("un lien de paiement incohérent (créneau d'une autre activité) est refusé", () => {
+    open("/part?activite=a02&creneau=a01-s1&ref=ECH-TEST01");
+    expect(screen.getByRole("heading", { name: "Ce lien de paiement n'est pas valide." })).toBeTruthy();
+  });
+});
+
 describe("Mention de simulation", () => {
   it("le bandeau est présent sur toutes les pages", () => {
     open("/");
